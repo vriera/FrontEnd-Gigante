@@ -1,5 +1,5 @@
 # Docker-Stars
-## Helpful Hands
+## Proyecto: Gigante
 
 ### Roles:
 - Team Lead (Product Manager): Luciana Diaz Kralj
@@ -8,4 +8,3 @@
 - Backend  Developer: Igal Revich, Valentino Riera
 - Integration and Tester: Manuel Parma
 - DBA: Julian Sicardi
-
