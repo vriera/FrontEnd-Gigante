@@ -8,11 +8,17 @@
         <v-btn id='boton-superior' text>Quiénes somos</v-btn>
       </v-col>
       <v-spacer></v-spacer>
-      <v-col xs='6' sm='4' md="3" lg="2">
+      <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
         <v-btn id='boton-superior' text>Registrarse</v-btn>
       </v-col>
-      <v-col xs='6' sm='4' md="3" lg="2">
+      <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
         <v-btn id='boton-superior' text>Iniciar sesión</v-btn>
+      </v-col>
+      <v-col v-if="isLoggedIn" xs='6' sm='4' md="3" lg="2">
+        <v-btn id='boton-superior' text>
+          <v-icon left>mdi-chevron-down</v-icon>
+          <span>Mi perfil</span> 
+        </v-btn>
       </v-col>
     </v-row>
     <v-row>
@@ -34,6 +40,10 @@
         <v-icon left>mdi-bullhorn-outline</v-icon>
         <span>Campañas</span>
       </v-btn>
+      <v-btn v-if="isLoggedIn" text>
+        <v-icon left>mdi-account-multiple-outline</v-icon>
+        <span>Actividad</span>
+      </v-btn>
     </v-app-bar>
 
     <v-app-bar v-else color="blue lighten-5" flat width="100%" height="50%">
@@ -50,6 +60,9 @@
       <v-btn text>
         <v-icon left>mdi-bullhorn-outline</v-icon>
       </v-btn>
+      <v-btn v-if="isLoggedIn" text>
+        <v-icon left>mdi-account-multiple-outline</v-icon>
+      </v-btn>
     </v-app-bar>
     </v-row>
   </div>
@@ -60,6 +73,7 @@ export default {
   data(){
     return {
       showDetail: false,
+      isLoggedIn: true,
     }
   }
 }
