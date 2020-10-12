@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <v-card shaped elevation="5"  width="420px" height="250px"  depressed color=#8AC5EB>
+  <div >
+      <v-card class="anita" shaped elevation="5"  width="420px" height="250px" hover>                             <!-- aaa-->
         <p class="texto">{{DatosTarjeta.text1}}<p>
         <p class="categoria">{{DatosTarjeta.text2}}</p>
         <p class="texto"> {{DatosTarjeta.text3}} </p>
@@ -32,10 +32,13 @@
   margin-top:15px;
   font-family: Arial;
 }
-.v-btn {
-  text-transform: none;
-  border-radius: 10px;
 
+.anita{
+  color: #8AC5EB;
 }
+.anita:hover{
+  background-color:#069DFF;
+}
+
 
 </style>
