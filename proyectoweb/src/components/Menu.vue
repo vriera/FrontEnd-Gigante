@@ -67,18 +67,48 @@
     </v-row>
 
     <v-row>
-      <v-img :src="require('../assets/fondoColores2.png')"/>
-
+      <v-img :src="require('../assets/fondoColores2.png')">
+          <div style="margin:30px;">
+              <Tarjeta v-bind:DatosTarjeta="infoTarjeta[0]"></Tarjeta>
+          </div>
+        <div style="margin:30px;">
+          <Tarjeta v-bind:DatosTarjeta="infoTarjeta[1]"></Tarjeta>
+        </div>
+        <div style="margin:30px;">
+          <Tarjeta v-bind:DatosTarjeta="infoTarjeta[2]"></Tarjeta>
+        </div>
+      </v-img>
     </v-row>
   </div>
 </template>
 
 <script>
+import Tarjeta from "./Tarjeta"
 export default {
+  components: {
+    Tarjeta
+  },
   data(){
     return {
       showDetail: false,
       isLoggedIn: false,
+      infoTarjeta:[
+        {
+          text1: "Quiero ayudar con",
+          text2: "DONACIONES",
+          text3: "Tengo distintos elementos que quisiera donar."
+        },
+        {
+          text1: "quiero ser",
+          text2:"VOLUNTARIO",
+          text3:"Quiero donar mi tiempo."
+        },
+        {
+          text1:"soy una",
+          text2:"ONG",
+          text3:"Quiero hacerme visible para gente que quiera ayudarnos."
+        }
+      ]
     }
   }
 }
