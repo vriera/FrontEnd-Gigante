@@ -68,9 +68,7 @@
     </v-app-bar>
     </v-row>
 
-    <v-row>
-      <v-img :src="require('../assets/fondoColores2.png')"/>
-    </v-row>
+
     
   </div>
 </template>
@@ -81,6 +79,8 @@ export default {
     return {
       showDetail: false,
       isLoggedIn: false,
+      aboutLink: '/about',
+      homeLink: '/'
     }
   }
 }

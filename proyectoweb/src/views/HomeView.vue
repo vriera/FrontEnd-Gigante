@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div id="fondo">
     <app-menu></app-menu>
-    <botones></botones>
+      <div style="background-image: url('../assets/fondoColores2.png');">
+        <botones/>
+      </div>
   </div>
 </template>
 
@@ -17,3 +19,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

@@ -26,4 +26,10 @@
     }
   }
 }
+ #fondo{
+   background-image: url('./assets/fondoColores2.png');
+   background-size: 100% 100%;
+   width: 100%;
+   height: 100%;
+ }
 </style>
