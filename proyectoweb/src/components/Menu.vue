@@ -2,10 +2,10 @@
   <div>
     <v-row class="blue lighten-3">
       <v-col xs='6' sm='4' md="3" lg="2">
-        <span id='gigante'>GIGANTE</span>
+        <v-btn router :to='homeLink' id='gigante' text>GIGANTE</v-btn>
       </v-col>
       <v-col xs='6' sm='4' md="3" lg="2">
-        <v-btn id='boton-superior' text>Quiénes somos</v-btn>
+        <v-btn router :to='aboutLink' id='boton-superior' text>Quiénes somos</v-btn>
       </v-col>
       <v-spacer></v-spacer>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
@@ -68,8 +68,8 @@
 
     <v-row>
       <v-img :src="require('../assets/fondoColores2.png')"/>
-
     </v-row>
+    
   </div>
 </template>
 
@@ -79,6 +79,8 @@ export default {
     return {
       showDetail: false,
       isLoggedIn: false,
+      aboutLink: '/About',
+      homeLink: '/',
     }
   }
 }
