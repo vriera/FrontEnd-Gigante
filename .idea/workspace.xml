@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de232d2b-47d2-4275-9d9e-f4cefff0581f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/proyectoweb/src/components/Tarjeta.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoweb/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoweb/src/components/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/components/Menu.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoweb/src/components/Tarjeta.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/components/Tarjeta.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +57,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1602513985870</updated>
-      <workItem from="1602513988409" duration="5882000" />
+      <workItem from="1602513988409" duration="7284000" />
     </task>
     <servers />
   </component>

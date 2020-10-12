@@ -68,15 +68,23 @@
 
     <v-row>
       <v-img :src="require('../assets/fondoColores2.png')">
-          <div style="margin:30px;">
+        <v-row>
+          <v-col>
+            <div @click="change()" style="margin:10px; margin-left: 20px; margin-top:50%">
               <Tarjeta v-bind:DatosTarjeta="infoTarjeta[0]"></Tarjeta>
-          </div>
-        <div style="margin:30px;">
-          <Tarjeta v-bind:DatosTarjeta="infoTarjeta[1]"></Tarjeta>
-        </div>
-        <div style="margin:30px;">
-          <Tarjeta v-bind:DatosTarjeta="infoTarjeta[2]"></Tarjeta>
-        </div>
+            </div>
+          </v-col>
+          <v-col>
+            <div @click="change()" style="margin:10px;">
+              <Tarjeta v-bind:DatosTarjeta="infoTarjeta[1]"></Tarjeta>
+            </div>
+          </v-col>
+          <v-col>
+            <div @click="change()" style="margin:10px; margin-top:50%; margin-right: 10px">
+                <Tarjeta v-bind:DatosTarjeta="infoTarjeta[2]"></Tarjeta>
+            </div>
+          </v-col>
+        </v-row>
       </v-img>
     </v-row>
   </div>
@@ -99,16 +107,21 @@ export default {
           text3: "Tengo distintos elementos que quisiera donar."
         },
         {
-          text1: "quiero ser",
+          text1: "Quiero ser",
           text2:"VOLUNTARIO",
           text3:"Quiero donar mi tiempo."
         },
         {
-          text1:"soy una",
+          text1:"Soy una",
           text2:"ONG",
           text3:"Quiero hacerme visible para gente que quiera ayudarnos."
         }
       ]
+    }
+  },
+  methods: {
+    change(){
+      this.$router.push('404');
     }
   }
 }

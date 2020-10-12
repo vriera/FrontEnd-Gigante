@@ -1,6 +1,6 @@
 <template>
   <div>
-      <v-card shaped elevation="5"  width="30%" height="35%" depressed color=#8AC5EB>
+      <v-card shaped elevation="5"  width="420px" height="250px"  depressed color=#8AC5EB>
         <p class="texto">{{DatosTarjeta.text1}}<p>
         <p class="categoria">{{DatosTarjeta.text2}}</p>
         <p class="texto"> {{DatosTarjeta.text3}} </p>
@@ -29,6 +29,7 @@
   font-size: 25px;
   text-align: left;
   margin-left: 5%;
+  margin-top:15px;
   font-family: Arial;
 }
 .v-btn {
