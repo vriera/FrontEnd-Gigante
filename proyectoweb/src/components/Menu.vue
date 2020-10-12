@@ -65,6 +65,11 @@
       </v-btn>
     </v-app-bar>
     </v-row>
+
+    <v-row>
+      <v-img :src="require('../assets/fondoColores2.png')"/>
+
+    </v-row>
   </div>
 </template>
 
@@ -73,7 +78,7 @@ export default {
   data(){
     return {
       showDetail: false,
-      isLoggedIn: true,
+      isLoggedIn: false,
     }
   }
 }
