@@ -1,11 +1,13 @@
 <template>
   <div>
-    <v-row class="blue lighten-3">
+    <v-img :src="require('../assets/LogoGigante.png')" alt="Logo Gigante" id="logo"></v-img>
+
+    <v-row id="filaMenu" class="blue lighten-3" >
       <v-col xs='6' sm='4' md="3" lg="2">
-        <span id='gigante'>GIGANTE</span>
+        <v-btn router :to='homeLink' id='gigante' text>GIGANTE</v-btn>
       </v-col>
       <v-col xs='6' sm='4' md="3" lg="2">
-        <v-btn id='boton-superior' text>Quiénes somos</v-btn>
+        <v-btn router :to='aboutLink' id='boton-superior' text>Quiénes somos</v-btn>
       </v-col>
       <v-spacer></v-spacer>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
@@ -21,7 +23,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row id="filaMenu" class="blue lighten-5">
     <v-app-bar v-if="showDetail" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
       <v-btn text>
@@ -87,6 +89,7 @@
         </v-row>
       </v-img>
     </v-row>
+    
   </div>
 </template>
 
@@ -129,6 +132,16 @@ export default {
 
 <style scoped>
 
+#logo{
+  width: 120px;
+  position: absolute;
+  z-index: 1000;
+}
+
+#filaMenu{
+  padding: 0 0 0 8%;
+}
+
 .v-btn {
     text-transform: none;
 }
@@ -137,6 +150,7 @@ export default {
   color: white;
   font-weight: bold;
   font-size: 1.5em;
+  padding: 10% 10% 10% 10%;
 }
 
 #gigante{
@@ -144,6 +158,7 @@ export default {
   margin: 0 5%;
   font-weight: bold;
   font-size: 2.3em;
+  padding: 10% 10% 10% 10%;
 }
 
 </style>
