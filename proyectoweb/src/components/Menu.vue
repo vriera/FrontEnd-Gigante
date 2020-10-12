@@ -165,4 +165,6 @@ export default {
   padding: 10% 10% 10% 10%;
 }
 
+
+
 </style>
