@@ -102,6 +102,7 @@ export default {
   margin: 0 5%;
   font-weight: bold;
   font-size: 2.3em;
+  padding: 10% 10% 10% 10%;
 }
 
 </style>
