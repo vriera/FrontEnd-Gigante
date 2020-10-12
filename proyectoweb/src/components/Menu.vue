@@ -119,7 +119,7 @@ export default {
           text2:"ONG",
           text3:"Quiero hacerme visible para gente que quiera ayudarnos."
         }
-      ]
+      ],
       aboutLink: '/about',
       homeLink: '/'
     }
