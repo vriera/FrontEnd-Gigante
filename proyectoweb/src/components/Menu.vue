@@ -79,8 +79,6 @@ export default {
     return {
       showDetail: false,
       isLoggedIn: false,
-      aboutLink: '/About',
-      homeLink: '/',
     }
   }
 }
@@ -96,6 +94,7 @@ export default {
   color: white;
   font-weight: bold;
   font-size: 1.5em;
+  padding: 10% 10% 10% 10%;
 }
 
 #gigante{
