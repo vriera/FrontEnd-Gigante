@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="fondo" >
     <app-menu></app-menu>
-    <h1>This is an about page</h1>
+
   </div>
 </template>
 
@@ -17,3 +17,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>
