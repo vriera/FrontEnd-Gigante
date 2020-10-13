@@ -19,18 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a02c7f52-7a43-4acd-9ba9-cd32073d347c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/FrontEnd-Gigante.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoweb/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoweb/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/App.vue" afterDir="false" />
+    <list default="true" id="de232d2b-47d2-4275-9d9e-f4cefff0581f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoweb/src/components/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/components/Menu.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoweb/src/views/AboutView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/views/AboutView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoweb/src/components/Tarjeta.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/components/Tarjeta.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoweb/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/views/HomeView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,20 +30,10 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Vue Single File Component" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1imTjAkc85Mu6ZQacOQ0fdYb7IB" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="1imXwsPWpxMgCDDLJYszAmUeeuf" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -61,20 +43,22 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a02c7f52-7a43-4acd-9ba9-cd32073d347c" name="Default Changelist" comment="" />
-      <created>1602511899974</created>
+      <changelist id="de232d2b-47d2-4275-9d9e-f4cefff0581f" name="Default Changelist" comment="" />
+      <created>1602513985870</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1602511899974</updated>
-      <workItem from="1602511901081" duration="4645000" />
+      <updated>1602513985870</updated>
+      <workItem from="1602513988409" duration="10742000" />
     </task>
     <servers />
   </component>

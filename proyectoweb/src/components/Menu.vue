@@ -4,29 +4,29 @@
 
     <v-row id="filaMenu" class="blue lighten-3" >
       <v-col xs='6' sm='4' md="3" lg="2">
-        <v-btn router :to='homeLink' id='gigante' text>GIGANTE</v-btn>
+        <v-btn router :to='home' id='gigante' text>GIGANTE</v-btn>
       </v-col>
       <v-col xs='6' sm='4' md="3" lg="2">
-        <v-btn router :to='aboutLink' id='boton-superior' text>Quiénes somos</v-btn>
+        <v-btn router :to='quienesSomos' id='boton-superior' text>Quiénes somos</v-btn>
       </v-col>
       <v-spacer></v-spacer>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn id='boton-superior' text>Registrarse</v-btn>
+        <v-btn ref='boton-superior' text>Registrarse</v-btn>
       </v-col>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn id='boton-superior' text>Iniciar sesión</v-btn>
+        <v-btn ref='boton-superior' text>Iniciar sesión</v-btn>
       </v-col>
       <v-col v-if="isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn id='boton-superior' text>
+        <v-btn ref='boton-superior' text>
           <v-icon left>mdi-chevron-down</v-icon>
           <span>Mi perfil</span> 
         </v-btn>
       </v-col>
     </v-row>
-    <v-row id="filaMenu" class="blue lighten-5">
+    <v-row ref="filaMenu" class="blue lighten-5">
     <v-app-bar v-if="showDetail" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
-      <v-btn text>
+      <v-btn :to="noticias" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
         <span>Noticias</span>
       </v-btn>
@@ -50,7 +50,7 @@
 
     <v-app-bar v-else color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-down</v-icon>
-      <v-btn text>
+      <v-btn :to="noticias" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
       </v-btn>
       <v-btn text>
@@ -67,10 +67,6 @@
       </v-btn>
     </v-app-bar>
     </v-row>
-
-    <v-row>
-      <v-img :src="require('../assets/fondoColores2.png')"/>
-    </v-row>
     
   </div>
 </template>
@@ -81,8 +77,11 @@ export default {
     return {
       showDetail: false,
       isLoggedIn: false,
+      aboutLink: '/about',
+      homeLink: '/'
     }
-  }
+  },
+
 }
 </script>
 
@@ -116,5 +115,7 @@ export default {
   font-size: 2.3em;
   padding: 10% 10% 10% 10%;
 }
+
+
 
 </style>

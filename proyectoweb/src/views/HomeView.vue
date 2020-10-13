@@ -1,14 +1,16 @@
 <template>
-  <div>
+  <div id="fondo">
     <app-menu></app-menu>
-    <botones></botones>
+      <div style="background-image: url('../assets/fondoColores2.png');">
+        <botones/>
+      </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Menu from '@/components/Menu.vue'
-import Botones from '@/components/BotonesPrincipal.vue'
+import Botones from '@/components/BotonesPrincipales2.vue'
 
 export default {
   components: {
@@ -17,3 +19,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>
