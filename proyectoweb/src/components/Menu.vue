@@ -14,7 +14,7 @@
         <v-btn ref='boton-superior' text>Registrarse</v-btn>
       </v-col>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn ref='boton-superior' text>Iniciar sesión</v-btn>
+        <v-btn ref='boton-superior' text @click="loggingIn = !loggingIn">Iniciar sesión</v-btn>
       </v-col>
       <v-col v-if="isLoggedIn" xs='6' sm='4' md="3" lg="2">
         <v-btn ref='boton-superior' text>
@@ -67,16 +67,25 @@
       </v-btn>
     </v-app-bar>
     </v-row>
+
+    <login v-if="loggingIn"></login>
     
   </div>
 </template>
 
 <script>
+import Login from "@/components/Login";
+
 export default {
+  components: {
+    'login' : Login,
+  },
+
   data(){
     return {
       showDetail: false,
       isLoggedIn: false,
+      loggingIn: false,
       aboutLink: '/about',
       homeLink: '/'
     }
