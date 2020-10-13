@@ -10,7 +10,7 @@
 <script>
 // @ is an alias to /src
 import Menu from '@/components/Menu.vue'
-import Botones from '@/components/BotonesPrincipal.vue'
+import Botones from '@/components/BotonesPrincipales2.vue'
 
 export default {
   components: {

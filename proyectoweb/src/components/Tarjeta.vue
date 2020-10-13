@@ -10,10 +10,11 @@
 
 <script>
   export default {
+    name: "Tarjeta",
     props: ['DatosTarjeta'],
     data() {
       return {
-        name: "Tarjeta"
+
       }
     }
   }
