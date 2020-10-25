@@ -24,6 +24,7 @@ export default {
     return {
       map: '',
     }
+
   },
   mounted() {
     let mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
@@ -31,7 +32,7 @@ export default {
     this.map = new mapboxgl.Map({
       container: 'map', //the id of an element on your page where you would like your map.
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-77.034084, 38.909671],
+      center: [-58.4164451,-34.5817261],
       zoom: 14
     });
   }
@@ -60,7 +61,7 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   position: absolute;
   left: 33.3333%;
   width: 66.6666%;
-  top: 0;
+  top: 16%;
   bottom: 0;
 }
 
