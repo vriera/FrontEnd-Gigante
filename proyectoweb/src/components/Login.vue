@@ -7,7 +7,6 @@
           label="Correo electrónico"
           solo
           required
-        @input="$v.email.$touch()"
         @blur="$v.email.$touch()"
       ></v-text-field>
         <v-text-field
@@ -19,7 +18,6 @@
          label="Contraseña"
          solo
          required
-         @input="$v.password.$touch()"
          @blur="$v.password.$touch()"
      ></v-text-field>
 
@@ -80,7 +78,6 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid){
         //Lo loguea y lo mando a algún lado
-        this.$router.push('/Home')
       }
     },
   },

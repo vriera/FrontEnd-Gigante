@@ -4,10 +4,10 @@
 
     <v-row id="filaMenu" class="blue lighten-3" >
       <v-col xs='6' sm='4' md="3" lg="2">
-        <v-btn router :to='home' id='gigante' text>GIGANTE</v-btn>
+        <v-btn router :to='home_link' id='gigante' text>GIGANTE</v-btn>
       </v-col>
       <v-col xs='6' sm='4' md="3" lg="2">
-        <v-btn router :to='quienesSomos' id='boton-superior' text>Quiénes somos</v-btn>
+        <v-btn router :to='quienesSomos_link' id='boton-superior' text>Quiénes somos</v-btn>
       </v-col>
       <v-spacer></v-spacer>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
@@ -26,7 +26,7 @@
     <v-row class="blue lighten-5">
     <v-app-bar v-if="showDetail" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
-      <v-btn :to="noticias" text>
+      <v-btn :to="noticias_link" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
         <span>Noticias</span>
       </v-btn>
@@ -50,7 +50,7 @@
 
     <v-app-bar v-else id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-down</v-icon>
-      <v-btn :to="noticias" text>
+      <v-btn :to="noticias_link" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
       </v-btn>
       <v-btn text>
@@ -86,8 +86,10 @@ export default {
       showDetail: false,
       isLoggedIn: false,
       loggingIn: false,
-      aboutLink: '/about',
-      homeLink: '/'
+      
+      home_link: '/',
+      quienesSomos_link: '/AcercaDeNostros',
+      noticias_link: 'Noticias',
     }
   },
 
