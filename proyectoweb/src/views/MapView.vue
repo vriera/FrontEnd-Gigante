@@ -32,9 +32,31 @@ export default {
     this.map = new mapboxgl.Map({
       container: 'map', //the id of an element on your page where you would like your map.
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-58.4164451,-34.5817261],
+      center: [-58.3876273, -34.5903130],
       zoom: 14
     });
+    const nav = new mapboxgl.NavigationControl();
+    this.map.addControl(nav, "top-right");
+
+    new mapboxgl.Marker()
+        .setLngLat([-58.3876273, -34.5903130])
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Lo de salus</h1>" +
+            "<p>Quintana y montevideo</p>" +
+            "<p>No recibe donaciones</p>"))
+        .addTo(this.map);
+
+    new mapboxgl.Marker()
+        .setLngLat([-58.414281,-34.581505])
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Lo de Anita</h1>" +
+            "<p>las Heras y arabe siria</p>" +
+            "<p>No recibe donaciones</p>"))
+        .addTo(this.map);
+    new mapboxgl.Marker()
+        .setLngLat([-58.378482,-34.595680])
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Lo de Valchar</h1>" +
+            "<p>Esmeralda y Santa fe</p>" +
+            "<p>No recibe donaciones</p>"))
+        .addTo(this.map);
   }
 
 }
