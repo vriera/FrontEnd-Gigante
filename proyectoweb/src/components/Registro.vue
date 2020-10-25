@@ -121,6 +121,21 @@
             required
             @blur="$v.altura.$touch()"
         ></v-text-field>
+        <v-text-field v-if="isUser"
+            v-model="piso"
+            label="Piso"
+            solo
+            required
+            @blur="$v.piso.$touch()"
+        ></v-text-field>
+        <v-text-field v-if="isUser"
+            v-model="region"
+            :error-messages="regionErrors"
+            label="Localidad"
+            solo
+            required
+            @blur="$v.region.$touch()"
+        ></v-text-field>
 
         <h3 v-if="!isUser" style="margin: 1% 1%;">Datos de la organización:</h3>
 
@@ -148,6 +163,21 @@
             required
             @blur="$v.alturaOng.$touch()"
         ></v-text-field>
+        <v-text-field v-if="!isUser"
+            v-model="piso"
+            label="Piso"
+            solo
+            required
+            @blur="$v.piso.$touch()"
+        ></v-text-field>
+        <v-text-field v-if="!isUser"
+            v-model="region"
+            :error-messages="regionErrors"
+            label="Localidad"
+            solo
+            required
+            @blur="$v.region.$touch()"
+        ></v-text-field>
         <v-checkbox
             v-model="checkbox"
             :error-messages="checkboxErrors"
@@ -166,7 +196,7 @@
         v-if="submitted"
         max-width="30%"
         class="mx-auto"
-        v-bind:color="sendVerificationError? 'red' : 'green' "
+        color="green"
         icon="mdi-information"
         type="success" >
       <v-row align="center">
@@ -201,7 +231,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email, sameAs, maxLength, minLength, minValue, integer, requiredIf} from 'vuelidate/lib/validators'
-//import UserStore from "@/store/UserStore";
+import UsersStore from "@/store/UserStore";
 
 export default {
   mixins: [validationMixin],
@@ -211,6 +241,7 @@ export default {
     password:{required, maxLength : maxLength(50)},
     confirmationPassword:{required,sameAsPassword: sameAs('password'), maxLength : maxLength(50)},
     email: { required, email, maxLength : maxLength(100) },
+    region: { required },
     checkbox: {
       checked (val) {
         return val
@@ -258,6 +289,9 @@ export default {
     email: '',
     checkbox: false,
 
+    region: '',
+    piso: '',
+
     calle: '',
     altura: '',
 
@@ -268,7 +302,7 @@ export default {
     alturaOng:'',
 
     mensajeAlertForm: '',
-    mensajeAlertSubmitted: 'Se ha enviado el mail de verificacion a su casilla',
+    mensajeAlertSubmitted: 'Se ha registrado con éxito',
     sendVerificationError : false,
     submitError : false,
     submitted : false, 
@@ -316,6 +350,12 @@ export default {
       return errors
     },
 
+    regionErrors () {
+      const errors = []
+      if (!this.$v.region.$dirty) return errors
+      !this.$v.region.required && errors.push('La localidad es obligatoria')
+      return errors
+    },
     calleErrors () {
       const errors = []
       if (!this.$v.calle.$dirty) return errors
@@ -372,29 +412,47 @@ export default {
   methods: {
     setUser(){
         this.isUser = true;
+        this.piso = ''
+        this.region = ''
     },
 
     setONG(){
         this.isUser = false;
+        this.piso = ''
+        this.region = ''
     },
 
     submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
-        console.log("valido")
         this.loading = true;
-        //const result = await UserStore.addUser(this.username, this.fullname, this.password, this.adaptarGenero(this.genero), Date.parse(this.date), this.email, this.meta );
-        //if(result){
-        //  this.submitted = true;
-          this.loading = false;
-        //}
-        //else{
-        //  this.submitError = true;
-        //  this.mensajeAlertForm = `Error durante el registro, inténtelo más tarde`;
-          this.loading = false;
+        let success = false
+
+        if(this.isUser)
+          success = this.addDonator()
+        else
+          success = this.addOng()
+
+        if (!success){
+          this.submitError = true;
+          this.mensajeAlertForm = `Error durante el registro, inténtelo más tarde`;
+        }
+        else{
+          this.submitted = true;
         }
 
-      },    
+        this.loading = false;
+      }
+
+    },
+
+    addDonator(){
+      UsersStore.addDonator()
+    },
+
+    addOng(){
+      UsersStore.addOng()
+    },
 
     clear() {
       this.$v.$reset()
@@ -411,6 +469,8 @@ export default {
       this.calleOng=''
       this.altura=''
       this.alturaOng=''
+      this.piso = ''
+      this.region = ''
     },
   },
 }
