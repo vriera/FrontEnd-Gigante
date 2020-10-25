@@ -8,12 +8,21 @@
     <v-row>
       <v-spacer/>
       <v-col>
+        <v-row>
+        <v-spacer/>
+        <v-col>
         <v-btn v-bind:class="isUser?'blue lighten-4':'grey lighten-1'" id="tipo-cuenta" @click="setUser">
             <span color="black" x-large> Soy un usuario </span>
         </v-btn>
+        </v-col>
+        <v-spacer/>
+        <v-col>
         <v-btn v-bind:class="!isUser?'blue lighten-4':'grey lighten-1'" id="tipo-cuenta" @click="setONG">
             <span color="black" x-large> Represento una ONG </span>
         </v-btn>
+        </v-col>
+        <v-spacer/>
+        </v-row>
       </v-col>
       <v-spacer/>
     </v-row>
@@ -75,7 +84,6 @@
             label="E-mail"
             solo
             required
-            @input="$v.email.$touch()"
             @blur="$v.email.$touch()"
         ></v-text-field>
         <v-text-field
@@ -104,7 +112,7 @@
         ></v-text-field>
         <v-text-field v-if="!isUser"
             v-model="calleOng"
-            :error-messages="calleErrors"
+            :error-messages="calleOngErrors"
             label="Calle del domicilio de mi organización"
             solo
             required
@@ -112,7 +120,7 @@
         ></v-text-field>
         <v-text-field v-if="!isUser"
             v-model="alturaOng"
-            :error-messages="alturaErrors"
+            :error-messages="alturaOngErrors"
             label="Altura del domicilio de mi organización"
             solo
             required
@@ -170,8 +178,8 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, email, sameAs, maxLength} from 'vuelidate/lib/validators'
-import UserStore from "@/store/UserStore";
+import { required, email, sameAs, maxLength, minValue, integer, requiredIf} from 'vuelidate/lib/validators'
+//import UserStore from "@/store/UserStore";
 
 export default {
   mixins: [validationMixin],
@@ -181,11 +189,26 @@ export default {
     password:{required, maxLength : maxLength(50)},
     confirmationPassword:{required,sameAsPassword: sameAs('password'), maxLength : maxLength(50)},
     email: { required, email, maxLength : maxLength(100) },
+    calle: { required },
+    altura: { required, integer, minValue:minValue(0)},
     checkbox: {
       checked (val) {
         return val
       },
     },
+    
+    dni: {required: requiredIf(function(){
+          return !this.isUser
+        }), integer, minValue:minValue(0)
+      },
+    calleOng: {required: requiredIf(function(){
+          return !this.isUser
+        })
+      },
+    alturaOng: {required: requiredIf(function(){
+          return !this.isUser
+        }), integer, minValue:minValue(0)
+      },
   },
 
   data: () => ({
@@ -252,6 +275,43 @@ export default {
       !this.$v.email.maxLength && errors.push('El e-mail debe tener maximo 100 caracteres')
       return errors
     },
+    calleErrors () {
+      const errors = []
+      if (!this.$v.calle.$dirty) return errors
+      !this.$v.calle.required && errors.push('La calle es obligatoria')
+      return errors
+    },
+    alturaErrors () {
+      const errors = []
+      if (!this.$v.altura.$dirty) return errors
+      !this.$v.altura.required && errors.push('La altura es obligatoria')
+      if (!this.$v.altura.minValue || !this.$v.altura.integer)
+        errors.push('La altura debe ser un número positivo')
+      return errors
+    },
+
+    dniErrors () {
+      const errors = []
+      if (!this.$v.dni.$dirty) return errors
+      !this.$v.dni.required && errors.push('El dni es obligatorio')
+      if (!this.$v.dni.minValue || !this.$v.dni.integer)
+        errors.push('Inserte un dni válido')
+      return errors
+    },
+    calleOngErrors () {
+      const errors = []
+      if (!this.$v.calleOng.$dirty) return errors
+      !this.$v.calleOng.required && errors.push('La calle de su organización es obligatoria')
+      return errors
+    },
+    alturaOngErrors () {
+      const errors = []
+      if (!this.$v.alturaOng.$dirty) return errors
+      !this.$v.alturaOng.required && errors.push('La altural es obligatoria')
+      if (!this.$v.alturaOng.minValue || !this.$v.alturaOng.integer)
+        errors.push('La altura de su organización debe ser un número positivo')
+      return errors
+    },
   },
 
   methods: {
@@ -266,6 +326,7 @@ export default {
     submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
+        console.log("valido")
         this.loading = true;
         //const result = await UserStore.addUser(this.username, this.fullname, this.password, this.adaptarGenero(this.genero), Date.parse(this.date), this.email, this.meta );
         //if(result){
@@ -278,34 +339,9 @@ export default {
           this.loading = false;
         }
 
-      }
-    },
-    async resendVerification(){
-      this.loading = true;
-      const result = await UserStore.resendVerification(this.email);
-      if(result){
-        this.mensajeAlertSubmitted = 'Se ha reenviado el mail de verificacion a su casilla';
-        this.loading = false;
-      }
-      else{
-        this.sendVerificationError= true;
-        this.mensajeAlertSubmitted = `Error en reenviar verificacion`;
-        this.loading = false;
-      }
-    },
-    adaptarGenero(genero){
-      switch (genero){
-        case 'Hombre':
-          return 'male';
-        case 'Mujer':
-          return 'female';
-        case 'Otro':
-          return 'other';
-        default:
-          return '';
-      }
-    },
-    clear () {
+      },    
+
+    clear() {
       this.$v.$reset()
       this.username = ''
       this.email = ''
@@ -319,7 +355,8 @@ export default {
       this.altura=''
       this.alturaOng=''
     },
-  }
+  },
+}
 
 </script>
 
