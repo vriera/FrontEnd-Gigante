@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <v-app>
+      <app-menu/>
       <v-main>
         <router-view/>
       </v-main>
@@ -8,8 +9,18 @@
   </div>
 </template>
 
-<style lang="scss">
+<script>
+  // @ is an alias to /src
+  import Menu from '@/components/Menu.vue';
 
+  export default {
+    components: {
+      'app-menu' : Menu,
+    }
+  }
+</script>
+
+<style lang="scss">
 
 #nav {
   padding: 1%;

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-img :src="require('../assets/LogoGigante.png')" alt="Logo Gigante" id="logo"></v-img>
-
+    <v-img :src="require('../assets/LogoGigante.png')" alt="Logo Gigante" id="logo" class="ml-3"/>
+    
     <v-row id="filaMenu" class="blue lighten-3" >
       <v-col xs='6' sm='4' md="3" lg="2">
         <v-btn router :to='home_link' id='gigante' text>GIGANTE</v-btn>
@@ -23,7 +23,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row class="blue lighten-5">
+    <v-row class="blue lighten-5 pl-6">
     <v-app-bar v-if="showDetail" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
       <v-btn :to="noticias_link" text>
