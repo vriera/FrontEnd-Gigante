@@ -20,20 +20,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de232d2b-47d2-4275-9d9e-f4cefff0581f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/proyectoweb/src/assets/FondoNoticia1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyectoweb/src/assets/FondoNoticia2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyectoweb/src/assets/FondoNoticia3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyectoweb/src/components/ItemNoticias.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoweb/src/components/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/components/Menu.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoweb/src/components/Tarjeta.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/components/Tarjeta.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoweb/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/views/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoweb/src/views/Noticias.vue" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoweb/src/views/Noticias.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1imXwsPWpxMgCDDLJYszAmUeeuf" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,14 +54,21 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/proyectoweb/src/assets" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\OneDrive - ITBA\Facu\Inge. Soft I\FrontEnd-Gigante\proyectoweb\src\assets" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -59,6 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1602513985870</updated>
       <workItem from="1602513988409" duration="10742000" />
+      <workItem from="1603643305442" duration="7064000" />
     </task>
     <servers />
   </component>
@@ -75,5 +96,16 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="460" y="164" key="SettingsEditor" timestamp="1603643485217">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="460" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603643485217" />
+    <state x="623" y="225" key="search.everywhere.popup" timestamp="1603644262037">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603644262037" />
   </component>
 </project>

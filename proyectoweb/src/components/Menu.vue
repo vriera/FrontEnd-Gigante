@@ -89,8 +89,8 @@ export default {
       
       home_link: '/',
       registro_link: '/Registro',
-      quienesSomos_link: '/AcercaDeNostros',
-      noticias_link: 'Noticias',
+      quienesSomos_link: '/QuienesSomos',
+      noticias_link: '/Noticias',
     }
   },
 
