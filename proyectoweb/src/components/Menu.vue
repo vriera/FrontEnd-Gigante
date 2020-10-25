@@ -11,20 +11,20 @@
       </v-col>
       <v-spacer></v-spacer>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn ref='boton-superior' text>Registrarse</v-btn>
+        <v-btn id='boton-superior' text>Registrarse</v-btn>
       </v-col>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn ref='boton-superior' text @click="loggingIn = !loggingIn">Iniciar sesión</v-btn>
+        <v-btn id='boton-superior' text @click="loggingIn = !loggingIn">Iniciar sesión</v-btn>
       </v-col>
       <v-col v-if="isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn ref='boton-superior' text>
+        <v-btn id='boton-superior' text>
           <v-icon left>mdi-chevron-down</v-icon>
           <span>Mi perfil</span> 
         </v-btn>
       </v-col>
     </v-row>
-    <v-row ref="filaMenu" class="blue lighten-5">
-    <v-app-bar v-if="showDetail" color="blue lighten-5" flat width="100%" height="50%">
+    <v-row class="blue lighten-5">
+    <v-app-bar v-if="showDetail" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
       <v-btn :to="noticias" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
@@ -48,7 +48,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-app-bar v-else color="blue lighten-5" flat width="100%" height="50%">
+    <v-app-bar v-else id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-down</v-icon>
       <v-btn :to="noticias" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
