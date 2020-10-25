@@ -28,6 +28,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Noticias.vue')
   },
   {
+    path: '/Mapa',
+    name: 'Mapa',
+    component: () => import(/* webpackChunkName: "about" */ '../views/MapView.vue')
+
+  },
+  {
     path: '*',
     name: '404',
     component: PageNotFound,
