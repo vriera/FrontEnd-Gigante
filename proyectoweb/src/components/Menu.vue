@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-img :src="require('../assets/LogoGigante.png')" @click="$router.push(registro_link)" alt="Logo Gigante" id="logo"></v-img>
+    <v-img :src="require('../assets/LogoGigante.png')" @click="$router.push(home_link)" alt="Logo Gigante" id="logo"></v-img>
 
     <v-row id="filaMenu" class="blue lighten-3" >
       <v-col xs='6' sm='4' md="3" lg="2">
