@@ -45,6 +45,9 @@
             </v-col>
           </v-row>
         </v-alert>
+
+        <h3 style="margin: 1% 1%;">Mis datos:</h3>
+
         <v-text-field
             v-model="fullname"
             :error-messages="fullNameErrors"
@@ -53,6 +56,30 @@
             required
             @input="$v.fullname.$touch()"
             @blur="$v.fullname.$touch()"
+        ></v-text-field>
+        <v-text-field v-if="!isUser"
+            v-model="dni"
+            :error-messages="dniErrors"
+            label="DNI"
+            solo
+            required
+            @blur="$v.dni.$touch()"
+        ></v-text-field>
+        <v-text-field v-if="!isUser"
+            v-model="telefono"
+            :error-messages="telefonoErrors"
+            label="Teléfono de contacto"
+            solo
+            required
+            @blur="$v.telefono.$touch()"
+        ></v-text-field>
+        <v-text-field
+            v-model="email"
+            :error-messages="emailErrors"
+            label="E-mail"
+            solo
+            required
+            @blur="$v.email.$touch()"
         ></v-text-field>
         <v-text-field
             v-model="password"
@@ -78,15 +105,7 @@
             @input="$v.confirmationPassword.$touch()"
             @blur="$v.confirmationPassword.$touch()"
         ></v-text-field>
-        <v-text-field
-            v-model="email"
-            :error-messages="emailErrors"
-            label="E-mail"
-            solo
-            required
-            @blur="$v.email.$touch()"
-        ></v-text-field>
-        <v-text-field
+        <v-text-field v-if="isUser"
             v-model="calle"
             :error-messages="calleErrors"
             label="Calle de mi domicilio"
@@ -94,7 +113,7 @@
             required
             @blur="$v.calle.$touch()"
         ></v-text-field>
-        <v-text-field
+        <v-text-field v-if="isUser"
             v-model="altura"
             :error-messages="alturaErrors"
             label="Altura de mi domicilio"
@@ -102,13 +121,16 @@
             required
             @blur="$v.altura.$touch()"
         ></v-text-field>
+
+        <h3 v-if="!isUser" style="margin: 1% 1%;">Datos de la organización:</h3>
+
         <v-text-field v-if="!isUser"
-            v-model="dni"
-            :error-messages="dniErrors"
-            label="DNI"
+            v-model="nombreOng"
+            :error-messages="nombreOngErrors"
+            label="Nombre de mi organización"
             solo
             required
-            @blur="$v.dni.$touch()"
+            @blur="$v.nombreOng.$touch()"
         ></v-text-field>
         <v-text-field v-if="!isUser"
             v-model="calleOng"
@@ -178,7 +200,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, email, sameAs, maxLength, minValue, integer, requiredIf} from 'vuelidate/lib/validators'
+import { required, email, sameAs, maxLength, minLength, minValue, integer, requiredIf} from 'vuelidate/lib/validators'
 //import UserStore from "@/store/UserStore";
 
 export default {
@@ -189,17 +211,32 @@ export default {
     password:{required, maxLength : maxLength(50)},
     confirmationPassword:{required,sameAsPassword: sameAs('password'), maxLength : maxLength(50)},
     email: { required, email, maxLength : maxLength(100) },
-    calle: { required },
-    altura: { required, integer, minValue:minValue(0)},
     checkbox: {
       checked (val) {
         return val
       },
     },
+
+    calle: {required: requiredIf(function(){
+          return this.isUser
+        })
+      },
+    altura: {required: requiredIf(function(){
+          return this.isUser
+        }), integer, minValue:minValue(0)
+      },
     
     dni: {required: requiredIf(function(){
           return !this.isUser
         }), integer, minValue:minValue(0)
+      },
+    telefono: {required: requiredIf(function(){
+          return !this.isUser
+        }), integer, minValue:minValue(0), minLength:minLength(8)
+      },
+    nombreOng: {required: requiredIf(function(){
+          return !this.isUser
+        })
       },
     calleOng: {required: requiredIf(function(){
           return !this.isUser
@@ -220,10 +257,13 @@ export default {
     confirmationPassword:'',
     email: '',
     checkbox: false,
+
     calle: '',
     altura: '',
 
+    telefono: '',
     dni:'',
+    nombreOng: '',
     calleOng:'',
     alturaOng:'',
 
@@ -275,6 +315,7 @@ export default {
       !this.$v.email.maxLength && errors.push('El e-mail debe tener maximo 100 caracteres')
       return errors
     },
+
     calleErrors () {
       const errors = []
       if (!this.$v.calle.$dirty) return errors
@@ -296,6 +337,20 @@ export default {
       !this.$v.dni.required && errors.push('El dni es obligatorio')
       if (!this.$v.dni.minValue || !this.$v.dni.integer)
         errors.push('Inserte un dni válido')
+      return errors
+    },
+    telefonoErrors () {
+      const errors = []
+      if (!this.$v.telefono.$dirty) return errors
+      !this.$v.telefono.required && errors.push('El teléfono es obligatorio')
+      if (!this.$v.telefono.minValue || !this.$v.telefono.integer || !this.$v.telefono.minLength)
+        errors.push('Inserte un teléfono válido')
+      return errors
+    },
+    nombreOngErrors () {
+      const errors = []
+      if (!this.$v.nombreOng.$dirty) return errors
+      !this.$v.nombreOng.required && errors.push('El nombre de su organización es obligatorio')
       return errors
     },
     calleOngErrors () {
@@ -350,6 +405,8 @@ export default {
       this.confirmationPassword=''
       this.fullname= ''
       this.dni=''
+      this.telefono=''
+      this.nombreOng=''
       this.calle=''
       this.calleOng=''
       this.altura=''
