@@ -88,8 +88,8 @@ export default {
       loggingIn: false,
       
       home_link: '/',
-      quienesSomos_link: '/AcercaDeNostros',
-      noticias_link: 'Noticias',
+      quienesSomos_link: '/QuienesSomos',
+      noticias_link: '/Noticias',
     }
   },
 
