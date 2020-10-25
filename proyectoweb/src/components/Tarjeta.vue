@@ -35,7 +35,7 @@
 }
 
 .anita{
-  color: #8AC5EB;
+  background-color: #8AC5EB;
 }
 .anita:hover{
   background-color:#069DFF;
