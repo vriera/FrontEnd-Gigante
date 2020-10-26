@@ -56,7 +56,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email} from 'vuelidate/lib/validators'
-import UsersStore from "@/store/UserStore";
+import UserStore from "@/store/UserStore";
 
 export default {
     mixins: [validationMixin],
@@ -102,14 +102,14 @@ export default {
       if (!this.$v.$invalid){
         let success = false
 
-        success = await UsersStore.login(this.email, this.password)
+        success = await UserStore.login(this.email, this.password)
 
         if (!success){
           this.submitError = true;
           this.mensajeAlertForm = `Error durante el ingreso, inténtelo más tarde`;
         }
         else{
-          //Seteo que está logueado
+          console.log("Estoy logueado")
         }
       }
     },

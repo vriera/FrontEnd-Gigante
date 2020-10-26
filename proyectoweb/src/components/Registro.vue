@@ -230,7 +230,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email, sameAs, maxLength, minLength, minValue, integer, requiredIf} from 'vuelidate/lib/validators'
-import UsersStore from "@/store/UserStore";
+import UserStore from "@/store/UserStore";
 
 export default {
   mixins: [validationMixin],
@@ -449,11 +449,11 @@ export default {
     },
 
     async addDonator(){
-      await UsersStore.addDonator(this.email, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, /*latitud*/0, /*longitud*/0)
+      await UserStore.addDonator(this.email, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, /*latitud*/0, /*longitud*/0)
     },
 
     async addOng(){
-      await UsersStore.addOng(this.email, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, /*latitud*/0, /*longitud*/0)
+      await UserStore.addOng(this.email, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, /*latitud*/0, /*longitud*/0)
     },
 
     clear() {

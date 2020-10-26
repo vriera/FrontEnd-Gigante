@@ -1,7 +1,8 @@
 import { Api } from './api.js';
-export {UsersApi, Donator, Ong};
+export {UsersApi, Donator, Ong, Credentials};
 
 class UsersApi {
+    //static userToken = sessionStorage.getItem('token');
 
     static get donatorUrl() {
         return `${Api.baseUrl}/donators`;
@@ -19,6 +20,25 @@ class UsersApi {
         return await Api.post(`${UsersApi.ongUrl}`, false, ong, controller);
     }
 
+    //static async login(credentials, controller) {
+        //const result = await Api.post(`${UsersApi.url}/login`, false, credentials, controller);
+        //sessionStorage.setItem('token', result.token);
+        //this.userToken = result.token;
+
+    //}
+
+    //static async logout(controller) {
+    //    await Api.post(`${UsersApi.url}/logout`, true, controller);
+    //    sessionStorage.removeItem('token');
+    //}
+
+}
+
+class Credentials {
+    constructor(username, password) {
+        this.username = username;
+        this.password = password;
+    }
 }
 
 class Ong{
