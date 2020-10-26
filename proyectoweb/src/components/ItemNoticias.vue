@@ -1,18 +1,16 @@
 <template>
   <div>
-    <v-card max-width="450" style="padding-top: 1%; padding-bottom: 1%; padding-left: 1%; padding-right: 1%;">
-      <v-img height="300" :src="image"/>
-      <h1 style="margin-top: 5%;">{{title}}</h1>
-      <v-row style="margin-top: 2%;align-content: center;">
-        <v-col cols="1">
+    <v-card max-width="400" class="pa-3">
+      <v-img height="250" :src="image"/>
+      <h2 style="margin-top: 5%;">{{title}}</h2>
+      <v-row class="pl-3">
           <v-icon color="blue lighten-3">mdi-pencil</v-icon>
-        </v-col>
-        <v-col>
-          <h2>{{author}}</h2>
-        </v-col>
+          <h3 class="pl-2">{{author}}</h3>
       </v-row>
-      <body style="margin-left: 5%; margin-right: 5%">{{desc}}</body>
-      <v-btn :to="readMoreLink" style="margin-top: 5%; margin-left: 30%;" color="blue lighten-3"> Ver más <v-icon>mdi-arrow-right</v-icon></v-btn>
+      <body class="text-justify mx-1">{{desc}}</body>
+      <body class="text-center">
+        <v-btn :to="readMoreLink" class="text-center mt-3 mb-1" color="blue lighten-3"> Ver más <v-icon right>mdi-arrow-right</v-icon></v-btn>
+      </body>
     </v-card>
   </div>
 

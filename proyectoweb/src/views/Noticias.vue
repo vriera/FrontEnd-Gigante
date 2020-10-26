@@ -1,14 +1,14 @@
 <template>
-<div id="fondo">
-  <h1>NOTICIAS</h1>
-  <ul>
-    <li v-for="noticia in noticias" :key="noticia.title" >
-      <item-noticias :image="image" :title="title" :author="author" :desc="desc" :read-more-link="readMoreLink"/>
-    </li>
-  </ul>
-
-
-</div>
+  <div id="fondo" class="pa-5">
+    <h1 class="ml-5">NOTICIAS</h1>
+    <v-container fluid grid-list-xl>
+      <v-layout wrap justify-space-around>
+        <v-flex v-for="noticia in noticias" :key="noticia.title">
+          <item-noticias :image="image" :title="title" :author="author" :desc="desc" :read-more-link="readMoreLink"/>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -47,5 +47,9 @@ export default {
 </script>
 
 <style scoped>
+
+  .flex {
+    flex-grow: 0;
+  }
 
 </style>
