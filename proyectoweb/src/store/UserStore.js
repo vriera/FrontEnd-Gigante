@@ -1,4 +1,4 @@
-import {UsersApi, Donator, Ong} from "@/api/users";
+import {UsersApi, Donator, Ong, Credentials} from "@/api/users";
 
 const UserStore = {
 
@@ -22,14 +22,15 @@ const UserStore = {
         }
     },
 
-    //async login(email, password) {
-    //    try{
-    //        const credentials = new Ong(email, password)
-    //        return await UsersApi.login(credentials)
-    //    } catch (error) {
-    //        console.log(error);
-    //    }
-    //},
+    async login(email, password) {
+        try{
+            const credentials = new Credentials(email, password)
+            const result = await UsersApi.login(credentials);
+            return result.sucess;
+        } catch (error) {
+            console.log(error);
+        }
+    },
 
     //async logoutUser() {
     //    await UsersApi.logout();

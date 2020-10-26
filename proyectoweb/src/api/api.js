@@ -5,7 +5,7 @@ class Api {
 
     //Chequear el puerto y si va el /api
     static get baseUrl() {
-        return 'http://localhost:3000/api';
+        return 'http://localhost:3000';
     }
 
     static get timeout() {

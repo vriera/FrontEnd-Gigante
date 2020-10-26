@@ -20,12 +20,14 @@ class UsersApi {
         return await Api.post(`${UsersApi.ongUrl}`, false, ong, controller);
     }
 
-    //static async login(credentials, controller) {
-        //const result = await Api.post(`${UsersApi.url}/login`, false, credentials, controller);
+    static async login(credentials, controller) {
+        console.log(credentials);
+        const result = await Api.post(`${Api.baseUrl}/login`, false, credentials, controller);
         //sessionStorage.setItem('token', result.token);
         //this.userToken = result.token;
-
-    //}
+        console.log(result);
+        return result;
+    }
 
     //static async logout(controller) {
     //    await Api.post(`${UsersApi.url}/logout`, true, controller);
@@ -36,7 +38,7 @@ class UsersApi {
 
 class Credentials {
     constructor(username, password) {
-        this.username = username;
+        this.email = username;
         this.password = password;
     }
 }
