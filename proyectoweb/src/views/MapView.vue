@@ -4,7 +4,25 @@
       <app-menu></app-menu>
     </row>
     <row>
-      <listado class ='sidebar pad2'></listado>
+
+      <div class="sidebar pad2">
+        <v-container>
+          <v-card color="#FFFFFF" height="800px">
+            <p class ="titulo" v-icon>Asociaciones <v-icon>mdi-filter</v-icon></p>
+            <!--mdi-filter</v-icon>-->
+              <v-card  v-for="desc in descriptions" :key="desc" style="margin-top: 10px" color="#DBEDF8" >
+                <div v-on:click="desc.marker.togglePopup()">
+                  <v-card-title >{{desc.title}}</v-card-title>
+                  <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-map-marker sm</v-icon>{{desc.direccion}}</v-card-text>
+                  <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-clock</v-icon> {{desc.horario}}</v-card-text>
+                  <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-format-list-numbered</v-icon> {{desc.lista}}</v-card-text>
+                </div>
+              </v-card>
+          </v-card>
+        </v-container>
+
+      </div>
+
       <div>
         <div id='map' class='map pad2'>Map</div>
       </div>
@@ -15,18 +33,63 @@
 <script>
 // @ is an alias to /src
 import Menu from '@/components/Menu.vue'
-import Listado from '@/components/Listado.vue'
+//import Listado from '@/components/Listado.vue'
 
 export default {
   components: {
     'app-menu' : Menu,
-    'listado' : Listado,
+    //'listado' : Listado,
   },
   data() {
     return {
       map: '',
+      markers: [],
+      descriptions: [
+        {
+          marker: {},
+          title: 'Fundación Sí',
+          direccion: 'Calle 1234 piso 1A',
+          horario: 'Lunes a viernes, 12:00- 18:00',
+          lista: 'ropa de abrigo, donaciones monetarias'
+        },
+        {
+          marker: {},
+          title: 'Fundación Sí',
+          direccion: 'Calle 1234 piso 1A',
+          horario: 'Lunes a viernes, 12:00- 18:00',
+          lista: 'ropa de abrigo, donaciones monetarias'
+        },
+        {
+          marker: {},
+          title: 'Fundación Sí',
+          direccion: 'Calle 1234 piso 1A',
+          horario: 'Lunes a viernes, 12:00- 18:00',
+          lista: 'ropa de abrigo, donaciones monetarias'
+        },
+        {
+          marker: {},
+          title: 'Fundación Sí',
+          direccion: 'Calle 1234 piso 1A',
+          horario: 'Lunes a viernes, 12:00- 18:00',
+          lista: 'ropa de abrigo, donaciones monetarias'
+        },
+        {
+          marker: {},
+          title: 'Fundación Sí',
+          direccion: 'Calle 1234 piso 1A',
+          horario: 'Lunes a viernes, 12:00- 18:00',
+          lista: 'ropa de abrigo, donaciones monetarias'
+        },
+        {
+          marker: {},
+          title: 'Fundación Sí',
+          direccion: 'Calle 1234 piso 1A',
+          horario: 'Lunes a viernes, 12:00- 18:00',
+          lista: 'ropa de abrigo, donaciones monetarias'
+        },
+      ],
+      filtro: 'mdi-filter'
     }
-
   },
   mounted() {
     let mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
@@ -40,26 +103,27 @@ export default {
     const nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "top-right");
 
-    new mapboxgl.Marker()
+    this.descriptions[0].marker = new mapboxgl.Marker()
         .setLngLat([-58.3876273, -34.5903130])
-        .setPopup(new mapboxgl.Popup().setHTML("<h1>Lo de salus</h1>" +
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
             "<p>Quintana y montevideo</p>" +
             "<p>No recibe donaciones</p>"))
         .addTo(this.map);
 
-    new mapboxgl.Marker()
+    this.descriptions[1].marker = new mapboxgl.Marker()
         .setLngLat([-58.414281,-34.581505])
-        .setPopup(new mapboxgl.Popup().setHTML("<h1>Lo de Anita</h1>" +
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
             "<p>las Heras y arabe siria</p>" +
             "<p>No recibe donaciones</p>"))
         .addTo(this.map);
 
-    new mapboxgl.Marker()
+    this.descriptions[2].marker = new mapboxgl.Marker()
         .setLngLat([-58.378482,-34.595680])
-        .setPopup(new mapboxgl.Popup().setHTML("<h1>Lo de Valchar</h1>" +
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
             "<p>Esmeralda y Santa fe</p>" +
             "<p>No recibe donaciones</p>"))
         .addTo(this.map);
+
   }
 
 }
@@ -85,9 +149,10 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   border-left: 1px solid #fff;
   position: absolute;
   left: 33.3333%;
-  width: 95%;
+  width: 65%;
   top: 15%;
-  bottom: 0;
+  bottom: 2%;
+
 }
 
 .pad2 {
@@ -95,6 +160,12 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.titulo {
+  font-size: 50px;
+  font-family: "Arial Black";
+  text-align: center;
+
 }
 
 </style>
