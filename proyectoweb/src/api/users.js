@@ -1,13 +1,22 @@
+import { Api } from './api.js';
 export {UsersApi, Donator, Ong};
 
 class UsersApi {
-    
-    addDonator(){
 
+    static get donatorUrl() {
+        return `${Api.baseUrl}/donators`;
     }
 
-    addOng(){
+    static get ongUrl() {
+        return `${Api.baseUrl}/ongs`;
+    }
+    
+    static async addDonator(donator, controller) {
+        return await Api.post(`${UsersApi.donatorUrl}`, false, donator, controller);
+    }
 
+    static async addOng(ong, controller) {
+        return await Api.post(`${UsersApi.ongUrl}`, false, ong, controller);
     }
 
 }

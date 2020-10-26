@@ -167,7 +167,6 @@
             v-model="piso"
             label="Piso"
             solo
-            required
             @blur="$v.piso.$touch()"
         ></v-text-field>
         <v-text-field v-if="!isUser"
@@ -209,7 +208,7 @@
     <v-container v-if="loading" class="text-center" >
       <v-progress-circular
           :size="50"
-          color="#E78200"
+          color="blue lighten-3"
           indeterminate
       ></v-progress-circular>
     </v-container>
@@ -256,6 +255,8 @@ export default {
           return this.isUser
         }), integer, minValue:minValue(0)
       },
+
+    piso:{},  //Aunque no tenga restricciones o tira warning
     
     dni: {required: requiredIf(function(){
           return !this.isUser
@@ -422,16 +423,17 @@ export default {
         this.region = ''
     },
 
-    submit () {
+    async submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
         this.loading = true;
         let success = false
 
-        if(this.isUser)
-          success = this.addDonator()
+        if(this.isUser){
+          success = await this.addDonator()
+        }
         else
-          success = this.addOng()
+          success = await this.addOng()
 
         if (!success){
           this.submitError = true;
@@ -446,12 +448,12 @@ export default {
 
     },
 
-    addDonator(){
-      UsersStore.addDonator()
+    async addDonator(){
+      await UsersStore.addDonator(this.email, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, /*latitud*/0, /*longitud*/0)
     },
 
-    addOng(){
-      UsersStore.addOng()
+    async addOng(){
+      await UsersStore.addOng(this.email, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, /*latitud*/0, /*longitud*/0)
     },
 
     clear() {
