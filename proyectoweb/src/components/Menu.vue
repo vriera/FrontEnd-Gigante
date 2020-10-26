@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-img :src="require('../assets/LogoGigante.png')" @click="$router.push(home_link)" alt="Logo Gigante" id="logo"></v-img>
+    <v-img :src="require('../assets/LogoGigante.png')" @click="$router.push(home_link)" alt="Logo Gigante" id="logo" class="mx-3"></v-img>
 
     <v-row id="filaMenu" class="blue lighten-3" >
       <v-col xs='6' sm='4' md="3" lg="2">
@@ -14,7 +14,12 @@
         <v-btn id='boton-superior' router :to="registro_link" text>Registrarse</v-btn>
       </v-col>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn id='boton-superior' text @click="loggingIn = !loggingIn">Iniciar sesión</v-btn>
+        <v-menu v-model="loggingIn" :close-on-content-click="false" offset-y nudge-bottom="10">
+          <template v-slot:activator="{on}">
+            <v-btn id='boton-superior' text v-on="on">Iniciar sesión</v-btn>
+          </template>
+          <login/>
+        </v-menu>
       </v-col>
       <v-col v-if="isLoggedIn" xs='6' sm='4' md="3" lg="2">
         <v-btn id='boton-superior' text>
@@ -67,9 +72,7 @@
       </v-btn>
     </v-app-bar>
     </v-row>
-
-    <login v-if="loggingIn"></login>
-    
+   
   </div>
 </template>
 

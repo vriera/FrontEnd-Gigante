@@ -1,5 +1,5 @@
 <template>
-    <v-card shaped id="cardLogin" class="blue lighten-3">
+    <v-card flat id="cardLogin" class="blue lighten-3">
         <form id="formLogin">
         <v-text-field
           v-model="email"
@@ -120,11 +120,11 @@ export default {
 
 <style scoped>
 
-#cardLogin{
+/* #cardLogin{
     width: 30%;
     margin-left:auto;
     margin-right:1%;
-}
+} */
 
 #formLogin{
     padding: 8% 5% 5% 5%;
