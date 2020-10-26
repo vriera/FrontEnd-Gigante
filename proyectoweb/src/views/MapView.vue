@@ -4,8 +4,8 @@
       <app-menu></app-menu>
     </row>
     <row>
+      <listado class ='sidebar pad2'></listado>
       <div>
-        <div class='sidebar pad2'>Listing</div>
         <div id='map' class='map pad2'>Map</div>
       </div>
     </row>
@@ -15,10 +15,12 @@
 <script>
 // @ is an alias to /src
 import Menu from '@/components/Menu.vue'
+import Listado from '@/components/Listado.vue'
 
 export default {
   components: {
     'app-menu' : Menu,
+    'listado' : Listado,
   },
   data() {
     return {
@@ -51,6 +53,7 @@ export default {
             "<p>las Heras y arabe siria</p>" +
             "<p>No recibe donaciones</p>"))
         .addTo(this.map);
+
     new mapboxgl.Marker()
         .setLngLat([-58.378482,-34.595680])
         .setPopup(new mapboxgl.Popup().setHTML("<h1>Lo de Valchar</h1>" +
@@ -82,8 +85,8 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   border-left: 1px solid #fff;
   position: absolute;
   left: 33.3333%;
-  width: 66.6666%;
-  top: 16%;
+  width: 95%;
+  top: 15%;
   bottom: 0;
 }
 
