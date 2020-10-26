@@ -180,10 +180,10 @@
         <v-checkbox
             v-model="checkbox"
             :error-messages="checkboxErrors"
-            class="black--text orangeElement"
+            class="black--text"
             label="Confirmo que estos son mis datos"
             required
-            color="#E78200"
+            color="blue lighten-3"
             @change="$v.checkbox.$touch()"
             @blur="$v.checkbox.$touch()"
         ></v-checkbox>
@@ -427,20 +427,23 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid){
         this.loading = true;
-        let success = false
+        let success = false;
 
         if(this.isUser){
-          success = await this.addDonator()
+          success = await this.addDonator();
         }
         else
           success = await this.addOng()
 
         if (!success){
+          console.log("No pase amigo");
           this.submitError = true;
           this.mensajeAlertForm = `Error durante el registro, inténtelo más tarde`;
         }
         else{
+          console.log("Pase papa");
           this.submitted = true;
+
         }
 
         this.loading = false;
@@ -449,11 +452,11 @@ export default {
     },
 
     async addDonator(){
-      await UserStore.addDonator(this.email, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, /*latitud*/0, /*longitud*/0)
+      return await UserStore.addDonator(this.email, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, /*latitud*/0, /*longitud*/0)
     },
 
     async addOng(){
-      await UserStore.addOng(this.email, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, /*latitud*/0, /*longitud*/0)
+      return await UserStore.addOng(this.email, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, /*latitud*/0, /*longitud*/0)
     },
 
     clear() {

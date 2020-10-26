@@ -7,7 +7,8 @@ const UserStore = {
             console.log(email)
             const donator = new Donator(undefined, email, password, fullname, street, street_number, floor, region, latitude, longitude);
             console.log(donator)
-            return await UsersApi.addDonator(donator);
+            const result = await UsersApi.addDonator(donator);
+            return result.sucess;
         } catch (error) {
             console.log(error);
         }
