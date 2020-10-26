@@ -30,6 +30,25 @@
             </v-col>
         <v-spacer/>
     </v-row>
+
+    <v-alert
+            prominent
+            max-width="90%"
+            style="margin: 3%;"
+            class="mx-auto"
+            v-if="submitError"
+            color="red"
+            icon="mdi-account"
+            type="error" >
+          <v-row align="center">
+            <v-col>
+              {{ mensajeAlertForm}}
+            </v-col>
+            <v-col class="shrink">
+              <v-btn @click="submitError = !submitError">Aceptar</v-btn>
+            </v-col>
+          </v-row>
+        </v-alert>
     </form>
     </v-card>
 </template>
@@ -37,6 +56,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email} from 'vuelidate/lib/validators'
+import UserStore from "@/store/UserStore";
 
 export default {
     mixins: [validationMixin],
@@ -51,8 +71,10 @@ export default {
     return {
         password:'',
         email: '',
-
         showPass: false,
+
+        submitError: false,
+        mensajeAlertForm: '',
     }
   },
 
@@ -74,12 +96,24 @@ export default {
   },
  
   methods: {
-    submit () {
+
+    async submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
-        //Lo loguea y lo mando a algún lado
+        let success = false
+
+        success = await UserStore.login(this.email, this.password)
+
+        if (!success){
+          this.submitError = true;
+          this.mensajeAlertForm = `Error durante el ingreso, inténtelo más tarde`;
+        }
+        else{
+          console.log("Estoy logueado")
+        }
       }
     },
+
   },
 }
 </script>

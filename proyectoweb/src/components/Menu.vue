@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-img :src="require('../assets/LogoGigante.png')" alt="Logo Gigante" id="logo" class="ml-3"/>
-    
+    <v-img :src="require('../assets/LogoGigante.png')" @click="$router.push(home_link)" alt="Logo Gigante" id="logo"></v-img>
+
     <v-row id="filaMenu" class="blue lighten-3" >
       <v-col xs='6' sm='4' md="3" lg="2">
         <v-btn router :to='home_link' id='gigante' text>GIGANTE</v-btn>
@@ -11,7 +11,7 @@
       </v-col>
       <v-spacer></v-spacer>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn id='boton-superior' text>Registrarse</v-btn>
+        <v-btn id='boton-superior' router :to="registro_link" text>Registrarse</v-btn>
       </v-col>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
         <v-btn id='boton-superior' text @click="loggingIn = !loggingIn">Iniciar sesión</v-btn>
@@ -88,8 +88,9 @@ export default {
       loggingIn: false,
       
       home_link: '/',
-      quienesSomos_link: '/AcercaDeNostros',
-      noticias_link: 'Noticias',
+      registro_link: '/Registro',
+      quienesSomos_link: '/QuienesSomos',
+      noticias_link: '/Noticias',
     }
   },
 
