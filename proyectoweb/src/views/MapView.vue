@@ -6,21 +6,22 @@
     <row>
 
       <div class="sidebar pad2">
-        <v-container>
-          <v-card color="#FFFFFF" height="800px">
+          <v-card color="#FFFFFF" scrollable height="800px" width="100%">
             <p class ="titulo" v-icon>Asociaciones <v-icon>mdi-filter</v-icon></p>
             <!--mdi-filter</v-icon>-->
-              <v-card  v-for="desc in descriptions" :key="desc" style="margin-top: 10px" color="#DBEDF8" >
-                <div v-on:click="desc.marker.togglePopup()">
-                  <v-card-title >{{desc.title}}</v-card-title>
-                  <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-map-marker sm</v-icon>{{desc.direccion}}</v-card-text>
-                  <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-clock</v-icon> {{desc.horario}}</v-card-text>
-                  <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-format-list-numbered</v-icon> {{desc.lista}}</v-card-text>
-                </div>
-              </v-card>
+            <v-virtual-scroll height="700px"  item-height="180px" :items="descriptions">
+              <template v-slot:default="{ item }">
+                <v-card style="margin-top: 10px; margin-right:-25px; margin-left:10px;" width="92%" color="#DBEDF8" >
+                  <div v-on:click="item.marker.togglePopup()">
+                    <v-card-title >{{item.title}}</v-card-title>
+                    <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-map-marker sm</v-icon>{{item.direccion}}</v-card-text>
+                    <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-clock</v-icon> {{item.horario}}</v-card-text>
+                    <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-format-list-numbered</v-icon> {{item.lista}}</v-card-text>
+                  </div>
+                </v-card>
+              </template>
+            </v-virtual-scroll>
           </v-card>
-        </v-container>
-
       </div>
 
       <div>
@@ -29,6 +30,9 @@
     </row>
   </div>
 </template>
+
+
+
 
 <script>
 // @ is an alias to /src
@@ -124,6 +128,24 @@ export default {
             "<p>No recibe donaciones</p>"))
         .addTo(this.map);
 
+    this.descriptions[3].marker = new mapboxgl.Marker()
+        .setLngLat([-58.399482,-34.595780])
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
+            "<p>Esmeralda y Santa fe</p>" +
+            "<p>No recibe donaciones</p>"))
+        .addTo(this.map);
+    this.descriptions[4].marker = new mapboxgl.Marker()
+        .setLngLat([-58.389482,-34.598780])
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
+            "<p>Esmeralda y Santa fe</p>" +
+            "<p>No recibe donaciones</p>"))
+        .addTo(this.map);
+    this.descriptions[5].marker = new mapboxgl.Marker()
+        .setLngLat([-58.414281,-34.591505])
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
+            "<p>las Heras y arabe siria</p>" +
+            "<p>No recibe donaciones</p>"))
+        .addTo(this.map);
   }
 
 }
@@ -162,7 +184,7 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   box-sizing: border-box;
 }
 .titulo {
-  font-size: 50px;
+  font-size: 45px;
   font-family: "Arial Black";
   text-align: center;
 
