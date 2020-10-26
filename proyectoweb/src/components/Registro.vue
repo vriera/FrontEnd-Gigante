@@ -11,13 +11,13 @@
         <v-row>
         <v-spacer/>
         <v-col>
-        <v-btn v-bind:class="isUser?'blue lighten-4':'grey lighten-1'" id="tipo-cuenta" @click="setUser">
+        <v-btn v-bind:class="isUser?'blue lighten-4':'grey lighten-1'" class="tipo-cuenta" @click="setUser">
             <span color="black" x-large> Soy un usuario </span>
         </v-btn>
         </v-col>
         <v-spacer/>
         <v-col>
-        <v-btn v-bind:class="!isUser?'blue lighten-4':'grey lighten-1'" id="tipo-cuenta" @click="setONG">
+        <v-btn v-bind:class="!isUser?'blue lighten-4':'grey lighten-1'" class="tipo-cuenta" @click="setONG">
             <span color="black" x-large> Represento una ONG </span>
         </v-btn>
         </v-col>
@@ -491,7 +491,7 @@ export default {
   padding: 10% 10% 10% 10%;
 }
 
-#tipo-cuenta{
+.tipo-cuenta{
   margin: 0 2%;
   font-weight: bold;
 }
