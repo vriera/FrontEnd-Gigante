@@ -30,6 +30,11 @@ const routes = [
     component: () => import('../views/RegistroView.vue')
   },
   {
+    path: '/MisCampañas',
+    name: 'MisCampañas',
+    component: () => import('../views/MisCampañasView.vue')
+  },
+  {
     path: '*',
     name: '404',
     component: PageNotFound,
