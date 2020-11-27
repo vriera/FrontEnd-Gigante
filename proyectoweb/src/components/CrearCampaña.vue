@@ -28,11 +28,12 @@
             <v-text-field
                 style="width: 50%; margin: 0 auto;"
                 v-model="campaignName"
+                background-color="blue lighten-4"
                 :error-messages="campaignNameErrors"
                 label="Nombre de la campaña"
-                outlined
+                rounded
+                solo
                 required
-                @input="$v.campaignName.$touch()"
                 @blur="$v.campaignName.$touch()"
             ></v-text-field>
             <v-row>
@@ -44,9 +45,9 @@
                         v-model="desdeFecha"
                         :error-messages="desdeFechaErrors"
                         label="Fecha"
-                        solo
+                        outlined
+                        rounded
                         required
-                        @input="$v.desdeFecha.$touch()"
                         @blur="$v.desdeFecha.$touch()"
                         ></v-text-field>
                     </v-row>
@@ -59,21 +60,154 @@
                         v-model="hastaFecha"
                         :error-messages="hastaFechaErrors"
                         label="Fecha"
-                        solo
+                        outlined
+                        rounded
                         required
-                        @input="$v.hastaFecha.$touch()"
                         @blur="$v.hastaFecha.$touch()"
                         ></v-text-field>
                     </v-row>
                 </v-col>
                 <v-spacer/>
             </v-row>
+            <v-textarea
+            v-model="description"
+            :error-messages="descriptionErrors"
+            label="Descripción de la campaña"
+            required
+            @blur="$v.description.$touch()"
 
+            style="width: 90%; margin: 0 auto;"
+            clearable
+            filled
+            rounded
+            auto-grow
+            background-color="blue lighten-5"
+            color="blue lighten-1"
+            rows="4"
+            ></v-textarea>
+            
+            <span>*botones de categorias*</span>
+
+            <v-row style="margin: 2% 0 -2% 0;">
+                <v-spacer/>
+                <v-col cols="5">
+                    <v-row>
+                        <span id="formHint">Dirección: </span>
+                        <v-text-field
+                        v-model="street"
+                        :error-messages="streetErrors"
+                        outlined
+                        rounded
+                        required
+                        @blur="$v.street.$touch()"
+                        ></v-text-field>
+                    </v-row>
+                </v-col>
+                <v-spacer/>
+                <v-col cols="5">
+                    <v-row>
+                        <span id="formHint">Altura: </span>
+                        <v-text-field
+                        v-model="street_number"
+                        :error-messages="streetNumberErrors"
+                        outlined
+                        rounded
+                        required
+                        @blur="$v.street_number.$touch()"
+                        ></v-text-field>
+                    </v-row>
+                </v-col>
+                <v-spacer/>
+            </v-row>
+            <v-row style="margin: 0 0 -2% 0;">
+                <v-spacer/>
+                <v-col cols="5">
+                    <v-row>
+                        <span id="formHint">Localidad: </span>
+                        <v-text-field
+                        v-model="city"
+                        :error-messages="cityErrors"
+                        outlined
+                        rounded
+                        required
+                        @blur="$v.city.$touch()"
+                        ></v-text-field>
+                    </v-row>
+                </v-col>
+                <v-spacer/>
+                <v-col cols="5">
+                    <v-row>
+                        <span id="formHint">Barrio: </span>
+                        <v-text-field
+                        v-model="neighbourhood"
+                        :error-messages="neighbourhoodErrors"
+                        outlined
+                        rounded
+                        required
+                        @blur="$v.neighbourhood.$touch()"
+                        ></v-text-field>
+                    </v-row>
+                </v-col>
+                <v-spacer/>
+            </v-row>
+            <v-row style="margin: 0 0 -2% 0;">
+                <v-spacer/>
+                <v-col cols="5">
+                    <v-row>
+                        <span id="formHint">Teléfono: </span>
+                        <v-text-field
+                        v-model="phone"
+                        :error-messages="phoneErrors"
+                        outlined
+                        rounded
+                        required
+                        @blur="$v.phone.$touch()"
+                        ></v-text-field>
+                    </v-row>
+                </v-col>
+                <v-spacer/>
+                <v-col cols="5">
+                    <v-row>
+                        <span id="formHint">Contacto: </span>
+                        <v-text-field
+                        v-model="contacto"
+                        :error-messages="contactoErrors"
+                        outlined
+                        rounded
+                        required
+                        @blur="$v.contacto.$touch()"
+                        ></v-text-field>
+                    </v-row>
+                </v-col>
+                <v-spacer/>
+            </v-row>
+            <v-row style="margin: 0 0 0 0;">
+                <v-spacer/>
+                <v-col cols="8">
+                    <v-row>
+                        <span style="margin: 1.5% 2% 0 0;">Horario: </span>
+                        <v-text-field
+                        v-model="horario"
+                        :error-messages="horarioErrors"
+                        outlined
+                        rounded
+                        required
+                        @blur="$v.horario.$touch()"
+                        ></v-text-field>
+                    </v-row>
+                </v-col>
+                <v-spacer/>
+            </v-row>
+
+            <v-btn id="submitBtn" color="blue lighten-3">
+              <span>Publicar</span>
+            </v-btn>
           </form>
         </v-card>
       </v-col>
       <v-spacer/>
     </v-row>
+
   </div>
 </template>
 
@@ -167,6 +301,12 @@ computed:{
       !this.$v.contacto.required && errors.push('Alguna información de contacto es obligatoria')
       return errors
     },
+    horarioErrors () {
+      const errors = []
+      if (!this.$v.horario.$dirty) return errors
+      !this.$v.horario.required && errors.push('El horario para recibir la ayuda es obligatorio')
+      return errors
+    },
     phoneErrors () {
       const errors = []
       if (!this.$v.phone.$dirty) return errors
@@ -189,15 +329,44 @@ computed:{
         errors.push('La altura debe ser un número positivo')
       return errors
     },
-},
+  },
+
+  methods: {
+
+    async submit () {
+      this.$v.$touch()
+      if (!this.$v.$invalid){
+        this.loading = true;
+        let success = false;
+
+        //if(this.isUser){
+        //  success = await this.addDonator();
+        //}
+        //else
+        //  success = await this.addOng()
+
+        if (!success){
+          this.submitError = true;
+          this.mensajeAlertForm = 'Error al crear la campaña, inténtelo más tarde';
+        }
+        else{
+          this.submitted = true;
+
+        }
+
+        this.loading = false;
+      }
+
+    },
+
+  },
 }
 </script>
 
 <style scoped>
 
 #createCard{
-    margin: 4% 5%;
-    height: 100%;
+    margin: 2% 5% 1% 5%;
 }
 
 #campaignName{
@@ -211,6 +380,15 @@ computed:{
 }
 
 #formHint{
-    margin: 2% 2% 0 0;
+    margin: 2.5% 2% 0 0;
 }
+
+#submitBtn{
+    text-transform: none;
+    width: 20%;
+    display: table;
+    color: white;
+    margin: 0 auto;
+}
+
 </style>

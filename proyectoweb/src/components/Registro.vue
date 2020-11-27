@@ -436,12 +436,10 @@ export default {
           success = await this.addOng()
 
         if (!success){
-          console.log("No pase amigo");
           this.submitError = true;
-          this.mensajeAlertForm = `Error durante el registro, inténtelo más tarde`;
+          this.mensajeAlertForm = 'Error durante el registro, inténtelo más tarde';
         }
         else{
-          console.log("Pase papa");
           this.submitted = true;
 
         }
