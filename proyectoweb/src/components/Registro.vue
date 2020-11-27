@@ -324,7 +324,7 @@ export default {
       const errors = []
       if (!this.$v.fullname.$dirty) return errors
       !this.$v.fullname.required && errors.push('El nombre y apellido es obligatorio')
-      !this.$v.fullname.maxLength && errors.push('El nombre y apellido debe tener maximo 100 caracteres')
+      !this.$v.fullname.maxLength && errors.push('El nombre y apellido debe tener máximo 100 caracteres')
       return errors
     },
     passwordErrors () {
@@ -403,7 +403,7 @@ export default {
     alturaOngErrors () {
       const errors = []
       if (!this.$v.alturaOng.$dirty) return errors
-      !this.$v.alturaOng.required && errors.push('La altural es obligatoria')
+      !this.$v.alturaOng.required && errors.push('La altura es obligatoria')
       if (!this.$v.alturaOng.minValue || !this.$v.alturaOng.integer)
         errors.push('La altura de su organización debe ser un número positivo')
       return errors
