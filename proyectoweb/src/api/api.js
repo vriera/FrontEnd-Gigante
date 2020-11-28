@@ -5,7 +5,7 @@ class Api {
 
     //Chequear el puerto y si va el /api
     static get baseUrl() {
-        return 'http://localhost:3000';
+        return 'https://gigante-dockerstars.herokuapp.com';
     }
 
     static get timeout() {
