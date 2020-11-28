@@ -1,7 +1,7 @@
 export { Api };
 
 class Api {
-    //static token = sessionStorage.getItem('token');
+    static token = sessionStorage.getItem('token');
 
     //Chequear el puerto y si va el /api
     static get baseUrl() {
