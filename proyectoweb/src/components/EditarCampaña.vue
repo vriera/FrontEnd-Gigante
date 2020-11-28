@@ -86,13 +86,16 @@
             rows="4"
             ></v-textarea>
             
-            <v-row style="margin: 1% 5%;" :key="catBtnRenderer">
+            <div :key="catBtnRenderer">
+            <v-row style="margin: 1% 5%;">
               <v-col v-for="(category, index) in categories" :key="category">
-                <v-btn id='categoryBtn' v-bind:color="catSelected[index]? 'blue lighten-5' : 'grey lighten-1'" rounded @click="catSelected[index] = !catSelected[index]; forceCatBtnRerender();">
+                <v-btn id='categoryBtn' v-bind:color="catSelected[index]? 'blue lighten-5' : 'grey lighten-1'" rounded @click="catSelected[index] = !catSelected[index]; forceCatBtnRerender(); noCatError = false;">
                   <span>{{category}}</span>
                 </v-btn>
               </v-col>
             </v-row>
+            <span v-if="noCatError" style="color: red; margin: 0 0 0 6%;">Debe seleccionar al menos una categoría</span>
+            </div>
 
             <v-row style="margin: 2% 0 -2% 0;">
                 <v-spacer/>
@@ -205,7 +208,7 @@
                 <v-spacer/>
             </v-row>
 
-            <v-btn id="submitBtn" color="blue lighten-3">
+            <v-btn id="submitBtn" @click="submit" color="blue lighten-3">
               <span>Editar</span>
             </v-btn>
           </form>
@@ -241,11 +244,12 @@ export default {
 
   data(){
     return { 
-        campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
+        campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"1540662487"},
     
     categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
     catSelected: [false, false, false, false, false, false, false, false],
     catBtnRenderer: 0,
+    noCatError: false,
 
     campaignName:'',
     desdeFecha: '',
@@ -369,12 +373,15 @@ export default {
       for (let value of this.catSelected)
         if (value == true)
           return true
+
+      this.noCatError = true;
+      this.forceCatBtnRerender()
       return false
     },
 
     async submit () {
       this.$v.$touch()
-      if (!this.$v.$invalid || this.atLeastOneCategory()){
+      if (!this.$v.$invalid && this.atLeastOneCategory()){
         this.loading = true;
         let success = false;
 

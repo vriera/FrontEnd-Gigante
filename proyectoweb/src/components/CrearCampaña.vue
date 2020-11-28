@@ -86,13 +86,16 @@
             rows="4"
             ></v-textarea>
             
-            <v-row style="margin: 1% 5%;" :key="catBtnRenderer">
+            <div :key="catBtnRenderer">
+            <v-row style="margin: 1% 5%;">
               <v-col v-for="(category, index) in categories" :key="category">
-                <v-btn id='categoryBtn' v-bind:color="catSelected[index]? 'blue lighten-5' : 'grey lighten-1'" rounded @click="catSelected[index] = !catSelected[index]; forceCatBtnRerender();">
+                <v-btn id='categoryBtn' v-bind:color="catSelected[index]? 'blue lighten-5' : 'grey lighten-1'" rounded @click="catSelected[index] = !catSelected[index]; forceCatBtnRerender(); noCatError = false;">
                   <span>{{category}}</span>
                 </v-btn>
               </v-col>
             </v-row>
+            <span v-if="noCatError" style="color: red; margin: 0 0 0 6%;">Debe seleccionar al menos una categoría</span>
+            </div>
 
             <v-row style="margin: 2% 0 -2% 0;">
                 <v-spacer/>
@@ -246,6 +249,7 @@ export default {
     categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
     catSelected: [false, false, false, false, false, false, false, false],
     catBtnRenderer: 0,
+    noCatError: false,
 
     campaignName:'',
     desdeFecha: '',
@@ -350,12 +354,15 @@ computed:{
       for (let value of this.catSelected)
         if (value == true)
           return true
+
+      this.noCatError = true;
+      this.forceCatBtnRerender()
       return false
     },
 
     async submit () {
       this.$v.$touch()
-      if (!this.$v.$invalid || this.atLeastOneCategory()){
+      if (!this.$v.$invalid && this.atLeastOneCategory()){
         this.loading = true;
         let success = false;
 
