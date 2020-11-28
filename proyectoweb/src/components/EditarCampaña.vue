@@ -365,7 +365,7 @@ export default {
 
         if (!success){
           this.submitError = true;
-          this.mensajeAlertForm = 'Error al crear la campaña, inténtelo más tarde';
+          this.mensajeAlertForm = 'Error al actualizar la campaña, inténtelo más tarde';
         }
         else{
           this.submitted = true;
