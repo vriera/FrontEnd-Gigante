@@ -9,7 +9,7 @@
             <v-alert
             prominent
             max-width="50%"
-            style="margin: 0 auto;"
+            style="margin: 3% auto;"
             class="mx-auto"
             v-if="submitError"
             color="red"
@@ -86,7 +86,13 @@
             rows="4"
             ></v-textarea>
             
-            <span>*botones de categorias*</span>
+            <v-row style="margin: 1% 5%;" :key="catBtnRenderer">
+              <v-col v-for="(category, index) in categories" :key="category">
+                <v-btn id='categoryBtn' v-bind:color="catSelected[index]? 'blue lighten-5' : 'grey lighten-1'" rounded @click="catSelected[index] = !catSelected[index]; forceCatBtnRerender();">
+                  <span>{{category}}</span>
+                </v-btn>
+              </v-col>
+            </v-row>
 
             <v-row style="margin: 2% 0 -2% 0;">
                 <v-spacer/>
@@ -199,7 +205,7 @@
                 <v-spacer/>
             </v-row>
 
-            <v-btn id="submitBtn" color="blue lighten-3">
+            <v-btn id="submitBtn" @click="submit" color="blue lighten-3">
               <span>Publicar</span>
             </v-btn>
           </form>
@@ -237,6 +243,10 @@ export default {
     return { 
         campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
     
+    categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
+    catSelected: [false, false, false, false, false, false, false, false],
+    catBtnRenderer: 0,
+
     campaignName:'',
     desdeFecha: '',
     hastaFecha:'',
@@ -332,10 +342,20 @@ computed:{
   },
 
   methods: {
+    forceCatBtnRerender() {
+      this.catBtnRenderer += 1;
+    },
+
+    atLeastOneCategory() {
+      for (let value of this.catSelected)
+        if (value == true)
+          return true
+      return false
+    },
 
     async submit () {
       this.$v.$touch()
-      if (!this.$v.$invalid){
+      if (!this.$v.$invalid || this.atLeastOneCategory()){
         this.loading = true;
         let success = false;
 
@@ -388,6 +408,13 @@ computed:{
     width: 20%;
     display: table;
     color: white;
+    margin: 0 auto;
+}
+
+#categoryBtn{
+    text-transform: none;
+    width: 100%;
+    display: table;
     margin: 0 auto;
 }
 
