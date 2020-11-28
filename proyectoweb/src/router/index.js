@@ -40,6 +40,11 @@ const routes = [
     component: () => import('../views/CrearCampañaView.vue')
   },
   {
+    path: '/EditarCampaña',
+    name: 'EditarCampaña',
+    component: () => import('../views/EditarCampañaView.vue')
+  },
+  {
     path: '*',
     name: '404',
     component: PageNotFound,

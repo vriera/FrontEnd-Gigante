@@ -53,8 +53,8 @@
                 <v-row>
                   <span>Teléfono: {{campaigns[campaignSelected].phone}}</span>
                 </v-row>
-                <v-btn id="editarBtn" color="blue lighten-3">
-                  <span>Editar</span>
+                <v-btn id="editarBtn" :to="editar_campaña_link" color="blue lighten-3">
+                  <span style="margin: 5% 0 0 0;">Editar</span>
                 </v-btn>
                 </div>
               </v-card>
@@ -77,6 +77,7 @@ export default {
     return {
 
         crear_campaña_link: '/CrearCampaña',
+        editar_campaña_link: '/EditarCampaña',
 
         campaignSelected: 0,//-1,   //Índice de la campaña que estoy mostrando en detalle
 
