@@ -3,6 +3,8 @@ export {UsersApi, Donator, Ong, Credentials};
 
 class UsersApi {
     static userToken = sessionStorage.getItem('token');
+    static userId = sessionStorage.getItem('userId');
+    static userCategory = sessionStorage.getItem('category');
 
     static get donatorUrl() {
         return `${Api.baseUrl}/donators`;
@@ -24,6 +26,10 @@ class UsersApi {
         console.log(credentials);
         const result = await Api.post(`${Api.baseUrl}/login`, false, credentials, controller);
         sessionStorage.setItem('token', result.token);
+        sessionStorage.setItem('category', result.category);
+        sessionStorage.setItem('userId', result.userId);
+        this.userId = result.userId;
+        this.userCategory = result.category
         Api.token = result.token;
         this.userToken = result.token;
         console.log(result);
