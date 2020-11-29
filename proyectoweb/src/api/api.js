@@ -17,7 +17,7 @@ class Api {
             if (!init.headers)
                 init.headers = {};
 
-            init.headers['Authorization'] = `bearer ${Api.token}`;
+            init.headers['Authorization'] = `Bearer ${Api.token}`;
         }
 
         controller = controller || new AbortController();

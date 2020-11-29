@@ -24,6 +24,7 @@ class UsersApi {
         console.log(credentials);
         const result = await Api.post(`${Api.baseUrl}/login`, false, credentials, controller);
         sessionStorage.setItem('token', result.token);
+        Api.token = result.token;
         this.userToken = result.token;
         console.log(result);
         return result;
