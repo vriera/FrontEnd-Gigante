@@ -30,6 +30,17 @@ const routes = [
     component: () => import('../views/RegistroView.vue')
   },
   {
+    path: '/Perfil',
+    name: 'Perfil',
+    component: () => import('../views/PerfilView.vue')
+  },
+  {
+    path: '/EditarPerfil',
+    name: 'EditarPerfil',
+    component: () => import('../views/EditarPerfilView.vue')
+  },
+
+  {
     path: '*',
     name: '404',
     component: PageNotFound,
