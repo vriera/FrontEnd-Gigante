@@ -12,21 +12,25 @@ const CampaignStore = {
         }
     },
 
-    async getCampaigns(){
-        return await CampaignApi.getCampaigns();
+    async getCampaigns(id){
+        return await CampaignApi.getCampaigns(id);
     },
 
-    async modifyCampaign(id,id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact){
-        const campaign = new Campaign(id,id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact)
-        return await CampaignApi.putCampaign(campaign);
+    //async getMyCampaigns(){
+      //  return await CampaignApi.getMyCampaigns();
+    //},
+
+    async modifyCampaign(id, name, description, init_date, end_date, address, city, location, schedule, phone, contact){
+        const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, address, city, location, schedule, phone, contact)
+        return await CampaignApi.putCampaign(id, campaign);
     },
 
     async deleteCampaign(id){
         return await CampaignApi.deleteCampaign(id);
     },
 
-    async getCategories(){
-        return await CategoriesApi.getCategories();
+    async getCategories(id){
+        return await CategoriesApi.getCategories(id);
     },
 
     async addCategories(description){
@@ -35,8 +39,7 @@ const CampaignStore = {
     },
 
     async modifyCategories(id, description){
-        const category = new Category(undefined, description)
-        return await CategoriesApi.putCategory(category)
+        return await CategoriesApi.putCategory(id,description)
     },
 
     async deleteCategories(id){

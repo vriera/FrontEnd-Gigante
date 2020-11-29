@@ -11,17 +11,25 @@ class CampaignApi {
         return await Api.post(`${CampaignApi.url}`, true, campaign, controller);
     }
 
-    static async getCampaigns(campaign, controller) {
-        return await Api.get(`${CampaignApi.url}`, true, controller);
+    static async getCampaigns(id, controller) {
+        if(id === undefined) {
+            return await Api.get(`${CampaignApi.url}`, true, controller);
+        }
+        return await Api.get(`${CampaignApi.url}/${id}`, true, controller);
     }
 
-    static async putCampaign(campaign, controller){
-        return await Api.put(`${CampaignApi.url}/${campaign.id}`,true, campaign, true, controller)
+    //static async getMyCampaigns(controller){
+      //  return await Api.get(`${Api.baseUrl}/user/current/campaigns`, true, controller)
+    //}
+
+    static async putCampaign(id, campaign, controller){
+        return await Api.put(`${CampaignApi.url}/${id}`,true, campaign, true, controller)
     }
 
     static async deleteCampaign(id, controller){
         return await Api.delete(`${CampaignApi.url}/${id}`, true, controller)
     }
+
 }
 
 
@@ -35,7 +43,9 @@ class Campaign{
             this.id_campaign = id_campaign
         }
 
-        this.id_ong = id_ong;
+        if(id_ong) {
+            this.id_ong = id_ong;
+        }
         this.name = name;
         this.description = description;
         this.init_date = init_date;
