@@ -9,29 +9,33 @@
           </v-col>
 
           <v-col style="margin-top: 50px">
-            <v-text>John Doe</v-text>
+            <h3>John Doe</h3>
           </v-col>
         </v-row>
 
         <v-row style="margin-top: 5%; margin-left: 5%">
-          <v-text>Configuración</v-text>
+          <h3>Configuración</h3>
         </v-row>
 
-        <v-row style="margin-left: 5%" v-on:click="router.to(edit_link)">
-          <v-col cols="2">
-            <v-icon>mdi-pencil</v-icon>
-          </v-col>
-          <v-col >
-            <v-text>Editar perfil</v-text>
-          </v-col>
-        </v-row>
+        <v-card :to="edit_link" style="border-color: white; background-color: white; box-shadow: none">
+          <v-row style="margin-left: 5%" >
+            <v-col cols="2">
+                <v-icon >mdi-pencil</v-icon>
+            </v-col>
+            <v-col >
+              <h3>Editar perfil</h3>
+            </v-col>
+          </v-row>
+        </v-card>
+
+
 
         <v-row style="margin-left: 5%">
           <v-col cols="2">
             <v-icon>mdi-bell</v-icon>
           </v-col>
           <v-col >
-            <v-text>Notificaciones</v-text>
+            <h3>Notificaciones</h3>
           </v-col>
         </v-row>
 
@@ -40,7 +44,7 @@
             <v-icon>mdi-key</v-icon>
           </v-col>
           <v-col>
-            <v-text>Privacidad</v-text>
+            <h3>Privacidad</h3>
           </v-col>
         </v-row>
 
@@ -55,7 +59,7 @@ import router from '@/router';
 
 <script>
 export default {
-  name: "ProfileCard",
+  name: "TarjetaDatosPerfil",
 
   data() {
     return {

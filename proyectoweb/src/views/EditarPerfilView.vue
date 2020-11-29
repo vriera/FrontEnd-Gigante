@@ -1,11 +1,11 @@
 <template>
   <div>
-    <!--v-row justify="center">
+    <v-row justify="center">
       <v-card style="min-width: 70%; border-radius: 20px;">
 
         <v-row justify="center">
           <v-avatar size="220" cols="2">
-            <v-img src="@/assets/images/default.png"/>
+            <v-img src="@/assets/default.png"/>
           </v-avatar>
         </v-row>
 
@@ -57,14 +57,10 @@
             <v-row>
               <div style="width: 650px">
                 <v-text-field v-model="username" outlined
-                              :disabled="(editUsername !== true)"
+                              :disabled="true"
                               :rules="[rules.required(username)]"
                               rounded background-color="#F7F2F2"/>
               </div>
-              <v-icon size="34" color="#8B8686" style="position: relative; bottom: 15px; left: 5px;"
-                      @click="editUsername = !editUsername">
-                mdi-pencil
-              </v-icon>
             </v-row>
           </v-col>
         </v-row>
@@ -77,10 +73,14 @@
             <v-row>
               <div style="width: 650px">
                 <v-text-field v-model="email" outlined
-                              :disabled="true"
-                              :rules="[rules.required(email), rules.email(email)]"
+                              :disabled="(editEmail !== true)"
+                              :rules="[rules.required(email)]"
                               rounded background-color="#F7F2F2"/>
               </div>
+              <v-icon size="34" color="#8B8686" style="position: relative; bottom: 15px; left: 5px;"
+                      @click="editEmail = !editEmail">
+                mdi-pencil
+              </v-icon>
             </v-row>
           </v-col>
         </v-row>
@@ -189,7 +189,7 @@
 
 
       </v-card>
-    </v-row-->
+    </v-row>
   </div>
 </template>
 
@@ -204,8 +204,8 @@ export default {
       nombre: '',
       editNombre: false,
       username: '',
-      editUsername: false,
       email: '',
+      editEmail: false,
       region: '',
       editRegion: false,
       calle: '',
