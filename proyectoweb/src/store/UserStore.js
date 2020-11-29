@@ -33,6 +33,18 @@ const UserStore = {
         }
     },
 
+    async getCurrentUser(){
+        return await UsersApi.getCurrentUser();
+    },
+
+    async getOngs(){
+        return await UsersApi.getOngs();
+    },
+
+    async getDonators(){
+        return await UsersApi.getDonators();
+    }
+
     //async logoutUser() {
     //    await UsersApi.logout();
     //},

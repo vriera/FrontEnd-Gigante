@@ -88,6 +88,10 @@ const CampaignStore = {
 
     async getDonationByCampaignAndCategory(campaignId, categoryId){
         return await DonationsApi.getDonationsByCampaignAndCategory(campaignId,categoryId);
+    },
+
+    async getDonationsByDonator(donatorId){
+        return await DonationsApi.getDonationsByDonator(donatorId);
     }
 };
 

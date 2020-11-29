@@ -12,7 +12,7 @@ class Donation {
         if(campaignId) {
             this.id_campaign = campaignId;
         }
-        if(this.id_category) {
+        if(categoryId) {
             this.id_category = categoryId;
         }
         this.cant = cant;
@@ -41,6 +41,7 @@ class DonationsApi{
             return await Api.get(`${Api.baseUrl}/campaigns/${campaignId}/categories/${categoryId}/donations` , true , controller);
         }
     }
+
 
     static async getDonationsByDonator( id , controller){
         if ( Number.isInteger(id)){

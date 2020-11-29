@@ -23,7 +23,7 @@ class CampaignApi {
     }
 
     static async getMyCampaigns(controller){
-        return await Api.get(`${Api.baseUrl}/ongs/current/campaigns`, true, controller)
+        return await Api.get(`${Api.baseUrl}/user/current/campaigns`, true, controller)
     }
 
     static async putCampaign(id, campaign, controller){
@@ -43,7 +43,7 @@ class CampaignApi {
     }
 
     static async putCampaignCategory(campaignId,categoryId,category, controller){
-        return await Api.put(`${CampaignApi.url}/${campaignId}/${CampaignApi.categoryUrl}/${categoryId}`, category, true, controller);
+        return await Api.put(`${CampaignApi.url}/${campaignId}/${CampaignApi.categoryUrl}/${categoryId}`, true, category, controller);
     }
 
     static async deleteCampaignCategory(campaignId, categoryId, controller){

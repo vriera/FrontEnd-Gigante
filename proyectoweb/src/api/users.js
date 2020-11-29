@@ -13,6 +13,10 @@ class UsersApi {
     static get ongUrl() {
         return `${Api.baseUrl}/ongs`;
     }
+
+    static get userUrl(){
+        return `${Api.baseUrl}/user/current`;
+    }
     
     static async addDonator(donator, controller) {
         return await Api.post(`${UsersApi.donatorUrl}`, false, donator, controller);
@@ -36,10 +40,27 @@ class UsersApi {
         return result;
     }
 
+    static async getCurrentUser(controller){
+        if(this.userCategory === 'ong'){
+            return await Api.get(`${UsersApi.userUrl}/ongs`, true, controller);
+        }
+        return await Api.get(`${UsersApi.userUrl}/donators`, true, controller);
+    }
+
     //static async logout(controller) {
     //    await Api.post(`${UsersApi.url}/logout`, true, controller);
     //    sessionStorage.removeItem('token');
     //}
+
+    static async getOngs(controller){
+        return await Api.get(`${UsersApi.ongUrl}`, true, controller);
+    }
+
+    static async getDonators(controller){
+        return await Api.get(`${UsersApi.donatorUrl}`, true, controller);
+    }
+
+
 
 }
 
