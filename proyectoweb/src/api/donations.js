@@ -2,13 +2,19 @@ import { Api } from './api.js';
 export { DonationsApi , Donation };
 
 class Donation {
-    constructor( donatorId , campaignId , categoryId , cant , isVerified , donationId ){
-        if ( donatorId === undefined){
+    constructor( donationId, donatorId , campaignId , categoryId , cant , isVerified){
+        if ( donationId === undefined){
             this.id_donation = donationId;
         }
-        this.id_donator = donatorId;
-        this.id_campaign = campaignId;
-        this.id_category =  categoryId;
+        if(donatorId) {
+            this.id_donator = donatorId;
+        }
+        if(campaignId) {
+            this.id_campaign = campaignId;
+        }
+        if(this.id_category) {
+            this.id_category = categoryId;
+        }
         this.cant = cant;
         if ( isVerified === undefined){
             this.isVerified = false;
@@ -24,13 +30,13 @@ class DonationsApi{
         return await Api.get(`${Api.baseUrl}/donations`, true , controller);
     }
 
-    static async getDonationsByCampaing( id , controller){
+    static async getDonationsByCampaign( id , controller){
         if (Number.isInteger(id)){
             return await Api.get(`${Api.baseUrl}/campaigns/${id}/donations`, true , controller);
         }
     }
 
-    static async getDonationsByCampaingAndCategory(campaignId , categoryId , controller){
+    static async getDonationsByCampaignAndCategory(campaignId , categoryId , controller){
         if ( Number.isInteger(campaignId) && Number.isInteger(categoryId)){
             return await Api.get(`${Api.baseUrl}/campaigns/${campaignId}/categories/${categoryId}/donations` , true , controller);
         }

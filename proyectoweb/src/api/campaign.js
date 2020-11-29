@@ -22,9 +22,9 @@ class CampaignApi {
         return await Api.get(`${CampaignApi.url}/${id}`, true, controller);
     }
 
-    //static async getMyCampaigns(controller){
-      //  return await Api.get(`${Api.baseUrl}/user/current/campaigns`, true, controller)
-    //}
+    static async getMyCampaigns(controller){
+        return await Api.get(`${Api.baseUrl}/ongs/current/campaigns`, true, controller)
+    }
 
     static async putCampaign(id, campaign, controller){
         return await Api.put(`${CampaignApi.url}/${id}`,true, campaign, true, controller)

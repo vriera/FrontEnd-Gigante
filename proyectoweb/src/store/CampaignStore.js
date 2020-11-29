@@ -1,5 +1,6 @@
 import {CampaignApi, Campaign, CampaignCategory} from "@/api/campaign";
 import {CategoriesApi, Category} from "@/api/category";
+import {Donation, DonationsApi} from "@/api/donations";
 
 const CampaignStore = {
 
@@ -16,9 +17,9 @@ const CampaignStore = {
         return await CampaignApi.getCampaigns(id);
     },
 
-    //async getMyCampaigns(){
-      //  return await CampaignApi.getMyCampaigns();
-    //},
+    async getMyCampaigns(){
+        return await CampaignApi.getMyCampaigns();
+    },
 
     async modifyCampaign(id, name, description, init_date, end_date, address, city, location, schedule, phone, contact){
         const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, address, city, location, schedule, phone, contact)
@@ -62,6 +63,31 @@ const CampaignStore = {
 
     async deleteCategories(id){
         return await CategoriesApi.deleteCategory(id)
+    },
+
+    async getDonations(){
+        return await DonationsApi.getAllDonations();
+    },
+
+    async addDonation(donatorId, campaignId, categoryId, cant, isVerified){
+        const donation = new Donation(undefined, donatorId, campaignId, categoryId, cant, isVerified);
+        return await DonationsApi.postDonation(donation);
+    },
+
+    async modifyDonation(donationId, cant, isVerified){
+        return await DonationsApi.putDonation(donationId, cant, isVerified);
+    },
+
+    async deleteDonation(donationId){
+        return await DonationsApi.deleteDonation(donationId);
+    },
+
+    async getDonationByCampaign(campaignId){
+        return await DonationsApi.getDonationsByCampaign(campaignId);
+    },
+
+    async getDonationByCampaignAndCategory(campaignId, categoryId){
+        return await DonationsApi.getDonationsByCampaignAndCategory(campaignId,categoryId);
     }
 };
 
