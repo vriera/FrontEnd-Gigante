@@ -26,6 +26,13 @@ class UsersApi {
         return await Api.post(`${UsersApi.ongUrl}`, false, ong, controller);
     }
 
+    static async putCurrentUser(user, controller){
+        if(this.userCategory === 'ong'){
+            return await Api.put(`${UsersApi.userUrl}/ongs`, true, user, controller);
+        }
+        return await Api.put(`${UsersApi.userUrl}/donators`, true, user, controller);
+    }
+
     static async login(credentials, controller) {
         console.log(credentials);
         const result = await Api.post(`${Api.baseUrl}/login`, false, credentials, controller);
@@ -52,14 +59,32 @@ class UsersApi {
     //    sessionStorage.removeItem('token');
     //}
 
-    static async getOngs(controller){
-        return await Api.get(`${UsersApi.ongUrl}`, true, controller);
+    static async getOngs(id, controller){
+        if(id === undefined) {
+            return await Api.get(`${UsersApi.ongUrl}`, true, controller);
+        }
+        return await Api.get(`${UsersApi.ongUrl}/${id}`, true, controller)
     }
 
-    static async getDonators(controller){
-        return await Api.get(`${UsersApi.donatorUrl}`, true, controller);
+
+    static async getDonators(id, controller){
+        if(id === undefined) {
+            return await Api.get(`${UsersApi.donatorUrl}`, true, controller);
+        }
+        return await Api.get(`${UsersApi.donatorUrl}/${id}`, true, controller);
     }
 
+    static async logout(controller){
+        const result = await Api.post(`${Api.baseUrl}/logout`, true, {}, controller)
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('category');
+        this.userToken = null;
+        this.userCategory = null;
+        this.userId = null;
+        return result;
+
+    }
 
 
 }
@@ -75,13 +100,19 @@ class Ong{
 
     constructor(id, email, username, password, fullname, rep_name, rep_dni, phone, street, street_number, floor, region, latitude, longitude) {
 
-        if(id){
+        if (id) {
             this.id = id
         }
 
-        this.email = email;
-        this.username = username;
-        this.password = password;
+        if (email) {
+            this.email = email;
+        }
+        if(username) {
+            this.username = username;
+        }
+        if(password) {
+            this.password = password;
+        }
         this.fullname = fullname;
         this.rep_name = rep_name;
         this.rep_dni = rep_dni;
@@ -105,9 +136,15 @@ class Donator{
             this.id = id
         }
 
-        this.email = email;
-        this.username = username;
-        this.password = password;
+        if(email) {
+            this.email = email;
+        }
+        if(username) {
+            this.username = username;
+        }
+        if(password) {
+            this.password = password;
+        }
         this.fullname = fullname;
         this.street = street;
         this.street_number = street_number;

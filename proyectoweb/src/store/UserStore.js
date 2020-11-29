@@ -37,12 +37,27 @@ const UserStore = {
         return await UsersApi.getCurrentUser();
     },
 
-    async getOngs(){
-        return await UsersApi.getOngs();
+    async getOngs(id){
+        return await UsersApi.getOngs(id);
     },
 
-    async getDonators(){
-        return await UsersApi.getDonators();
+    async getDonators(id){
+        return await UsersApi.getDonators(id);
+    },
+
+    async modifyCurrentUser(fullname,street, street_number, floor, region, latitude, longitude, rep_name, rep_dni, phone){
+        let user;
+        if(UsersApi.userCategory === 'ong'){
+             user = new Ong(undefined, undefined, undefined, undefined, fullname, rep_name, rep_dni, phone, street, street_number, floor, region, latitude, longitude);
+        }
+        else{
+            user = new Donator(undefined, undefined, undefined, undefined, fullname, street, street_number, floor, region, latitude, longitude);
+        }
+        return await UsersApi.putCurrentUser(user);
+    },
+
+    async logout(){
+      return await UsersApi.logout();
     }
 
     //async logoutUser() {
