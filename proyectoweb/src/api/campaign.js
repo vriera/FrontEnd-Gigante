@@ -1,10 +1,14 @@
 import { Api } from './api.js';
-export {CampaignApi, Campaign};
+export {CampaignApi, Campaign, CampaignCategory};
 
 class CampaignApi {
 
     static get url() {
         return `${Api.baseUrl}/campaigns`;
+    }
+
+    static get categoryUrl(){
+        return 'categories'
     }
 
     static async postCampaign(campaign, controller) {
@@ -30,11 +34,22 @@ class CampaignApi {
         return await Api.delete(`${CampaignApi.url}/${id}`, true, controller)
     }
 
+    static async getCampaignCategories(id, controller){
+        return await Api.get(`${CampaignApi.url}/${id}/${CampaignApi.categoryUrl}`, true, controller);
+    }
+
+    static async postCampaignCategory(id, category, controller){
+        return await Api.post(`${CampaignApi.url}/${id}/${CampaignApi.categoryUrl}`, true, category, controller);
+    }
+
+    static async putCampaignCategory(campaignId,categoryId,category, controller){
+        return await Api.put(`${CampaignApi.url}/${campaignId}/${CampaignApi.categoryUrl}/${categoryId}`, category, true, controller);
+    }
+
+    static async deleteCampaignCategory(campaignId, categoryId, controller){
+        return await Api.delete(`${CampaignApi.url}/${campaignId}/${CampaignApi.categoryUrl}/${categoryId}`, true, controller);
+    }
 }
-
-
-
-
 
 class Campaign{
     constructor(id_campaign, id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact) {
@@ -57,5 +72,18 @@ class Campaign{
         this.phone = phone;
         this.contact = contact;
 
+    }
+}
+
+class CampaignCategory{
+    constructor(id_campaign, id_category, wanted,total) {
+        if(id_campaign){
+            this.id_campaign = id_campaign;
+        }
+        if(id_category){
+            this.id_category = id_category;
+        }
+        this.wanted = wanted;
+        this.total = total;
     }
 }

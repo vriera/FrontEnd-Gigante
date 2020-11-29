@@ -1,4 +1,4 @@
-import {CampaignApi, Campaign} from "@/api/campaign";
+import {CampaignApi, Campaign, CampaignCategory} from "@/api/campaign";
 import {CategoriesApi, Category} from "@/api/category";
 
 const CampaignStore = {
@@ -27,6 +27,24 @@ const CampaignStore = {
 
     async deleteCampaign(id){
         return await CampaignApi.deleteCampaign(id);
+    },
+
+    async getCampaignCategories(id){
+        return await CampaignApi.getCampaignCategories(id);
+    },
+
+    async addCampaignCategory(campaignId, categoryId, wanted, total){
+        const category = new CampaignCategory(undefined, categoryId, wanted, total);
+        return await CampaignApi.postCampaignCategory(campaignId, category)
+    },
+
+    async modifyCampaignCategory(campaignId, categoryId, wanted, total){
+        const category = new CampaignCategory(undefined, undefined, wanted, total);
+        return await CampaignApi.putCampaignCategory(campaignId,categoryId,category);
+    },
+
+    async deleteCampaignCategory(campaignId, categoryId){
+        return await CampaignApi.deleteCampaignCategory(campaignId, categoryId);
     },
 
     async getCategories(id){
