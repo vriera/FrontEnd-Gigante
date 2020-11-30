@@ -49,6 +49,15 @@
         <h3 style="margin: 1% 1%;">Mis datos:</h3>
 
         <v-text-field
+            v-model="username"
+            :error-messages="usernameErrors"
+            label="Nombre de usuario"
+            solo
+            required
+            @input="$v.username.$touch()"
+            @blur="$v.username.$touch()"
+        ></v-text-field>
+        <v-text-field
             v-model="fullname"
             :error-messages="fullNameErrors"
             label="Nombre y apellido"
@@ -236,6 +245,7 @@ export default {
   mixins: [validationMixin],
 
   validations: {
+    username : {required, maxLength : maxLength(100)},
     fullname : {required, maxLength : maxLength(100)},
     password:{required, maxLength : maxLength(50)},
     confirmationPassword:{required,sameAsPassword: sameAs('password'), maxLength : maxLength(50)},
@@ -284,6 +294,7 @@ export default {
 
     isUser: true,
 
+    username: '',
     fullname: '',
     password:'',
     confirmationPassword:'',
@@ -318,6 +329,13 @@ export default {
       const errors = []
       if (!this.$v.checkbox.$dirty) return errors
       !this.$v.checkbox.checked && errors.push('Debe confirmar para continuar!')
+      return errors
+    },
+    usernameErrors () {
+      const errors = []
+      if (!this.$v.username.$dirty) return errors
+      !this.$v.username.required && errors.push('El nombre de usuario es obligatorio')
+      !this.$v.username.maxLength && errors.push('El de usuario debe tener máximo 100 caracteres')
       return errors
     },
     fullNameErrors () {
@@ -450,11 +468,11 @@ export default {
     },
 
     async addDonator(){
-      return await UserStore.addDonator(this.email, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, /*latitud*/0, /*longitud*/0)
+      return await UserStore.addDonator(this.email, this.username, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, /*latitud*/0, /*longitud*/0)
     },
 
     async addOng(){
-      return await UserStore.addOng(this.email, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, /*latitud*/0, /*longitud*/0)
+      return await UserStore.addOng(this.email, this.username, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, /*latitud*/0, /*longitud*/0)
     },
 
     clear() {
