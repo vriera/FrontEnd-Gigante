@@ -52,7 +52,7 @@ class CampaignApi {
 }
 
 class Campaign{
-    constructor(id_campaign, id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact) {
+    constructor(id_campaign, id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact, isActive) {
 
         if(id_campaign){
             this.id_campaign = id_campaign
@@ -71,7 +71,7 @@ class Campaign{
         this.schedule = schedule;
         this.phone = phone;
         this.contact = contact;
-
+        this.isActive = isActive;
     }
 }
 
