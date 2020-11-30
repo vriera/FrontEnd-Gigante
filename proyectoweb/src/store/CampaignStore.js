@@ -34,15 +34,15 @@ const CampaignStore = {
         return await CampaignApi.getCampaignCategories(id);
     },
 
-    async addCampaignCategory(campaignId, categoryId, wanted, total){
-        const category = new CampaignCategory(undefined, categoryId, wanted, total);
+    async addCampaignCategory(campaignId, categoryId){
+        const category = new CampaignCategory(undefined, categoryId);
         return await CampaignApi.postCampaignCategory(campaignId, category)
     },
-
+    /*
     async modifyCampaignCategory(campaignId, categoryId, wanted, total){
         const category = new CampaignCategory(undefined, undefined, wanted, total);
         return await CampaignApi.putCampaignCategory(campaignId,categoryId,category);
-    },
+    },*/
 
     async deleteCampaignCategory(campaignId, categoryId){
         return await CampaignApi.deleteCampaignCategory(campaignId, categoryId);

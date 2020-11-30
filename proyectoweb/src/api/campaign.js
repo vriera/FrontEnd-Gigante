@@ -76,14 +76,12 @@ class Campaign{
 }
 
 class CampaignCategory{
-    constructor(id_campaign, id_category, wanted,total) {
+    constructor(id_campaign, id_category) {
         if(id_campaign){
             this.id_campaign = id_campaign;
         }
         if(id_category){
             this.id_category = id_category;
         }
-        this.wanted = wanted;
-        this.total = total;
     }
 }
