@@ -223,6 +223,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, minLength, minValue, integer} from 'vuelidate/lib/validators'
+import CampaignStore from '@/store/CampaignStore'
 
 export default {
     mixins: [validationMixin],
@@ -251,6 +252,7 @@ export default {
     catBtnRenderer: 0,
     noCatError: false,
 
+    campaignId: '',
     campaignName:'',
     desdeFecha: '',
     hastaFecha:'',
@@ -385,11 +387,10 @@ export default {
         this.loading = true;
         let success = false;
 
-        //if(this.isUser){
-        //  success = await this.addDonator();
-        //}
-        //else
-        //  success = await this.addOng()
+        //Cargar el id de la campaña, probablemente en el created()
+        success = await CampaignStore.modifyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha,this.street + ' ' + this.street_number,
+                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto);
+
 
         if (!success){
           this.submitError = true;

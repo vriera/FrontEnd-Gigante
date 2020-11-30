@@ -223,6 +223,8 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, minLength, minValue, integer} from 'vuelidate/lib/validators'
+import CampaignStore from '@/store/CampaignStore'
+import UserStore from '@/store/UserStore'
 
 export default {
     mixins: [validationMixin],
@@ -366,11 +368,16 @@ computed:{
         this.loading = true;
         let success = false;
 
-        //if(this.isUser){
-        //  success = await this.addDonator();
-        //}
-        //else
-        //  success = await this.addOng()
+        let currentOng = await UserStore.getCurrentUser();
+        if (currentOng.id === undefined){
+          this.submitError = true;
+          this.mensajeAlertForm = 'Error al crear la campaña, inténtelo más tarde';
+          this.loading = false;
+          return;
+        }
+
+        success = await CampaignStore.addCampaign(currentOng.id, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street + ' ' + this.street_number,
+                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto);
 
         if (!success){
           this.submitError = true;
