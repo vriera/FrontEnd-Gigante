@@ -118,7 +118,7 @@ export default {
   data(){
     return {
       showDetail: false,
-      isUser: false,       //Si es true es donante, sino es ong
+      isUser: true,       //Si es true es donante, sino es ong
       isLoggedIn: false,
       loggingIn: false,
       
@@ -127,6 +127,17 @@ export default {
       quienesSomos_link: '/QuienesSomos',
       noticias_link: '/Noticias',
       mis_campañas_link: '/MisCampañas',
+    }
+  },
+
+  created() {
+    if (sessionStorage.getItem('token') != undefined){
+      this.isLoggedIn = true;
+      this.isUser = sessionStorage.getItem('category') === 'ong'? false:true;
+    }
+    else{
+      this.isLoggedIn = false;
+      this.isUser = true;
     }
   },
 
