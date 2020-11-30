@@ -2,12 +2,12 @@
     <v-card flat id="cardLogin" class="blue lighten-3">
         <form id="formLogin">
         <v-text-field
-          v-model="email"
-          :error-messages="emailErrors"
-          label="Correo electrónico"
+          v-model="username"
+          :error-messages="usernameErrors"
+          label="Nombre de usuario"
           solo
           required
-        @blur="$v.email.$touch()"
+        @blur="$v.username.$touch()"
       ></v-text-field>
         <v-text-field
          v-model="password"
@@ -55,7 +55,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, email} from 'vuelidate/lib/validators'
+import { required} from 'vuelidate/lib/validators'
 import UserStore from "@/store/UserStore";
 
 export default {
@@ -64,13 +64,13 @@ export default {
     validations: {
    
         password:{required},
-        email: { required, email },
+        username: {required},
   },
 
   data(){
     return {
         password:'',
-        email: '',
+        username: '',
         showPass: false,
 
         submitError: false,
@@ -86,11 +86,10 @@ export default {
       return errors
     },
     
-    emailErrors () {
+    usernameErrors () {
       const errors = []
-      if (!this.$v.email.$dirty) return errors
-      !this.$v.email.email && errors.push('El e-mail debe ser valido')
-      !this.$v.email.required && errors.push('El e-mail es obligatorio')
+      if (!this.$v.username.$dirty) return errors
+      !this.$v.username.required && errors.push('El e-mail es obligatorio')
       return errors
     },
   },
@@ -102,7 +101,7 @@ export default {
       if (!this.$v.$invalid){
         let success = false
 
-        success = await UserStore.login(this.email, this.password)
+        success = await UserStore.login(this.username, this.password)
 
         if (!success){
           this.submitError = true;

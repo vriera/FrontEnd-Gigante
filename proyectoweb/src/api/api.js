@@ -1,11 +1,11 @@
 export { Api };
 
 class Api {
-    //static token = sessionStorage.getItem('token');
+    static token = sessionStorage.getItem('token');
 
     //Chequear el puerto y si va el /api
     static get baseUrl() {
-        return 'http://localhost:3000';
+        return 'https://gigante-dockerstars.herokuapp.com';
     }
 
     static get timeout() {
@@ -17,7 +17,7 @@ class Api {
             if (!init.headers)
                 init.headers = {};
 
-            init.headers['Authorization'] = `bearer ${Api.token}`;
+            init.headers['Authorization'] = `Bearer ${Api.token}`;
         }
 
         controller = controller || new AbortController();

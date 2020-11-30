@@ -30,6 +30,21 @@ const routes = [
     component: () => import('../views/RegistroView.vue')
   },
   {
+    path: '/MisCampañas',
+    name: 'MisCampañas',
+    component: () => import('../views/MisCampañasView.vue')
+  },
+  {
+    path: '/CrearCampaña',
+    name: 'CrearCampaña',
+    component: () => import('../views/CrearCampañaView.vue')
+  },
+  {
+    path: '/EditarCampaña',
+    name: 'EditarCampaña',
+    component: () => import('../views/EditarCampañaView.vue')
+  },
+  {
     path: '/Perfil',
     name: 'Perfil',
     component: () => import('../views/PerfilView.vue')

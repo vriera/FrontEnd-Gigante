@@ -22,14 +22,20 @@
         </v-menu>
       </v-col>
       <v-col v-if="isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn id='boton-superior' text>
+        <v-btn v-if="isUser" id='boton-superior' text>
           <v-icon left>mdi-chevron-down</v-icon>
           <span>Mi perfil</span> 
         </v-btn>
+        <v-btn v-else id='boton-superior' text>
+          <v-icon left>mdi-chevron-down</v-icon>
+          <span>Mi organización</span> 
+        </v-btn>
       </v-col>
     </v-row>
+
     <v-row class="blue lighten-5 pl-6">
-    <v-app-bar v-if="showDetail" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
+    <!-- donante -->
+    <v-app-bar v-if="showDetail && isUser" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
       <v-btn :to="noticias_link" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
@@ -53,7 +59,8 @@
       </v-btn>
     </v-app-bar>
 
-    <v-app-bar v-else id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
+    <!-- donante -->
+    <v-app-bar v-if="!showDetail && isUser" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-down</v-icon>
       <v-btn :to="noticias_link" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
@@ -69,6 +76,30 @@
       </v-btn>
       <v-btn v-if="isLoggedIn" text>
         <v-icon left>mdi-account-multiple-outline</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <!-- ong -->
+    <v-app-bar v-if="showDetail && !isUser" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
+      <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
+      <v-btn :to="mis_campañas_link" text>
+        <v-icon left>mdi-bullhorn-outline</v-icon>
+        <span>Mis campañas</span>
+      </v-btn>
+      <v-btn :to="noticias_link" text>
+        <v-icon left>mdi-newspaper-variant-outline</v-icon>
+        <span>Noticias</span>
+      </v-btn>
+    </v-app-bar>
+
+    <!-- ong -->
+    <v-app-bar v-if="!showDetail && !isUser" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
+      <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-down</v-icon>
+      <v-btn :to="mis_campañas_link" text>
+        <v-icon left>mdi-bullhorn-outline</v-icon>
+      </v-btn>
+      <v-btn :to="noticias_link" text>
+        <v-icon left>mdi-newspaper-variant-outline</v-icon>
       </v-btn>
     </v-app-bar>
     </v-row>
@@ -87,6 +118,7 @@ export default {
   data(){
     return {
       showDetail: false,
+      isUser: false,       //Si es true es donante, sino es ong
       isLoggedIn: false,
       loggingIn: false,
       
@@ -94,6 +126,7 @@ export default {
       registro_link: '/Registro',
       quienesSomos_link: '/QuienesSomos',
       noticias_link: '/Noticias',
+      mis_campañas_link: '/MisCampañas',
     }
   },
 
