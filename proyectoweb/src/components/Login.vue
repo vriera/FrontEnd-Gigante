@@ -89,7 +89,7 @@ export default {
     usernameErrors () {
       const errors = []
       if (!this.$v.username.$dirty) return errors
-      !this.$v.username.required && errors.push('El e-mail es obligatorio')
+      !this.$v.username.required && errors.push('El nombre de usuario es obligatorio')
       return errors
     },
   },
@@ -118,12 +118,6 @@ export default {
 </script>
 
 <style scoped>
-
-/* #cardLogin{
-    width: 30%;
-    margin-left:auto;
-    margin-right:1%;
-} */
 
 #formLogin{
     padding: 8% 5% 5% 5%;
