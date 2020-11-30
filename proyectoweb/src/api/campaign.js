@@ -42,9 +42,9 @@ class CampaignApi {
         return await Api.post(`${CampaignApi.url}/${id}/${CampaignApi.categoryUrl}`, true, category, controller);
     }
 
-    static async putCampaignCategory(campaignId,categoryId,category, controller){
-        return await Api.put(`${CampaignApi.url}/${campaignId}/${CampaignApi.categoryUrl}/${categoryId}`, true, category, controller);
-    }
+    //static async putCampaignCategory(campaignId,categoryId,category, controller){
+        //return await Api.put(`${CampaignApi.url}/${campaignId}/${CampaignApi.categoryUrl}/${categoryId}`, true, category, controller);
+    //}
 
     static async deleteCampaignCategory(campaignId, categoryId, controller){
         return await Api.delete(`${CampaignApi.url}/${campaignId}/${CampaignApi.categoryUrl}/${categoryId}`, true, controller);
@@ -52,7 +52,7 @@ class CampaignApi {
 }
 
 class Campaign{
-    constructor(id_campaign, id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact, isActive) {
+    constructor(id_campaign, id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact, active) {
 
         if(id_campaign){
             this.id_campaign = id_campaign
@@ -71,19 +71,17 @@ class Campaign{
         this.schedule = schedule;
         this.phone = phone;
         this.contact = contact;
-        this.isActive = isActive;
+        this.active = active;
     }
 }
 
 class CampaignCategory{
-    constructor(id_campaign, id_category, wanted,total) {
+    constructor(id_campaign, id_category) {
         if(id_campaign){
             this.id_campaign = id_campaign;
         }
         if(id_category){
             this.id_category = id_category;
         }
-        this.wanted = wanted;
-        this.total = total;
     }
 }

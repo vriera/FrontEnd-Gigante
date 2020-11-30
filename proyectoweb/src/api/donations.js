@@ -2,7 +2,7 @@ import { Api } from './api.js';
 export { DonationsApi , Donation };
 
 class Donation {
-    constructor( donationId, donatorId , campaignId , categoryId , cant , isVerified){
+    constructor( donationId, donatorId , campaignId , categoryId , description , verified){
         if ( donationId === undefined){
             this.id_donation = donationId;
         }
@@ -15,11 +15,11 @@ class Donation {
         if(categoryId) {
             this.id_category = categoryId;
         }
-        this.cant = cant;
-        if ( isVerified === undefined){
-            this.isVerified = false;
+        this.description = description;
+        if ( verified === undefined){
+            this.verified = false;
         }else{
-            this.isVerified = isVerified;
+            this.verified = verified;
         }
     }
 }
@@ -61,9 +61,9 @@ class DonationsApi{
         }
     }
 
-    static async putDonation( id , cant , verified, controller){
-        if( Number.isInteger(id)  && Number.isInteger(cant) && typeof verified === 'boolean' ){
-            return await Api.put(`${Api.baseUrl}/donations/${id}` , true , { cant: cant , isVerified: verified } , controller);
+    static async putDonation( id , description , verified, controller){
+        if( Number.isInteger(id)  && typeof verified === 'boolean' ){
+            return await Api.put(`${Api.baseUrl}/donations/${id}` , true , { description: description , verified: verified } , controller);
         }
     }
 

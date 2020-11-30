@@ -4,9 +4,9 @@ import {Donation, DonationsApi} from "@/api/donations";
 
 const CampaignStore = {
 
-    async addCampaign(id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact , isActive) {
+    async addCampaign(id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact , active) {
         try{
-            const campaign = new Campaign(undefined,id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact, isActive)
+            const campaign = new Campaign(undefined,id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact, active)
             return await CampaignApi.postCampaign(campaign)
         } catch (error) {
             console.log(error);
@@ -21,8 +21,8 @@ const CampaignStore = {
         return await CampaignApi.getMyCampaigns();
     },
 
-    async modifyCampaign(id, name, description, init_date, end_date, address, city, location, schedule, phone, contact , isActive){
-        const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, address, city, location, schedule, phone, contact , isActive)
+    async modifyCampaign(id, name, description, init_date, end_date, address, city, location, schedule, phone, contact , active){
+        const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, address, city, location, schedule, phone, contact , active)
         return await CampaignApi.putCampaign(id, campaign);
     },
 
@@ -34,15 +34,15 @@ const CampaignStore = {
         return await CampaignApi.getCampaignCategories(id);
     },
 
-    async addCampaignCategory(campaignId, categoryId, wanted, total){
-        const category = new CampaignCategory(undefined, categoryId, wanted, total);
+    async addCampaignCategory(campaignId, categoryId){
+        const category = new CampaignCategory(undefined, categoryId);
         return await CampaignApi.postCampaignCategory(campaignId, category)
     },
 
-    async modifyCampaignCategory(campaignId, categoryId, wanted, total){
-        const category = new CampaignCategory(undefined, undefined, wanted, total);
-        return await CampaignApi.putCampaignCategory(campaignId,categoryId,category);
-    },
+    //async modifyCampaignCategory(campaignId, categoryId, wanted, total){
+      //  const category = new CampaignCategory(undefined, undefined, wanted, total);
+        //return await CampaignApi.putCampaignCategory(campaignId,categoryId,category);
+    //},
 
     async deleteCampaignCategory(campaignId, categoryId){
         return await CampaignApi.deleteCampaignCategory(campaignId, categoryId);
@@ -69,13 +69,13 @@ const CampaignStore = {
         return await DonationsApi.getAllDonations();
     },
 
-    async addDonation(donatorId, campaignId, categoryId, cant, isVerified){
-        const donation = new Donation(undefined, donatorId, campaignId, categoryId, cant, isVerified);
+    async addDonation(donatorId, campaignId, categoryId, description, verified){
+        const donation = new Donation(undefined, donatorId, campaignId, categoryId, description, verified);
         return await DonationsApi.postDonation(donation);
     },
 
-    async modifyDonation(donationId, cant, isVerified){
-        return await DonationsApi.putDonation(donationId, cant, isVerified);
+    async modifyDonation(donationId, description, verified){
+        return await DonationsApi.putDonation(donationId,description, verified);
     },
 
     async deleteDonation(donationId){
