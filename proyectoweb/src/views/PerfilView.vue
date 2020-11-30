@@ -14,7 +14,7 @@
 import TarjetaDatosPerfil from "@/components/TarjetaDatosPerfil";
 export default {
 name: "PerfilView",
-  components: {TarjetaDatosPerfil}
+  components: {'tarjeta-datos-perfil' : TarjetaDatosPerfil}
 }
 </script>
 
