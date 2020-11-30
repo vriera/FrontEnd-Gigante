@@ -28,16 +28,16 @@ class Api {
             const response = await fetch(url, init);
             const text = await response.text();
             const result = text ? (JSON).parse(text) : {};
-            if (result.code)
+            if (result.success !== true)
                 throw result;
 
             return result;
         } catch (error) {
             if (!error.code) {
                 // eslint-disable-next-line no-ex-assign
-                error = { "code": 99, "description": error.message.toLowerCase() };
+                error = { "success": false , "code": 99, "description": "unknown" };
             }
-            throw error;
+            return error;
         } finally {
             clearTimeout(timer);
         }
