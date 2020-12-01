@@ -36,7 +36,7 @@
                   <span>*Botones de categorias para seleccionar*</span>
                 </v-row>
                 <v-row>
-                  <span>Dirección:{{campaigns[campaignSelected].street}} {{campaigns[campaignSelected].street_number}}</span>
+                  <span>Dirección: {{campaigns[campaignSelected].street}} {{campaigns[campaignSelected].street_number}}</span>
                 </v-row>
                 <v-row>
                   <span>Ciudad: {{campaigns[campaignSelected].city}}</span>
@@ -51,10 +51,10 @@
                   <span>Contacto: {{campaigns[campaignSelected].contact}}</span>
                 </v-row>
                 <v-row>
-                  <span>Teléfono: {{campaigns[campaignSelected].phone}}</span>
+                  <span>Teléfono: {{parsePhone(campaigns[campaignSelected].phone)}}</span>
                 </v-row>
                 <v-btn id="editarBtn" @click="$router.push(editar_campaña_link + campaigns[campaignSelected].id_campaign)" color="blue lighten-3">
-                  <span style="margin: 5% 0 0 0;">Editar</span>
+                  <span>Editar</span>
                 </v-btn>
                 </div>
               </v-card>
@@ -81,7 +81,7 @@ export default {
         crear_campaña_link: '/CrearCampaña',
         editar_campaña_link: '/EditarCampaña/',
 
-        campaignSelected: 1,//-1,   //Índice de la campaña que estoy mostrando en detalle
+        campaignSelected: 0,//-1,   //Índice de la campaña que estoy mostrando en detalle
 
         //campaigns: [{name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
           //{name: "Campaña 2", start: "10/06/2020", end:"12/10/2020", description:"Ayuda para construir casas en Liniers", street:"Gral. Rodríguez", street_number:"1300", city: "C.A.B.A.", neighbourhood:"Liniers", horario:"11:00 - 18:00", contacto: "alicia@gmail.com", phone:"15-5555-2487"},
@@ -98,9 +98,26 @@ export default {
     const result = await this.store.getMyCampaigns();
     this.campaigns = result.results;
     console.log(this.campaigns);
-  }
+  },
 
+  methods: {
+    parsePhone(phone){
+      let result = phone;
+      if(phone.toString().length == 8){
+        //4-4
+        result = [phone.slice(0, 4), '-', phone.slice(4)].join('');
+        return result;
+      }
 
+      if(phone.toString().length == 10){
+        //2-4-4
+        result = [phone.slice(0, 2), '-', phone.slice(2, 6), '-', phone.slice(6)].join('');
+        return result;
+      }
+
+      return phone;
+    },
+  },
 
 }
 </script>
