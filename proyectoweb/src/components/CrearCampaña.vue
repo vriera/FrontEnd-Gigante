@@ -246,8 +246,7 @@ export default {
 
   data(){
     return { 
-        campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
-    
+        //campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
     categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
     catSelected: [false, false, false, false, false, false, false, false],
     catBtnRenderer: 0,
@@ -366,7 +365,7 @@ computed:{
       this.$v.$touch()
       if (!this.$v.$invalid && this.atLeastOneCategory()){
         this.loading = true;
-        let success = false;
+        let result = false;
 
         let currentOng = await UserStore.getCurrentUser();
         if (currentOng.id === undefined){
@@ -376,16 +375,16 @@ computed:{
           return;
         }
 
-        success = await CampaignStore.addCampaign(currentOng.id, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street + ' ' + this.street_number,
-                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto);
+         result = await CampaignStore.addCampaign(currentOng.id, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
+                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto, true);
 
-        if (!success){
+        if (!result.success){
           this.submitError = true;
           this.mensajeAlertForm = 'Error al crear la campaña, inténtelo más tarde';
         }
         else{
           this.submitted = true;
-
+          this.$router.go(-1);
         }
 
         this.loading = false;

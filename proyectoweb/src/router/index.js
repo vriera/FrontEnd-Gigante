@@ -40,7 +40,7 @@ const routes = [
     component: () => import('../views/CrearCampañaView.vue')
   },
   {
-    path: '/EditarCampaña',
+    path: '/EditarCampaña/:id',
     name: 'EditarCampaña',
     component: () => import('../views/EditarCampañaView.vue')
   },

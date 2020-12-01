@@ -1,7 +1,7 @@
 <template>
   <div id="fondo">
       <div style="background-image: url('../assets/fondoColores2.png');">
-        <edit-campaign/>
+        <edit-campaign v-bind:id="$route.params.id"/>
       </div>
   </div>
 </template>

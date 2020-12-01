@@ -227,6 +227,7 @@ import CampaignStore from '@/store/CampaignStore'
 
 export default {
     mixins: [validationMixin],
+    props: ['id'],
 
   validations: {
     campaignName :  {required},
@@ -245,8 +246,8 @@ export default {
 
   data(){
     return { 
-        campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"1540662487"},
-    
+        //campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"1540662487"},
+        campaign: [],
     categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
     catSelected: [false, false, false, false, false, false, false, false],
     catBtnRenderer: 0,
@@ -270,22 +271,24 @@ export default {
     submitError : false,
     submitted : false, 
     loading : false,
+    store :  CampaignStore
     }
   },
 
   async created(){
-      //this.campaign = await getCampaign()
+      this.campaign = await this.store.getCampaigns(this.id);
 
+      this.campaignId = this.id;
       this.campaignName = this.campaign.name;
-      this.desdeFecha = this.campaign.start;
-      this.hastaFecha = this.campaign.end;
+      this.desdeFecha = this.campaign.init_date;
+      this.hastaFecha = this.campaign.end_date;
       this.description = this.campaign.description;
       this.street = this.campaign.street;
       this.street_number = this.campaign.street_number;
       this.city = this.campaign.city;
-      this.neighbourhood = this.campaign.neighbourhood;
-      this.horario = this.campaign.horario;
-      this.contacto = this.campaign.contacto;
+      this.neighbourhood = this.campaign.location;
+      this.horario = this.campaign.schedule;
+      this.contacto = this.campaign.contact;
       this.phone = this.campaign.phone;   
       
       //Prendo los botones con las categorías que tiene
@@ -385,19 +388,20 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid && this.atLeastOneCategory()){
         this.loading = true;
-        let success = false;
+        let result;
 
         //Cargar el id de la campaña, probablemente en el created()
-        success = await CampaignStore.modifyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha,this.street + ' ' + this.street_number,
-                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto);
+         result = await CampaignStore.modifyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
+                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto, this.campaign.active);
 
 
-        if (!success){
+        if (!result.success){
           this.submitError = true;
           this.mensajeAlertForm = 'Error al actualizar la campaña, inténtelo más tarde';
         }
         else{
           this.submitted = true;
+          this.$router.go(-1);
 
         }
 

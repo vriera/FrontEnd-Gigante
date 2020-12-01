@@ -4,9 +4,9 @@ import {Donation, DonationsApi} from "@/api/donations";
 
 const CampaignStore = {
 
-    async addCampaign(id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact , active) {
+    async addCampaign(id_ong, name, description, init_date, end_date, street,street_number, city, location, schedule, phone, contact , active) {
         try{
-            const campaign = new Campaign(undefined,id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact, active)
+            const campaign = new Campaign(undefined,id_ong, name, description, init_date, end_date, street,street_number, city, location, schedule, phone, contact, active)
             return await CampaignApi.postCampaign(campaign)
         } catch (error) {
             console.log(error);
@@ -25,8 +25,8 @@ const CampaignStore = {
         return await CampaignApi.getActiveCampaignsByOngId(id);
     },
 
-    async modifyCampaign(id, name, description, init_date, end_date, address, city, location, schedule, phone, contact , active){
-        const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, address, city, location, schedule, phone, contact , active)
+    async modifyCampaign(id, name, description, init_date, end_date, street, street_number, city, location, schedule, phone, contact , active){
+        const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, street,street_number, city, location, schedule, phone, contact , active)
         return await CampaignApi.putCampaign(id, campaign);
     },
 

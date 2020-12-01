@@ -56,7 +56,7 @@ class CampaignApi {
 }
 
 class Campaign{
-    constructor(id_campaign, id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact, active) {
+    constructor(id_campaign, id_ong, name, description, init_date, end_date, street,street_number, city, location, schedule, phone, contact, active) {
 
         if(id_campaign){
             this.id_campaign = id_campaign
@@ -69,7 +69,8 @@ class Campaign{
         this.description = description;
         this.init_date = init_date;
         this.end_date = end_date;
-        this.address = address;
+        this.street = street;
+        this.street_number = street_number;
         this.city = city;
         this.location = location;
         this.schedule = schedule;
