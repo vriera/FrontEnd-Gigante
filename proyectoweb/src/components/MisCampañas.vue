@@ -5,8 +5,8 @@
             <v-card id='sectionCampaignsCard' color="blue lighten-5">
                     <span id='cardTitle'>Mis Campañas</span>
                     <v-virtual-scroll height="640px"  item-height="300px" :items="campaigns">
-                        <template v-slot:default="{item}">
-                            <v-card id='campaignCard' outlined shaped elevation="2">
+                        <template v-slot:default="{index, item}">
+                            <v-card id='campaignCard' outlined shaped elevation="2" @click="campaignSelected=index">
                                 <span id='campaignName'>{{item.name}}</span>
                                 <span><br/><br/>Fechas: {{item.init_date}} - {{item.end_date}}<br/><br/></span>
                                 <span>Descripción: {{item.description}}</span>
@@ -82,12 +82,6 @@ export default {
         editar_campaña_link: '/EditarCampaña/',
 
         campaignSelected: 0,//-1,   //Índice de la campaña que estoy mostrando en detalle
-
-        //campaigns: [{name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
-          //{name: "Campaña 2", start: "10/06/2020", end:"12/10/2020", description:"Ayuda para construir casas en Liniers", street:"Gral. Rodríguez", street_number:"1300", city: "C.A.B.A.", neighbourhood:"Liniers", horario:"11:00 - 18:00", contacto: "alicia@gmail.com", phone:"15-5555-2487"},
-          //{name: "Campaña 3", start: "24/07/2020", end:"25/08/2020", description:"Junta de comida para el comedor Gómez", street:"Rivadavia", street_number:"5400", city: "C.A.B.A.", neighbourhood:"Caballito", horario:"14:00 - 22:00", contacto: "pepitocrack@gmail.com", phone:"15-4066-1111"},
-          //{name: "Campaña 4", start: "03/06/2020", end:"29/09/2020", description:"Junta de juguetes para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
-          //{name: "Campaña 5", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"}]
 
       campaigns: [],
       store: CampaignStore,
