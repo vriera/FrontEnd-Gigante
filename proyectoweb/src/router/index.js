@@ -45,6 +45,11 @@ const routes = [
     component: () => import('../views/EditarCampañaView.vue')
   },
   {
+    path: '/VerCampaña/:id',
+    name: 'VerCampaña',
+    component: () => import('../views/VerCampañaView.vue')
+  },
+  {
     path: '/Perfil',
     name: 'Perfil',
     component: () => import('../views/PerfilView.vue')

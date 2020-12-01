@@ -182,6 +182,7 @@ export default {
 
 #descRow{
     border: solid;
+    border-color: cornflowerblue;
     border-width: thin;
     margin: 5% 0 5% 0;
     padding: 2%;

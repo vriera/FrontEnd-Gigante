@@ -388,7 +388,7 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid && this.atLeastOneCategory()){
         this.loading = true;
-        let result;
+        let result = false;
 
         //Cargar el id de la campaña, probablemente en el created()
          result = await CampaignStore.modifyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
