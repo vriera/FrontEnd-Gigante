@@ -21,6 +21,10 @@ const CampaignStore = {
         return await CampaignApi.getMyCampaigns();
     },
 
+    async getCampaignsByOngId(id){
+        return await CampaignApi.getActiveCampaignsByOngId(id);
+    },
+
     async modifyCampaign(id, name, description, init_date, end_date, address, city, location, schedule, phone, contact , active){
         const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, address, city, location, schedule, phone, contact , active)
         return await CampaignApi.putCampaign(id, campaign);
