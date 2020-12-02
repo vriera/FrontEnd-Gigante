@@ -2,7 +2,9 @@ import { Api } from './api.js';
 export {UsersApi, Donator, Ong, Credentials};
 
 class UsersApi {
-    //static userToken = sessionStorage.getItem('token');
+    static userToken = sessionStorage.getItem('token');
+    static userId = sessionStorage.getItem('userId');
+    static userCategory = sessionStorage.getItem('category');
 
     static get donatorUrl() {
         return `${Api.baseUrl}/donators`;
@@ -10,6 +12,10 @@ class UsersApi {
 
     static get ongUrl() {
         return `${Api.baseUrl}/ongs`;
+    }
+
+    static get userUrl(){
+        return `${Api.baseUrl}/user/current`;
     }
     
     static async addDonator(donator, controller) {
@@ -20,13 +26,32 @@ class UsersApi {
         return await Api.post(`${UsersApi.ongUrl}`, false, ong, controller);
     }
 
+    static async putCurrentUser(user, controller){
+        if(this.userCategory === 'ong'){
+            return await Api.put(`${UsersApi.userUrl}/ongs`, true, user, controller);
+        }
+        return await Api.put(`${UsersApi.userUrl}/donators`, true, user, controller);
+    }
+
     static async login(credentials, controller) {
         console.log(credentials);
         const result = await Api.post(`${Api.baseUrl}/login`, false, credentials, controller);
-        //sessionStorage.setItem('token', result.token);
-        //this.userToken = result.token;
+        sessionStorage.setItem('token', result.token);
+        sessionStorage.setItem('category', result.category);
+        sessionStorage.setItem('userId', result.userId);
+        this.userId = result.userId;
+        this.userCategory = result.category
+        Api.token = result.token;
+        this.userToken = result.token;
         console.log(result);
         return result;
+    }
+
+    static async getCurrentUser(controller){
+        if(this.userCategory === 'ong'){
+            return await Api.get(`${UsersApi.userUrl}/ongs`, true, controller);
+        }
+        return await Api.get(`${UsersApi.userUrl}/donators`, true, controller);
     }
 
     //static async logout(controller) {
@@ -34,25 +59,60 @@ class UsersApi {
     //    sessionStorage.removeItem('token');
     //}
 
+    static async getOngs(id, controller){
+        if(id === undefined) {
+            return await Api.get(`${UsersApi.ongUrl}`, true, controller);
+        }
+        return await Api.get(`${UsersApi.ongUrl}/${id}`, true, controller)
+    }
+
+
+    static async getDonators(id, controller){
+        if(id === undefined) {
+            return await Api.get(`${UsersApi.donatorUrl}`, true, controller);
+        }
+        return await Api.get(`${UsersApi.donatorUrl}/${id}`, true, controller);
+    }
+
+    static async logout(controller){
+        const result = await Api.post(`${Api.baseUrl}/logout`, true, {}, controller)
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('category');
+        this.userToken = null;
+        this.userCategory = null;
+        this.userId = null;
+        return result;
+
+    }
+
+
 }
 
 class Credentials {
     constructor(username, password) {
-        this.email = username;
+        this.username = username;
         this.password = password;
     }
 }
 
 class Ong{
 
-    constructor(id, email, password, fullname, rep_name, rep_dni, phone, street, street_number, floor, region, latitude, longitude) {
+    constructor(id, email, username, password, fullname, rep_name, rep_dni, phone, street, street_number, floor, region, latitude, longitude) {
 
-        if(id){
+        if (id) {
             this.id = id
         }
 
-        this.email = email;
-        this.password = password;
+        if (email) {
+            this.email = email;
+        }
+        if(username) {
+            this.username = username;
+        }
+        if(password) {
+            this.password = password;
+        }
         this.fullname = fullname;
         this.rep_name = rep_name;
         this.rep_dni = rep_dni;
@@ -70,14 +130,21 @@ class Ong{
 
 class Donator{
 
-    constructor(id, email, password, fullname, street, street_number, floor, region, latitude, longitude) {
+    constructor(id, email, username, password, fullname, street, street_number, floor, region, latitude, longitude) {
 
         if(id){
             this.id = id
         }
 
-        this.email = email;
-        this.password = password;
+        if(email) {
+            this.email = email;
+        }
+        if(username) {
+            this.username = username;
+        }
+        if(password) {
+            this.password = password;
+        }
         this.fullname = fullname;
         this.street = street;
         this.street_number = street_number;

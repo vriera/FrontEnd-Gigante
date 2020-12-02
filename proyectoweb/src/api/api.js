@@ -1,11 +1,11 @@
 export { Api };
 
 class Api {
-    //static token = sessionStorage.getItem('token');
+    static token = sessionStorage.getItem('token');
 
     //Chequear el puerto y si va el /api
     static get baseUrl() {
-        return 'http://localhost:3000';
+        return 'https://gigante-dockerstars.herokuapp.com';
     }
 
     static get timeout() {
@@ -17,7 +17,7 @@ class Api {
             if (!init.headers)
                 init.headers = {};
 
-            init.headers['Authorization'] = `bearer ${Api.token}`;
+            init.headers['Authorization'] = `Bearer ${Api.token}`;
         }
 
         controller = controller || new AbortController();
@@ -35,9 +35,9 @@ class Api {
         } catch (error) {
             if (!error.code) {
                 // eslint-disable-next-line no-ex-assign
-                error = { "code": 99, "description": error.message.toLowerCase() };
+                error = { "success": false , "code": 99, "description": "unknown" };
             }
-            throw error;
+            return error;
         } finally {
             clearTimeout(timer);
         }

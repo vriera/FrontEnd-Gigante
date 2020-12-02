@@ -30,6 +30,42 @@ const routes = [
     component: () => import('../views/RegistroView.vue')
   },
   {
+    path: '/MisCampañas',
+    name: 'MisCampañas',
+    component: () => import('../views/MisCampañasView.vue')
+  },
+  {
+    path: '/CrearCampaña',
+    name: 'CrearCampaña',
+    component: () => import('../views/CrearCampañaView.vue')
+  },
+  {
+    path: '/EditarCampaña/:id',
+    name: 'EditarCampaña',
+    component: () => import('../views/EditarCampañaView.vue')
+  },
+  {
+    path: '/VerCampaña/:id',
+    name: 'VerCampaña',
+    component: () => import('../views/VerCampañaView.vue')
+  },
+  {
+    path: '/Perfil',
+    name: 'Perfil',
+    component: () => import('../views/PerfilView.vue')
+  },
+  {
+    path: '/EditarPerfil',
+    name: 'EditarPerfil',
+    component: () => import('../views/EditarPerfilView.vue')
+  },
+
+  {
+    path: '/AyudaRecibida',
+    name: 'AyudaRecibida',
+    component: () => import('../views/AyudaRecibida.vue')
+  },
+  {
     path: '/Mapa',
     name: 'Mapa',
     component: () => import(/* webpackChunkName: "about" */ '../views/MapView.vue')
