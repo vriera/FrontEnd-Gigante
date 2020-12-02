@@ -41,7 +41,7 @@
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
         <span>Noticias</span>
       </v-btn>
-      <v-btn text>
+      <v-btn :to="mapa_link" text>
         <v-icon left>mdi-package-variant-closed</v-icon>
         <span>Donaciones</span>
       </v-btn>
@@ -65,7 +65,7 @@
       <v-btn :to="noticias_link" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
       </v-btn>
-      <v-btn text>
+      <v-btn :to="mapa_link" text>
         <v-icon left>mdi-package-variant-closed</v-icon>
       </v-btn>
       <v-btn text>
@@ -90,6 +90,10 @@
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
         <span>Noticias</span>
       </v-btn>
+      <v-btn :to="recibido_link" text>
+        <v-icon left>mdi-hand-heart-outline</v-icon>
+        <span>Ayuda recibida</span>
+      </v-btn>
     </v-app-bar>
 
     <!-- ong -->
@@ -100,6 +104,9 @@
       </v-btn>
       <v-btn :to="noticias_link" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
+      </v-btn>
+      <v-btn :to="recibido_link" text>
+        <v-icon left>mdi-hand-heart-outline</v-icon>
       </v-btn>
     </v-app-bar>
     </v-row>
@@ -127,6 +134,8 @@ export default {
       quienesSomos_link: '/QuienesSomos',
       noticias_link: '/Noticias',
       mis_campañas_link: '/MisCampañas',
+      recibido_link: '/AyudaRecibida',
+      mapa_link: '/Mapa'
     }
   },
 
