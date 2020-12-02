@@ -91,7 +91,7 @@
         <span>Noticias</span>
       </v-btn>
       <v-btn :to="recibido_link" text>
-        <v-icon left>mdi-handshake-outline</v-icon>
+        <v-icon left>mdi-hand-heart-outline</v-icon>
         <span>Ayuda recibida</span>
       </v-btn>
     </v-app-bar>
@@ -106,7 +106,7 @@
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
       </v-btn>
       <v-btn :to="recibido_link" text>
-        <v-icon left>mdi-handshake-outline</v-icon>
+        <v-icon left>mdi-hand-heart-outline</v-icon>
       </v-btn>
     </v-app-bar>
     </v-row>
