@@ -61,6 +61,11 @@ const routes = [
   },
 
   {
+    path: '/AyudaRecibida',
+    name: 'AyudaRecibida',
+    component: () => import('../views/AyudaRecibida.vue')
+  },
+  {
     path: '*',
     name: '404',
     component: PageNotFound,
