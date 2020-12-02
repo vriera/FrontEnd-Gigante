@@ -6,7 +6,7 @@ class geomapApi {
         const address = encodeURIComponent(data);
         //const argISO = "AR"
 
-        const res =  await this.get(`${this.baseUrl}geocoding/v5/mapbox.places/${address}.json?type=postcode&country=AR&access_token=pk.eyJ1IjoiYW5pdGFjcnV6IiwiYSI6ImNrZ3A5d2Z6ZDA3M3Iyc2tsbmJjeGd4N2EifQ.7XEbgzqidyEuJKVfFg4U2A` , controller)
+        const res =  await this.get(`${this.baseUrl}geocoding/v5/mapbox.places/${address}.json?type=address&country=AR&access_token=pk.eyJ1IjoiYW5pdGFjcnV6IiwiYSI6ImNrZ3A5d2Z6ZDA3M3Iyc2tsbmJjeGd4N2EifQ.7XEbgzqidyEuJKVfFg4U2A` , controller)
 
         if ( res.message ){
             console.log("small oopsy")

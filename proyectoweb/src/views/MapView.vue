@@ -104,7 +104,7 @@ export default {
 
 
     this.descriptions[0].marker = new mapboxgl.Marker()
-        .setLngLat(await geomapApi.getCoordinates("1426", null))
+        .setLngLat(await geomapApi.getCoordinates("Recoleta", null))
         .addTo(this.map);
 
     // this.descriptions[0].marker = new mapboxgl.Marker()

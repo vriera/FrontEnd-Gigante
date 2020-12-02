@@ -134,8 +134,8 @@ export default {
       quienesSomos_link: '/QuienesSomos',
       noticias_link: '/Noticias',
       mis_campañas_link: '/MisCampañas',
-      recibido_link: '/AyudaRecibida'
-      mapa_link: '/Mapa',
+      recibido_link: '/AyudaRecibida',
+      mapa_link: '/Mapa'
     }
   },
 
