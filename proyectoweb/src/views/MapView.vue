@@ -1,13 +1,11 @@
 <template>
   <div id="fondo">
-    <row>
-      <app-menu></app-menu>
-    </row>
-    <row>
 
       <div class="sidebar pad2">
           <v-card color="#FFFFFF" scrollable height="800px" width="100%">
-            <p class ="titulo" v-icon>Asociaciones <v-icon>mdi-filter</v-icon></p>
+            <p class ="titulo" v-icon>Asociaciones
+              <v-icon>mdi-filter</v-icon>
+            </p>
             <!--mdi-filter</v-icon>-->
             <v-virtual-scroll height="700px"  item-height="180px" :items="descriptions">
               <template v-slot:default="{ item }">
@@ -27,7 +25,6 @@
       <div>
         <div id='map' class='map pad2'>Map</div>
       </div>
-    </row>
   </div>
 </template>
 
@@ -36,12 +33,10 @@
 
 <script>
 // @ is an alias to /src
-import Menu from '@/components/Menu.vue'
-//import Listado from '@/components/Listado.vue'
+import {geomapApi} from '@/Geocode/geomap.js'
 
 export default {
   components: {
-    'app-menu' : Menu,
     //'listado' : Listado,
   },
   data() {
@@ -51,7 +46,7 @@ export default {
       descriptions: [
         {
           marker: {},
-          title: 'Fundación Sí',
+          title: 'AAAAAAA',
           direccion: 'Calle 1234 piso 1A',
           horario: 'Lunes a viernes, 12:00- 18:00',
           lista: 'ropa de abrigo, donaciones monetarias'
@@ -95,7 +90,7 @@ export default {
       filtro: 'mdi-filter'
     }
   },
-  mounted() {
+  async mounted() {
     let mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5pdGFjcnV6IiwiYSI6ImNrZ3A5d2Z6ZDA3M3Iyc2tsbmJjeGd4N2EifQ.7XEbgzqidyEuJKVfFg4U2A';
     this.map = new mapboxgl.Map({
@@ -107,45 +102,50 @@ export default {
     const nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "top-right");
 
+
     this.descriptions[0].marker = new mapboxgl.Marker()
-        .setLngLat([-58.3876273, -34.5903130])
-        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-            "<p>Quintana y montevideo</p>" +
-            "<p>No recibe donaciones</p>"))
+        .setLngLat(await geomapApi.getCoordinates("1426", null))
         .addTo(this.map);
 
-    this.descriptions[1].marker = new mapboxgl.Marker()
-        .setLngLat([-58.414281,-34.581505])
-        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-            "<p>las Heras y arabe siria</p>" +
-            "<p>No recibe donaciones</p>"))
-        .addTo(this.map);
+    // this.descriptions[0].marker = new mapboxgl.Marker()
+    //     .setLngLat([-58.3876273, -34.5903130])
+    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
+    //         "<p>Quintana y montevideo</p>" +
+    //         "<p>No recibe donaciones</p>"))
+    //     .addTo(this.map);
 
-    this.descriptions[2].marker = new mapboxgl.Marker()
-        .setLngLat([-58.378482,-34.595680])
-        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-            "<p>Esmeralda y Santa fe</p>" +
-            "<p>No recibe donaciones</p>"))
-        .addTo(this.map);
-
-    this.descriptions[3].marker = new mapboxgl.Marker()
-        .setLngLat([-58.399482,-34.595780])
-        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-            "<p>Esmeralda y Santa fe</p>" +
-            "<p>No recibe donaciones</p>"))
-        .addTo(this.map);
-    this.descriptions[4].marker = new mapboxgl.Marker()
-        .setLngLat([-58.389482,-34.598780])
-        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-            "<p>Esmeralda y Santa fe</p>" +
-            "<p>No recibe donaciones</p>"))
-        .addTo(this.map);
-    this.descriptions[5].marker = new mapboxgl.Marker()
-        .setLngLat([-58.414281,-34.591505])
-        .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-            "<p>las Heras y arabe siria</p>" +
-            "<p>No recibe donaciones</p>"))
-        .addTo(this.map);
+    // this.descriptions[1].marker = new mapboxgl.Marker()
+    //     .setLngLat([-58.414281,-34.581505])
+    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
+    //         "<p>las Heras y arabe siria</p>" +
+    //         "<p>No recibe donaciones</p>"))
+    //     .addTo(this.map);
+    //
+    // this.descriptions[2].marker = new mapboxgl.Marker()
+    //     .setLngLat([-58.378482,-34.595680])
+    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
+    //         "<p>Esmeralda y Santa fe</p>" +
+    //         "<p>No recibe donaciones</p>"))
+    //     .addTo(this.map);
+    //
+    // this.descriptions[3].marker = new mapboxgl.Marker()
+    //     .setLngLat([-58.399482,-34.595780])
+    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
+    //         "<p>Esmeralda y Santa fe</p>" +
+    //         "<p>No recibe donaciones</p>"))
+    //     .addTo(this.map);
+    // this.descriptions[4].marker = new mapboxgl.Marker()
+    //     .setLngLat([-58.389482,-34.598780])
+    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
+    //         "<p>Esmeralda y Santa fe</p>" +
+    //         "<p>No recibe donaciones</p>"))
+    //     .addTo(this.map);
+    // this.descriptions[5].marker = new mapboxgl.Marker()
+    //     .setLngLat([-58.414281,-34.591505])
+    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
+    //         "<p>las Heras y arabe siria</p>" +
+    //         "<p>No recibe donaciones</p>"))
+    //     .addTo(this.map);
   }
 
 }
@@ -172,7 +172,7 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   position: absolute;
   left: 33.3333%;
   width: 65%;
-  top: 15%;
+  top: 2%;
   bottom: 2%;
 
 }

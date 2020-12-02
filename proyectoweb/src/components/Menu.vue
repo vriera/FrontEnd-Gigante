@@ -35,7 +35,7 @@
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
         <span>Noticias</span>
       </v-btn>
-      <v-btn text>
+      <v-btn :to="mapa_link" text>
         <v-icon left>mdi-package-variant-closed</v-icon>
         <span>Donaciones</span>
       </v-btn>
@@ -58,7 +58,7 @@
       <v-btn :to="noticias_link" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
       </v-btn>
-      <v-btn text>
+      <v-btn :to="mapa_link" text>
         <v-icon left>mdi-package-variant-closed</v-icon>
       </v-btn>
       <v-btn text>
@@ -94,6 +94,7 @@ export default {
       registro_link: '/Registro',
       quienesSomos_link: '/QuienesSomos',
       noticias_link: '/Noticias',
+      mapa_link: '/Mapa',
     }
   },
 
