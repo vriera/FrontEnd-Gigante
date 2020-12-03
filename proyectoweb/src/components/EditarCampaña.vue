@@ -40,7 +40,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Fecha de inicio: </span>
+                        <span class="formHint">Fecha de inicio: </span>
                         <v-text-field
                         v-model="desdeFecha"
                         :error-messages="desdeFechaErrors"
@@ -55,7 +55,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Fecha de fin: </span>
+                        <span class="formHint">Fecha de fin: </span>
                         <v-text-field
                         v-model="hastaFecha"
                         :error-messages="hastaFechaErrors"
@@ -101,7 +101,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Dirección: </span>
+                        <span class="formHint">Dirección: </span>
                         <v-text-field
                         v-model="street"
                         :error-messages="streetErrors"
@@ -115,7 +115,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Altura: </span>
+                        <span class="formHint">Altura: </span>
                         <v-text-field
                         v-model="street_number"
                         :error-messages="streetNumberErrors"
@@ -132,7 +132,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Localidad: </span>
+                        <span class="formHint">Localidad: </span>
                         <v-text-field
                         v-model="city"
                         :error-messages="cityErrors"
@@ -146,7 +146,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Barrio: </span>
+                        <span class="formHint">Barrio: </span>
                         <v-text-field
                         v-model="neighbourhood"
                         :error-messages="neighbourhoodErrors"
@@ -163,7 +163,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Teléfono: </span>
+                        <span class="formHint">Teléfono: </span>
                         <v-text-field
                         v-model="phone"
                         :error-messages="phoneErrors"
@@ -177,7 +177,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Contacto: </span>
+                        <span class="formHint">Contacto: </span>
                         <v-text-field
                         v-model="contacto"
                         :error-messages="contactoErrors"
@@ -430,7 +430,7 @@ export default {
     text-transform: uppercase;
 }
 
-#formHint{
+.formHint{
     margin: 2.5% 2% 0 0;
 }
 

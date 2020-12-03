@@ -2,31 +2,31 @@
   <div>
     <v-img :src="require('../assets/LogoGigante.png')" @click="$router.push(home_link)" alt="Logo Gigante" id="logo" class="mx-3"></v-img>
 
-    <v-row id="filaMenu" class="blue lighten-3" >
+    <v-row class="filaMenu blue lighten-3" >
       <v-col xs='6' sm='4' md="3" lg="2">
         <v-btn router :to='home_link' id='gigante' text>GIGANTE</v-btn>
       </v-col>
       <v-col xs='6' sm='4' md="3" lg="2">
-        <v-btn router :to='quienesSomos_link' id='boton-superior' text>Quiénes somos</v-btn>
+        <v-btn router :to='quienesSomos_link' class='boton-superior' text>Quiénes somos</v-btn>
       </v-col>
       <v-spacer></v-spacer>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn id='boton-superior' router :to="registro_link" text>Registrarse</v-btn>
+        <v-btn class='boton-superior' router :to="registro_link" text>Registrarse</v-btn>
       </v-col>
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
         <v-menu v-model="loggingIn" :close-on-content-click="false" offset-y nudge-bottom="10">
           <template v-slot:activator="{on}">
-            <v-btn id='boton-superior' text v-on="on">Iniciar sesión</v-btn>
+            <v-btn class='boton-superior' text v-on="on">Iniciar sesión</v-btn>
           </template>
           <login/>
         </v-menu>
       </v-col>
       <v-col v-if="isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn v-if="isUser" id='boton-superior' text>
+        <v-btn :to="perfil_link" v-if="isUser" class='boton-superior' text>
           <v-icon left>mdi-chevron-down</v-icon>
           <span>Mi perfil</span> 
         </v-btn>
-        <v-btn v-else id='boton-superior' text>
+        <v-btn :to="perfil_link" v-else class='boton-superior' text>
           <v-icon left>mdi-chevron-down</v-icon>
           <span>Mi organización</span> 
         </v-btn>
@@ -35,7 +35,7 @@
 
     <v-row class="blue lighten-5 pl-6">
     <!-- donante -->
-    <v-app-bar v-if="showDetail && isUser" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
+    <v-app-bar v-if="showDetail && isUser" class="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
       <v-btn :to="noticias_link" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
@@ -60,7 +60,7 @@
     </v-app-bar>
 
     <!-- donante -->
-    <v-app-bar v-if="!showDetail && isUser" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
+    <v-app-bar v-if="!showDetail && isUser" class="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-down</v-icon>
       <v-btn :to="noticias_link" text>
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
@@ -80,7 +80,7 @@
     </v-app-bar>
 
     <!-- ong -->
-    <v-app-bar v-if="showDetail && !isUser" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
+    <v-app-bar v-if="showDetail && !isUser" class="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
       <v-btn :to="mis_campañas_link" text>
         <v-icon left>mdi-bullhorn-outline</v-icon>
@@ -97,7 +97,7 @@
     </v-app-bar>
 
     <!-- ong -->
-    <v-app-bar v-if="!showDetail && !isUser" id="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
+    <v-app-bar v-if="!showDetail && !isUser" class="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-down</v-icon>
       <v-btn :to="mis_campañas_link" text>
         <v-icon left>mdi-bullhorn-outline</v-icon>
@@ -134,14 +134,17 @@ export default {
       quienesSomos_link: '/QuienesSomos',
       noticias_link: '/Noticias',
       mis_campañas_link: '/MisCampañas',
-      recibido_link: '/AyudaRecibida'
+      recibido_link: '/AyudaRecibida',
+      perfil_link: '/Perfil'
     }
   },
 
+
   created() {
-    if (sessionStorage.getItem('token') != undefined){
+    console.log('Checkeando login');
+    if (sessionStorage.getItem('token') != null){
       this.isLoggedIn = true;
-      this.isUser = sessionStorage.getItem('category') === 'ong'? false:true;
+      this.isUser = sessionStorage.getItem('category') !== 'ong';
     }
     else{
       this.isLoggedIn = false;
@@ -160,7 +163,7 @@ export default {
   z-index: 1000;
 }
 
-#filaMenu{
+.filaMenu{
   padding: 0 0 0 8%;
 }
 
@@ -168,7 +171,7 @@ export default {
     text-transform: none;
 }
 
-#boton-superior{
+.boton-superior{
   color: white;
   font-weight: bold;
   font-size: 1.5em;

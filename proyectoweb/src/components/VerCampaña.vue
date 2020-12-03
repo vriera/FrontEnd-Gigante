@@ -20,17 +20,17 @@
             <v-row>
                 <v-spacer/>
                 <v-col cols="3">
-                    <span id="formHint">Fecha de inicio:</span>
+                    <span class="formHint">Fecha de inicio:</span>
                     <span>{{campaign.init_date}}</span>
                 </v-col>
                 <v-spacer/>
                 <v-col cols="3">
-                    <span id="formHint">Fecha de fin:</span>
+                    <span class="formHint">Fecha de fin:</span>
                     <span>{{campaign.end_date}}</span>
                 </v-col>
                 <v-spacer/>
                 <v-col cols="3">
-                    <span id="formHint">Horario:</span>
+                    <span class="formHint">Horario:</span>
                     <span>{{campaign.schedule}}</span>
                 </v-col>
                 <v-spacer/>
@@ -38,17 +38,17 @@
             <v-row>
                 <v-spacer/>
                 <v-col cols="3">
-                    <span id="formHint">Dirección:</span>
+                    <span class="formHint">Dirección:</span>
                     <span>{{campaign.street}} {{campaign.street_number}}</span>
                 </v-col>
                 <v-spacer/>
                 <v-col cols="3">
-                    <span id="formHint">Localidad:</span>
+                    <span class="formHint">Localidad:</span>
                     <span>{{campaign.city}}</span>
                 </v-col>
                 <v-spacer/>
                 <v-col cols="3">
-                    <span id="formHint">Barrio:</span>
+                    <span class="formHint">Barrio:</span>
                     <span>{{campaign.location}}</span>
                 </v-col>
                 <v-spacer/>
@@ -56,12 +56,12 @@
             <v-row>
                 <v-spacer/>
                 <v-col cols="4">
-                    <span id="formHint">Teléfono:</span>
+                    <span class="formHint">Teléfono:</span>
                     <span>{{parsePhone(campaign.phone)}}</span>
                 </v-col>
                 <v-spacer/>
                 <v-col cols="4">
-                    <span id="formHint">Contacto:</span>
+                    <span class="formHint">Contacto:</span>
                     <span>{{campaign.contact}}</span>
                 </v-col>
                 <v-spacer/>
@@ -298,7 +298,7 @@ export default {
     text-transform: uppercase;
 }
 
-#formHint{
+.formHint{
     margin: 2.5% 2% 0 0;
     font-weight: bold;
 }

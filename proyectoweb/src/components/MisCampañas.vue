@@ -3,7 +3,7 @@
     <v-row>
         <v-col cols='5'>
             <v-card id='sectionCampaignsCard' color="blue lighten-5">
-                    <span id='cardTitle'>Mis Campañas</span>
+                    <span class='cardTitle'>Mis Campañas</span>
                     <v-virtual-scroll height="640px"  item-height="300px" :items="campaigns">
                         <template v-slot:default="{index, item}">
                             <v-card id='campaignCard' outlined shaped elevation="2" @click="campaignSelected=index">
@@ -21,7 +21,7 @@
             </v-card>
             <v-card v-else id='sectionSelectedCard' color="blue lighten-5">
               <v-card style="padding: 5%; height: 100%;">
-                <span id='cardTitle'>{{campaigns[campaignSelected].name}}</span>
+                <span class='cardTitle'>{{campaigns[campaignSelected].name}}</span>
                 <div id="campaignInfo">
                 <v-row>
                   <span>Desde: {{campaigns[campaignSelected].init_date}}</span>
@@ -154,7 +154,7 @@ export default {
     font-size: 1.2em;
 }
 
-#cardTitle{
+.cardTitle{
     margin: 0 auto 2% auto;
     display: table;
     color: rgb(88, 118, 189);

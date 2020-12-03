@@ -9,7 +9,7 @@
           </v-col>
 
           <v-col style="margin-top: 50px">
-            <h3>John Doe</h3>
+            <h3>{{currentUser.username}}</h3>
           </v-col>
         </v-row>
 
@@ -17,7 +17,7 @@
           <h3>Configuración</h3>
         </v-row>
 
-        <v-card :to="edit_link" style="border-color: white; background-color: white; box-shadow: none">
+        <v-card :to="edit_link"  style="border-color: white; background-color: white; box-shadow: none">
           <v-row style="margin-left: 5%" >
             <v-col cols="2">
                 <v-icon >mdi-pencil</v-icon>
@@ -58,14 +58,23 @@
 import router from '@/router';
 
 <script>
+
+import UserStore from "@/store/UserStore";
+
 export default {
   name: "TarjetaDatosPerfil",
 
   data() {
     return {
-      edit_link: "/EditarPerfil"
+      edit_link: "/EditarPerfil",
+      currentUser : {}
     }
   },
+  async created() {
+
+      this.currentUser = await UserStore.getCurrentUser();
+
+  }
 }
 
 </script>
