@@ -135,7 +135,7 @@ export default {
       noticias_link: '/Noticias',
       mis_campañas_link: '/MisCampañas',
       recibido_link: '/AyudaRecibida',
-      perfil_link: '/Perfil'
+      perfil_link: '/Perfil',
       mapa_link: '/Mapa'
     }
   },
