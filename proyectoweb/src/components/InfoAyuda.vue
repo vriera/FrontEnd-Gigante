@@ -3,10 +3,10 @@
     <v-card-title>{{ donator.fullname }}</v-card-title>
     <v-divider class="mx-4" color="white"/>
     <v-card-text class="text-justify white--text">{{ info.description }}</v-card-text>
-    <v-card-actions>
+    <v-card-actions v-if="incoming">
         <v-spacer/>
-        <v-btn dark color="red">Datos incorrectos</v-btn>
-        <v-btn dark color="green">Confirmar aporte</v-btn>
+        <v-btn dark color="red" v-on:click="deleteDonation()">Datos incorrectos</v-btn>
+        <v-btn dark color="green" v-on:click="verifyDonation()">Confirmar ayuda</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -14,6 +14,7 @@
 <script>
 import Vue from 'vue'
 // import UserStore from '@/store/UserStore'
+// import CampaignStore from '@/store/CampaignStore'
 
 export default Vue.extend({
     data() {
@@ -25,11 +26,19 @@ export default Vue.extend({
     },
     props: {
         info: Object,
-        infoId: Number
+        infoId: Number,
+        incoming: Boolean
     },
     methods: {
         loaded() {
             this.$emit('loaded');
+        },
+        deleteDonation() {
+            // CamapaignStore.deleteDonation(this.infoId);
+        },
+        verifyDonation() {
+            // CampaignStore.modifyDonation(this.infoId,this.info.description,true);
+            this.info.verified = true;
         }
     },
     async mounted() {

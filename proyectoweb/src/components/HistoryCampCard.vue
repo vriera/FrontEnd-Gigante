@@ -1,9 +1,9 @@
 <template>
     <v-card flat>
         <v-card-title>{{ camp.name }}</v-card-title>
-        <v-card-subtitle v-if="empty">Nada para mostrar, aún.</v-card-subtitle>
+        <v-card-subtitle v-if="empty">No se registra ayuda recibida.</v-card-subtitle>
         <v-flex v-for="f in formsAyuda" :key="f.id_donation" class="infoForm mx-4">
-            <InfoAyuda v-if="f.id_campaign === camp.id_campaign && !f.verified" :info="f" :infoId="f.id_donation" :incoming="true" v-on:loaded="empty=false"/>
+            <InfoAyuda v-if="f.id_campaign === camp.id_campaign && f.verified" :info="f" :infoId="f.id_donation" v-on:loaded="empty=false"/>
         </v-flex>
     </v-card>
 </template>
