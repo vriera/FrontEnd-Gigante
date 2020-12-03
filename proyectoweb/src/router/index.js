@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/HomeView.vue'
 import PageNotFound from '../views/NotFoundView.vue'
+import UserStore from "@/store/UserStore";
 
 Vue.use(VueRouter)
 
@@ -17,12 +18,12 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/QuienesSomos.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/QuienesSomosView.vue')
   },
   {
     path: '/Noticias',
     name: 'Noticias',
-    component: () => import('../views/Noticias.vue')
+    component: () => import('../views/NoticiasView.vue')
   },
   {
     path: '/Registro',
@@ -63,7 +64,7 @@ const routes = [
   {
     path: '/AyudaRecibida',
     name: 'AyudaRecibida',
-    component: () => import('../views/AyudaRecibida.vue')
+    component: () => import('../views/AyudaRecibidaView.vue')
   },
   {
     path: '/Mapa',
@@ -82,6 +83,15 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if ((to.name !== 'Home' && to.name !== 'Registro' && to.name !== 'QuienesSomos' && to.name !== 'Mapa' && to.name !== 'AyudaRecibida' && to.name !== 'Noticias')
+      && UserStore.getCurrentToken() === null){
+    next({ name: 'Home' })
+  }
+  else
+    next()
 })
 
 export default router

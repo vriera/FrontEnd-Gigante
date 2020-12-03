@@ -9,9 +9,43 @@
           </v-col>
 
           <v-col style="margin-top: 50px">
-            <h3>{{currentUser.username}}</h3>
+            <h2>{{currentUser.username}}</h2>
           </v-col>
         </v-row>
+
+        <v-row style="margin-top: 5%; margin-left: 5%">
+          <h3>Datos</h3>
+        </v-row>
+
+        <v-card  style="border-color: white; background-color: white; box-shadow: none">
+          <v-row style="margin-left: 5%" >
+            <v-col cols="3">
+              <h3> Nombre : </h3>
+            </v-col>
+            <v-col >
+              <h3>{{currentUser.fullname}}</h3>
+            </v-col>
+          </v-row>
+        </v-card>
+
+        <v-row style="margin-left: 5%">
+          <v-col cols="3">
+            <h3> Mail : </h3>
+          </v-col>
+          <v-col >
+            <h3>{{currentUser.email}}</h3>
+          </v-col>
+        </v-row>
+
+        <v-row style="margin-left: 5%">
+          <v-col cols="3">
+            <h3> Dirección : </h3>
+          </v-col>
+          <v-col>
+            <h3>{{currentUser.street}} {{currentUser.street_number}}</h3>
+          </v-col>
+        </v-row>
+
 
         <v-row style="margin-top: 5%; margin-left: 5%">
           <h3>Configuración</h3>

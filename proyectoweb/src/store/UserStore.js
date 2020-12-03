@@ -2,6 +2,18 @@ import {UsersApi, Donator, Ong, Credentials} from "@/api/users";
 
 const UserStore = {
 
+    getCurrentToken(){
+        return UsersApi.getCurrentToken();
+    },
+
+    getCurrentId() {
+        return UsersApi.getCurrentId();
+    },
+
+    getCurrentCategory() {
+        return UsersApi.getCurrentCategory();
+    },
+
     async addDonator(email, username, password, fullname, street, street_number, floor, region, latitude, longitude) {
         try{
             console.log(email)

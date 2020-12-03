@@ -1,25 +1,25 @@
 <template>
-<div id="fondo">
-  <v-container fluid grid-list-xl>
-    <v-card flat class="ma-10 pb-2">
-      <v-layout column align-center id="header">
+  <div id="fondo">
+    <v-container fluid grid-list-xl>
+      <v-card flat class="ma-10 pb-2">
+        <v-layout column align-center id="header">
           <img height="200" src="https://i.ibb.co/27SGCt3/stars.png" alt="Logo" class="mt-5">
           <v-card-title class="text-button mb-6 headerTitle">Team DockerStars</v-card-title>
-      </v-layout>
-      <v-layout wrap justify-space-around class="mx-10">
-      <v-card flat width="500" class="mb-5" v-for="i in team" :key="i.name">
-        <v-row>
-          <img height="110" class="ml-3 roundedImg" :src="i.img" :alt="i.name">
-          <v-col rows="11">
-            <v-card-title>{{ i.name }}</v-card-title>
-            <v-card-subtitle>{{ i.role }}</v-card-subtitle>
-          </v-col>
-        </v-row>
+        </v-layout>
+        <v-layout wrap justify-space-around class="mx-10">
+          <v-card flat width="500" class="mb-5" v-for="i in team" :key="i.name">
+            <v-row>
+              <img height="110" class="ml-3 roundedImg" :src="i.img" :alt="i.name">
+              <v-col rows="11">
+                <v-card-title>{{ i.name }}</v-card-title>
+                <v-card-subtitle>{{ i.role }}</v-card-subtitle>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-layout>
       </v-card>
-      </v-layout>
-    </v-card>
-  </v-container>
-</div>
+    </v-container>
+  </div>
 </template>
 
 
@@ -47,10 +47,10 @@ export default {
 </script>
 
 <style scoped>
-  .headerTitle {
-    padding: 0%;
-  }
-  .roundedImg {
-    border-radius: 50%;
-  }
+.headerTitle {
+  padding: 0%;
+}
+.roundedImg {
+  border-radius: 50%;
+}
 </style>

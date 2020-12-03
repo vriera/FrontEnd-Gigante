@@ -1,18 +1,18 @@
 <template>
   <div id="fondo">
     <div style="background-image: url('../assets/fondoColores2.png');">
-      <edit-profile/>
+      <quienes-somos/>
     </div>
   </div>
 </template>
 
 <script>
 
-import EditarPerfil from "@/components/EditarPerfil";
+import QuienesSomos from "@/components/QuienesSomos";
 
 export default {
   components: {
-    'edit-profile' : EditarPerfil,
+    'quienes-somos' : QuienesSomos,
   }
 }
 </script>

@@ -6,6 +6,18 @@ class UsersApi {
     static userId = sessionStorage.getItem('userId');
     static userCategory = sessionStorage.getItem('category');
 
+    static getCurrentToken(){
+        return this.userToken;
+    }
+
+    static getCurrentId(){
+        return this.userId;
+    }
+
+    static getCurrentCategory(){
+        return this.userCategory;
+    }
+
     static get donatorUrl() {
         return `${Api.baseUrl}/donators`;
     }
