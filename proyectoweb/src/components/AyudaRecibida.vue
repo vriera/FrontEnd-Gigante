@@ -4,8 +4,8 @@
       <v-card flat class="ma-10 pa-5">
         <h1 class="ml-4 azulGigante">AYUDA RECIBIDA</h1>
         <div v-if="loaded">
-          <v-flex v-for="c in campañas" :key="c.id">
-            <CampCard v-if="c.active" :camp="c" :campId="c.id" />
+          <v-flex v-for="c in campañas" :key="c.id_campaign">
+            <CampCard v-if="c.active" :camp="c" :campId="c.id_campaign" />
           </v-flex>
         </div>
         <v-layout v-if="!loaded" column align-center class="py-5">
@@ -31,10 +31,10 @@ export default Vue.extend({
       loaded: false,
 
       campañas: [
-        { id: 1, nombre: "Colecta de tapitas: Diciembre 2020", active:true },
-        { id: 2, nombre: "Alimentos no perecederos para el Hogar Escuela", active:true },
-        { id: 3, nombre: "Platos y tazas para el Merendero Sonrisas", active:true },
-        { id: 4, nombre: "Voluntariado: Pintemos la Salita Nro 32", active:true },
+        { id_campaign: 1, name: "Colecta de tapitas: Diciembre 2020", active:true },
+        { id_campaign: 2, name: "Alimentos no perecederos para el Hogar Escuela", active:true },
+        { id_campaign: 3, name: "Platos y tazas para el Merendero Sonrisas", active:true },
+        { id_campaign: 4, name: "Voluntariado: Pintemos la Salita Nro 32", active:true },
       ]
     }
   },

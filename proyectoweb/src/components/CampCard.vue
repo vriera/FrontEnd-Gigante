@@ -1,15 +1,16 @@
 <template>
     <v-card flat>
-        <v-card-title>{{ camp.nombre }}</v-card-title>
+        <v-card-title>{{ camp.name }}</v-card-title>
         <v-card-subtitle v-if="empty">Nada para mostrar, aún.</v-card-subtitle>
-        <v-flex v-for="f in formsAyuda" :key="f.id" class="infoForm mx-4">
-            <InfoAyuda v-if="f.idCamp === camp.id" :info="f" :infoId="f.id" v-on:loaded="empty=false"/>
+        <v-flex v-for="f in formsAyuda" :key="f.id_donation" class="infoForm mx-4">
+            <InfoAyuda v-if="f.id_campaign === camp.id_campaign && !f.verified" :info="f" :infoId="f.id_donation" v-on:loaded="empty=false"/>
         </v-flex>
     </v-card>
 </template>
 
 <script>
-import InfoAyuda from "./InfoAyuda.vue";
+// import CampaignStore from '@/store/CampaignStore'
+import InfoAyuda from "./InfoAyuda.vue"
 import Vue from 'vue'
 
 export default Vue.extend({
@@ -23,24 +24,24 @@ export default Vue.extend({
     data () {
         return {
 
-            // formsAyuda: [] as FormAyuda[],
+            // formsAyuda: [],
             empty: true,
             loaded: false,
             
             formsAyuda: [
-                { id: 1, idCamp: 1, usuario: "María José", msj: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque quam nam nostrum praesentium asperiores?" },
-                { id: 2, idCamp: 1, usuario: "José María", msj: "Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque." },
-                { id: 3, idCamp: 2, usuario: "Azul Pérez", msj: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius cupiditate quae quibusdam tempora ullam rerum in itaque quam nam nostrum praesentium asperiores?" },
-                { id: 4, idCamp: 2, usuario: "Franco Serrano", msj: "Adipisicing elit. Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque quam nam nostrum praesentium asperiores?" },
-                { id: 5, idCamp: 3, usuario: "Rodrigo Casas", msj: "Cupiditate quae quibusdam tempora ullam assumenda nam nostrum praesentium asperiores?" },
-                { id: 6, idCamp: 3, usuario: "Dana Sosa", msj: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque quam nam nostrum praesentium asperiores?" },
-                { id: 7, idCamp: 3, usuario: "Pilar Rojas", msj: "Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus." },
+                { id_donation: 1, id_campaign: 1, id_donator: 1, description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque quam nam nostrum praesentium asperiores?", verified: true },
+                { id_donation: 2, id_campaign: 1, id_donator: 2, description: "Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque.", verified: false },
+                { id_donation: 3, id_campaign: 2, id_donator: 3, description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius cupiditate quae quibusdam tempora ullam rerum in itaque quam nam nostrum praesentium asperiores?", verified: false },
+                { id_donation: 4, id_campaign: 2, id_donator: 1, description: "Adipisicing elit. Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque quam nam nostrum praesentium asperiores?", verified: false },
+                { id_donation: 5, id_campaign: 3, id_donator: 2, description: "Cupiditate quae quibusdam tempora ullam assumenda nam nostrum praesentium asperiores?", verified: false },
+                { id_donation: 6, id_campaign: 3, id_donator: 4, description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque quam nam nostrum praesentium asperiores?", verified: false },
+                { id_donation: 7, id_campaign: 3, id_donator: 5, description: "Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus.", verified: false },
             ]
         }
     },
     async mounted() {
         try {
-            // this.formsAyuda = ;
+            // this.formsAyuda = await CampaignStore.getDonations();
             this.loaded = true;
         } catch (e) {
             console.log('ERROR AL CARGAR FORMULARIOS DE AYUDA RECIBIDA');
