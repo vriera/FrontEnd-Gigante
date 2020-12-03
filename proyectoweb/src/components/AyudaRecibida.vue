@@ -1,5 +1,5 @@
 <template>
-  <div id="fondo">
+  <div>
     <v-container fluid grid-list-xl>
       <v-card flat class="ma-10 pa-5">
         <v-row>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-// import CampaignStore from '@/store/CampaignStore'
+import CampaignStore from '@/store/CampaignStore'
 import CampCard from "../components/CampCard"
 import HistoryCampCard from "../components/HistoryCampCard"
 import Vue from 'vue'
@@ -37,20 +37,25 @@ export default Vue.extend({
   },
   data () {
     return {
-      // campañas: [],
+      campañas: [],
       history: false,
       loaded: false,
-      campañas: [
-        { id_campaign: 1, name: "Colecta de tapitas: Diciembre 2020", active:true },
-        { id_campaign: 2, name: "Alimentos no perecederos para el Hogar Escuela", active:true },
-        { id_campaign: 3, name: "Platos y tazas para el Merendero Sonrisas", active:true },
-        { id_campaign: 4, name: "Voluntariado: Pintemos la Salita Nro 32", active:true },
-      ]
+      // campañas: [
+      //   { id_campaign: 1, name: "Colecta de tapitas: Diciembre 2020", active:true },
+      //   { id_campaign: 2, name: "Alimentos no perecederos para el Hogar Escuela", active:true },
+      //   { id_campaign: 3, name: "Platos y tazas para el Merendero Sonrisas", active:true },
+      //   { id_campaign: 4, name: "Voluntariado: Pintemos la Salita Nro 32", active:true },
+      // ]
     }
   },
   async mounted() {
     try {
-      // this.campañas = await CampaignStore.getMyCampaigns();;
+      const answer = await CampaignStore.getMyCampaigns();
+      // if(answer.results !== undefined)
+      //   console.log("TODO OK");
+      // else
+      //   console.log(answer.message);
+      this.campañas = answer.results;
       this.loaded = true;
     } catch (e) {
       console.log('ERROR AL CARGAR CAMPAÑAS');

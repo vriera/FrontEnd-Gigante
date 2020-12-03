@@ -13,8 +13,8 @@
 
 <script>
 import Vue from 'vue'
-// import UserStore from '@/store/UserStore'
-// import CampaignStore from '@/store/CampaignStore'
+import UserStore from '@/store/UserStore'
+import CampaignStore from '@/store/CampaignStore'
 
 export default Vue.extend({
     data() {
@@ -34,16 +34,22 @@ export default Vue.extend({
             this.$emit('loaded');
         },
         deleteDonation() {
-            // CamapaignStore.deleteDonation(this.infoId);
+            CampaignStore.deleteDonation(this.infoId);
+            location.reload();
         },
         verifyDonation() {
-            // CampaignStore.modifyDonation(this.infoId,this.info.description,true);
-            this.info.verified = true;
+            CampaignStore.modifyDonation(this.infoId,this.info.description,true);
+            // this.info.verified = true;
+            location.reload();
+        },
+        unverifyDonation() {
+             CampaignStore.modifyDonation(this.infoId,this.info.description,false);
+            location.reload();
         }
     },
     async mounted() {
         try {
-            // this.donator = await UserStore.getDonators(this.info.id_donator);
+            this.donator = await UserStore.getDonators(this.info.id_donator);
             this.loaded();
         } catch(e) {
           console.log('NO SE PUDO CARGAR LA INFO');
