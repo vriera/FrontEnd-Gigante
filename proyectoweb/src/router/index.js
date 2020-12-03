@@ -66,6 +66,12 @@ const routes = [
     component: () => import('../views/AyudaRecibida.vue')
   },
   {
+    path: '/Mapa',
+    name: 'Mapa',
+    component: () => import(/* webpackChunkName: "about" */ '../views/MapView.vue')
+
+  },
+  {
     path: '*',
     name: '404',
     component: PageNotFound,
