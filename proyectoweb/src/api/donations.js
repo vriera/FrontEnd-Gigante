@@ -42,6 +42,9 @@ class DonationsApi{
         }
     }
 
+    static async getMyDonations(controller){
+        return await Api.get(`${Api.baseUrl}/user/current/donations`, true, controller)
+    }
 
     static async getDonationsByDonator( id , controller){
         if ( Number.isInteger(id)){

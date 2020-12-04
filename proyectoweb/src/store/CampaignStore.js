@@ -21,6 +21,11 @@ const CampaignStore = {
         return await CampaignApi.getMyCampaigns();
     },
 
+    async getMyDonations(){
+        return await CampaignApi.getMyCampaigns();
+    },
+
+
     async getCampaignsByOngId(id){
         return await CampaignApi.getActiveCampaignsByOngId(id);
     },
