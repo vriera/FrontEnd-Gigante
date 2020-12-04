@@ -21,15 +21,41 @@
           <login/>
         </v-menu>
       </v-col>
+      
       <v-col v-if="isLoggedIn" xs='6' sm='4' md="3" lg="2">
-        <v-btn :to="perfil_link" v-if="isUser" class='boton-superior' text>
-          <v-icon left>mdi-chevron-down</v-icon>
-          <span>Mi perfil</span> 
-        </v-btn>
-        <v-btn :to="perfil_link" v-else class='boton-superior' text>
-          <v-icon left>mdi-chevron-down</v-icon>
-          <span>Mi organización</span> 
-        </v-btn>
+
+      <div class="text-center">
+      <v-menu
+      top
+      offset-y
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn v-if="isUser" class='boton-superior' text v-bind="attrs" v-on="on">
+            <v-icon left>mdi-chevron-down</v-icon>
+            <span>Mi perfil</span> 
+          </v-btn>
+          <v-btn v-else class='boton-superior' text v-bind="attrs" v-on="on">
+            <v-icon left>mdi-chevron-down</v-icon>
+            <span>Mi organización</span> 
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in profileBtns"
+            :key="index"
+          >
+            <v-btn v-if="index == 0" :to="perfil_link" class="blue lighten-5" text style="width: 100%;">
+              <span>{{ item.title }}</span>
+            </v-btn>
+            <v-btn v-else @click="logout()" class="blue lighten-5" text style="width: 100%;">
+              <v-icon left style="color: red;">mdi-logout</v-icon>
+              <span style="color: red;">{{ item.title }}</span>
+            </v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      </div>
       </v-col>
     </v-row>
 
@@ -116,6 +142,7 @@
 
 <script>
 import Login from "@/components/Login";
+import UserStore from "@/store/UserStore";
 
 export default {
   components: {
@@ -136,7 +163,12 @@ export default {
       mis_campañas_link: '/MisCampañas',
       recibido_link: '/AyudaRecibida',
       perfil_link: '/Perfil',
-      mapa_link: '/Mapa'
+      mapa_link: '/Mapa',
+
+      profileBtns: [
+        { title: 'Ver perfil' },
+        { title: 'Cerrar sesión' },
+      ],
     }
   },
 
@@ -151,6 +183,22 @@ export default {
       this.isLoggedIn = false;
       this.isUser = true;
     }
+  },
+
+  methods:{
+
+    async logout(){
+      let success = false;
+      success = await UserStore.logout();
+
+      this.isLoggedIn = false;
+      if (!success)
+        console.log("Error al cerrar sesión");
+      else
+        console.log("Sesión cerrada con éxito")
+      location.reload();
+    }
+
   },
 
 }
