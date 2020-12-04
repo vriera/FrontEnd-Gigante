@@ -2,13 +2,25 @@ import {UsersApi, Donator, Ong, Credentials} from "@/api/users";
 
 const UserStore = {
 
+    getCurrentToken(){
+        return UsersApi.getCurrentToken();
+    },
+
+    getCurrentId() {
+        return UsersApi.getCurrentId();
+    },
+
+    getCurrentCategory() {
+        return UsersApi.getCurrentCategory();
+    },
+
     async addDonator(email, username, password, fullname, street, street_number, floor, region, latitude, longitude) {
         try{
             console.log(email)
             const donator = new Donator(undefined, email,username,password, fullname, street, street_number, floor, region, latitude, longitude);
             console.log(donator)
             const result = await UsersApi.addDonator(donator);
-            return result.sucess;
+            return result.success;
         } catch (error) {
             console.log(error);
         }
@@ -17,7 +29,8 @@ const UserStore = {
     async addOng(email,username, password, fullname, rep_name, rep_dni, phone, street, street_number, floor, region, latitude, longitude) {
         try{
             const ong = new Ong(undefined,email,username, password, fullname, rep_name, rep_dni, phone, street, street_number, floor, region, latitude, longitude)
-            return await UsersApi.addOng(ong);
+            const result = await UsersApi.addOng(ong);
+            return result.success;
         } catch (error) {
             console.log(error);
         }

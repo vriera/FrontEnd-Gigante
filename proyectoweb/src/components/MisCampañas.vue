@@ -3,12 +3,12 @@
     <v-row>
         <v-col cols='5'>
             <v-card id='sectionCampaignsCard' color="blue lighten-5">
-                    <span id='cardTitle'>Mis Campañas</span>
+                    <span class='cardTitle'>Mis Campañas</span>
                     <v-virtual-scroll height="640px"  item-height="300px" :items="campaigns">
-                        <template v-slot:default="{item}">
-                            <v-card id='campaignCard' outlined shaped elevation="2">
+                        <template v-slot:default="{index, item}">
+                            <v-card id='campaignCard' outlined shaped elevation="2" @click="campaignSelected=index">
                                 <span id='campaignName'>{{item.name}}</span>
-                                <span><br/><br/>Fechas: {{item.start}} - {{item.end}}<br/><br/></span>
+                                <span><br/><br/>Fechas: {{item.init_date}} - {{item.end_date}}<br/><br/></span>
                                 <span>Descripción: {{item.description}}</span>
                             </v-card>
                         </template>
@@ -21,13 +21,13 @@
             </v-card>
             <v-card v-else id='sectionSelectedCard' color="blue lighten-5">
               <v-card style="padding: 5%; height: 100%;">
-                <span id='cardTitle'>{{campaigns[campaignSelected].name}}</span>
+                <span class='cardTitle'>{{campaigns[campaignSelected].name}}</span>
                 <div id="campaignInfo">
                 <v-row>
-                  <span>Desde: {{campaigns[campaignSelected].start}}</span>
+                  <span>Desde: {{campaigns[campaignSelected].init_date}}</span>
                 </v-row>
                 <v-row>
-                  <span>Hasta: {{campaigns[campaignSelected].end}}</span>
+                  <span>Hasta: {{campaigns[campaignSelected].end_date}}</span>
                 </v-row>
                 <v-row id='descRow'>
                   <span>{{campaigns[campaignSelected].description}}</span>
@@ -42,19 +42,19 @@
                   <span>Ciudad: {{campaigns[campaignSelected].city}}</span>
                 </v-row>
                 <v-row style="margin-bottom: 5%;">
-                  <span>Barrio: {{campaigns[campaignSelected].neighbourhood}}</span>
+                  <span>Barrio: {{campaigns[campaignSelected].location}}</span>
                 </v-row>
                 <v-row>
-                  <span>Horarios: {{campaigns[campaignSelected].horario}}</span>
+                  <span>Horarios: {{campaigns[campaignSelected].schedule}}</span>
                 </v-row>
                 <v-row>
-                  <span>Contacto: {{campaigns[campaignSelected].contacto}}</span>
+                  <span>Contacto: {{campaigns[campaignSelected].contact}}</span>
                 </v-row>
                 <v-row>
-                  <span>Teléfono: {{campaigns[campaignSelected].phone}}</span>
+                  <span>Teléfono: {{parsePhone(campaigns[campaignSelected].phone)}}</span>
                 </v-row>
-                <v-btn id="editarBtn" :to="editar_campaña_link" color="blue lighten-3">
-                  <span style="margin: 5% 0 0 0;">Editar</span>
+                <v-btn id="editarBtn" @click="$router.push(editar_campaña_link + campaigns[campaignSelected].id_campaign)" color="blue lighten-3">
+                  <span>Editar</span>
                 </v-btn>
                 </div>
               </v-card>
@@ -71,23 +71,47 @@
 
 <script>
 
+import CampaignStore from "@/store/CampaignStore";
+
 export default {
 
   data(){
     return {
 
         crear_campaña_link: '/CrearCampaña',
-        editar_campaña_link: '/EditarCampaña',
+        editar_campaña_link: '/EditarCampaña/',
 
         campaignSelected: 0,//-1,   //Índice de la campaña que estoy mostrando en detalle
 
-        campaigns: [{name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"}, 
-          {name: "Campaña 2", start: "10/06/2020", end:"12/10/2020", description:"Ayuda para construir casas en Liniers", street:"Gral. Rodríguez", street_number:"1300", city: "C.A.B.A.", neighbourhood:"Liniers", horario:"11:00 - 18:00", contacto: "alicia@gmail.com", phone:"15-5555-2487"},
-          {name: "Campaña 3", start: "24/07/2020", end:"25/08/2020", description:"Junta de comida para el comedor Gómez", street:"Rivadavia", street_number:"5400", city: "C.A.B.A.", neighbourhood:"Caballito", horario:"14:00 - 22:00", contacto: "pepitocrack@gmail.com", phone:"15-4066-1111"},
-          {name: "Campaña 4", start: "03/06/2020", end:"29/09/2020", description:"Junta de juguetes para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
-          {name: "Campaña 5", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"}]
-
+      campaigns: [],
+      store: CampaignStore,
     }
+  },
+
+  async created(){
+    const result = await this.store.getMyCampaigns();
+    this.campaigns = result.results;
+    console.log(this.campaigns);
+  },
+
+  methods: {
+    parsePhone(phone){
+      let result = phone;
+      let phoneS = phone.toString();
+      if(phoneS.length == 8){
+        //4-4
+        result = [phoneS.slice(0, 4), '-', phoneS.slice(4)].join('');
+        return result;
+      }
+
+      if(phoneS.length == 10){
+        //2-4-4
+        result = [phoneS.slice(0, 2), '-', phoneS.slice(2, 6), '-', phoneS.slice(6)].join('');
+        return result;
+      }
+
+      return phone;
+    },
   },
 
 }
@@ -131,7 +155,7 @@ export default {
     font-size: 1.2em;
 }
 
-#cardTitle{
+.cardTitle{
     margin: 0 auto 2% auto;
     display: table;
     color: rgb(88, 118, 189);
@@ -159,6 +183,7 @@ export default {
 
 #descRow{
     border: solid;
+    border-color: cornflowerblue;
     border-width: thin;
     margin: 5% 0 5% 0;
     padding: 2%;

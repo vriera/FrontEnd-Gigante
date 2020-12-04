@@ -28,7 +28,7 @@ class Api {
             const response = await fetch(url, init);
             const text = await response.text();
             const result = text ? (JSON).parse(text) : {};
-            if (result.success !== true)
+            if (result.code)
                 throw result;
 
             return result;

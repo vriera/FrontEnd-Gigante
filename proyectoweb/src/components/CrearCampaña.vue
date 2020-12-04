@@ -40,7 +40,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Fecha de inicio: </span>
+                        <span class="formHint">Fecha de inicio: </span>
                         <v-text-field
                         v-model="desdeFecha"
                         :error-messages="desdeFechaErrors"
@@ -55,7 +55,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Fecha de fin: </span>
+                        <span class="formHint">Fecha de fin: </span>
                         <v-text-field
                         v-model="hastaFecha"
                         :error-messages="hastaFechaErrors"
@@ -88,9 +88,9 @@
             
             <div :key="catBtnRenderer">
             <v-row style="margin: 1% 5%;">
-              <v-col v-for="(category, index) in categories" :key="category">
+              <v-col v-for="(category, index) in categories" :key="category.id_category">
                 <v-btn id='categoryBtn' v-bind:color="catSelected[index]? 'blue lighten-5' : 'grey lighten-1'" rounded @click="catSelected[index] = !catSelected[index]; forceCatBtnRerender(); noCatError = false;">
-                  <span>{{category}}</span>
+                  <span>{{category.description}}</span>
                 </v-btn>
               </v-col>
             </v-row>
@@ -101,7 +101,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Dirección: </span>
+                        <span class="formHint">Dirección: </span>
                         <v-text-field
                         v-model="street"
                         :error-messages="streetErrors"
@@ -115,7 +115,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Altura: </span>
+                        <span class="formHint">Altura: </span>
                         <v-text-field
                         v-model="street_number"
                         :error-messages="streetNumberErrors"
@@ -132,7 +132,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Localidad: </span>
+                        <span class="formHint">Localidad: </span>
                         <v-text-field
                         v-model="city"
                         :error-messages="cityErrors"
@@ -146,7 +146,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Barrio: </span>
+                        <span class="formHint">Barrio: </span>
                         <v-text-field
                         v-model="neighbourhood"
                         :error-messages="neighbourhoodErrors"
@@ -163,7 +163,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Teléfono: </span>
+                        <span class="formHint">Teléfono: </span>
                         <v-text-field
                         v-model="phone"
                         :error-messages="phoneErrors"
@@ -177,7 +177,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span id="formHint">Contacto: </span>
+                        <span class="formHint">Contacto: </span>
                         <v-text-field
                         v-model="contacto"
                         :error-messages="contactoErrors"
@@ -246,10 +246,10 @@ export default {
 
   data(){
     return { 
-        campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
-    
-    categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
-    catSelected: [false, false, false, false, false, false, false, false],
+        //campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
+    //categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
+    categories: [],
+      catSelected: [false, false, false, false, false, false, false, false],
     catBtnRenderer: 0,
     noCatError: false,
 
@@ -366,7 +366,7 @@ computed:{
       this.$v.$touch()
       if (!this.$v.$invalid && this.atLeastOneCategory()){
         this.loading = true;
-        let success = false;
+        let result;
 
         let currentOng = await UserStore.getCurrentUser();
         if (currentOng.id === undefined){
@@ -376,16 +376,23 @@ computed:{
           return;
         }
 
-        success = await CampaignStore.addCampaign(currentOng.id, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street + ' ' + this.street_number,
-                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto);
+         result = await CampaignStore.addCampaign(currentOng.id, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
+                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto, true);
 
-        if (!success){
+        if (!result.success){
           this.submitError = true;
           this.mensajeAlertForm = 'Error al crear la campaña, inténtelo más tarde';
         }
         else{
           this.submitted = true;
 
+          for(let i = 0; i < this.catSelected.length; i++){
+            if(this.catSelected[i]){
+              console.log(this.categories[i].id_category)
+              await CampaignStore.addCampaignCategory(result.id, this.categories[i].id_category);
+            }
+          }
+          this.$router.go(-1);
         }
 
         this.loading = false;
@@ -394,6 +401,11 @@ computed:{
     },
 
   },
+
+  async created(){
+      const result = await CampaignStore.getCategories();
+      this.categories = result.results;
+  }
 }
 </script>
 
@@ -413,7 +425,7 @@ computed:{
     text-transform: uppercase;
 }
 
-#formHint{
+.formHint{
     margin: 2.5% 2% 0 0;
 }
 

@@ -48,8 +48,8 @@ export default {
 
 <style scoped>
 
-  .flex {
-    flex-grow: 0;
-  }
+.flex {
+  flex-grow: 0;
+}
 
 </style>

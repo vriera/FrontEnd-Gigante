@@ -1,18 +1,18 @@
 <template>
   <div id="fondo">
       <div style="background-image: url('../assets/fondoColores2.png');">
-        <edit-campaign v-bind:id="$route.params.id"/>
+        <view-campaign v-bind:id="$route.params.id"/>
       </div>
   </div>
 </template>
 
 <script>
 
-import EditCampaign from '@/components/EditarCampaña.vue'
+import ViewCampaign from '@/components/VerCampaña.vue'
 
 export default {
   components: {
-    'edit-campaign' : EditCampaign,
+    'view-campaign' : ViewCampaign,
   }
 }
 </script>

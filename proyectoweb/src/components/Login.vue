@@ -109,6 +109,7 @@ export default {
         }
         else{
           console.log("Estoy logueado")
+          location.reload();
         }
       }
     },

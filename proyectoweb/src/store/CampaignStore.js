@@ -4,9 +4,9 @@ import {Donation, DonationsApi} from "@/api/donations";
 
 const CampaignStore = {
 
-    async addCampaign(id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact , isActive) {
+    async addCampaign(id_ong, name, description, init_date, end_date, street,street_number, city, location, schedule, phone, contact , active) {
         try{
-            const campaign = new Campaign(undefined,id_ong, name, description, init_date, end_date, address, city, location, schedule, phone, contact, isActive)
+            const campaign = new Campaign(undefined,id_ong, name, description, init_date, end_date, street,street_number, city, location, schedule, phone, contact, active)
             return await CampaignApi.postCampaign(campaign)
         } catch (error) {
             console.log(error);
@@ -21,8 +21,17 @@ const CampaignStore = {
         return await CampaignApi.getMyCampaigns();
     },
 
-    async modifyCampaign(id, name, description, init_date, end_date, address, city, location, schedule, phone, contact , isActive){
-        const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, address, city, location, schedule, phone, contact , isActive)
+    async getMyDonations(){
+        return await CampaignApi.getMyCampaigns();
+    },
+
+
+    async getCampaignsByOngId(id){
+        return await CampaignApi.getActiveCampaignsByOngId(id);
+    },
+
+    async modifyCampaign(id, name, description, init_date, end_date, street, street_number, city, location, schedule, phone, contact , active){
+        const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, street,street_number, city, location, schedule, phone, contact , active)
         return await CampaignApi.putCampaign(id, campaign);
     },
 
@@ -69,13 +78,13 @@ const CampaignStore = {
         return await DonationsApi.getAllDonations();
     },
 
-    async addDonation(donatorId, campaignId, categoryId, cant, isVerified){
-        const donation = new Donation(undefined, donatorId, campaignId, categoryId, cant, isVerified);
+    async addDonation(donatorId, campaignId, categoryId, description, verified){
+        const donation = new Donation(undefined, donatorId, campaignId, categoryId, description, verified);
         return await DonationsApi.postDonation(donation);
     },
 
-    async modifyDonation(donationId, cant, isVerified){
-        return await DonationsApi.putDonation(donationId, cant, isVerified);
+    async modifyDonation(donationId, description, verified){
+        return await DonationsApi.putDonation(donationId,description, verified);
     },
 
     async deleteDonation(donationId){
