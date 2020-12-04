@@ -22,38 +22,7 @@
           </v-row>
         </v-alert>
 
-
-        <v-row justify="center">
-          <v-avatar size="220" cols="2">
-            <v-img src="@/assets/default.png"/>
-          </v-avatar>
-        </v-row>
-
-        <v-row justify="center">
-          <v-col cols="2">
-            <p style="text-align: center">Imagen</p>
-          </v-col>
-          <v-col cols="8">
-            <v-row>
-              <div style="width: 650px">
-                <!-- <v-text-field v-model="image" outlined
-                               rounded background-color="#F7F2F2" :disabled="(editImage !== true)"
-                               :rules="[rules.validateURL(image)]"/>-->
-                <v-text-field v-model="image" outlined
-                              rounded background-color="#F7F2F2" :disabled="(editImage !== true)"
-                              :error-messages="imageErrors"
-                              @blur="$v.image.$touch()"/>
-
-              </div>
-              <v-icon size="34" color="#8B8686" style="position: relative; bottom: 5px; left: 5px;"
-                      @click="editImage = !editImage">
-                mdi-pencil
-              </v-icon>
-            </v-row>
-          </v-col>
-        </v-row>
-
-        <v-row justify="center">
+        <v-row style="margin-top: 10%;" justify="center">
           <v-col cols="2">
             <p  style="text-align: center">Nombre</p>
           </v-col>
@@ -331,15 +300,15 @@
         </div>
         <div style="text-align: center;" class="my-8">
           <v-btn height="64px" width="350px" class="rounded-pill"
-                 depressed @click="editUser">
-            <v-icon large style="position: relative; left: -12px;">mdi-content-save-outline</v-icon>
-            Guardar cambios
+                 depressed router :to="perfilLink">
+            <v-icon large style="position: relative; left: -12px;">mdi-arrow-left</v-icon>
+            Volver
           </v-btn>
 
           <v-btn height="64px" width="350px" class="rounded-pill" depressed
-                 color="primary" @click="logOut">
-            <v-icon large style="position: relative; left: -12px;">mdi-logout</v-icon>
-            Cerrar sesión
+                 color="primary" @click="editUser">
+            <v-icon large style="position: relative; left: -12px;">mdi-content-save-outline</v-icon>
+            Guardar cambios
           </v-btn>
         </div>
 
@@ -349,11 +318,15 @@
   </div>
 </template>
 
+import router from '@/router';
+
 <script>
 
 import UserStore from "@/store/UserStore";
 import {validationMixin} from "vuelidate";
 import {integer, maxLength, minValue, email, required, url, minLength} from "vuelidate/lib/validators";
+
+
 
 export default {
   mixins: [validationMixin],
@@ -384,8 +357,7 @@ export default {
       editRepDni: false,
       phone: '',
       editPhone: false,
-      image: null,
-      editImage: false,
+      perfilLink: '/Perfil',
       // longitude: 0,
       // latitude : 0,
       rules: {

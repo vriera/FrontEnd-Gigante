@@ -90,6 +90,10 @@ router.beforeEach((to, from, next) => {
       && UserStore.getCurrentToken() === null){
     next({ name: 'Home' })
   }
+  else if((to.name === 'VerCampaña' || to.name === 'EditarCampaña' || to.name === 'CrearCampaña' || to.name === 'MisCampañas')
+      && UserStore.getCurrentCategory() === 'donator'){
+    next({ name: 'Home' })
+  }
   else
     next()
 })
