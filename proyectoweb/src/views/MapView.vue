@@ -34,6 +34,7 @@
 <script>
 // @ is an alias to /src
 import {geomapApi, AddressData} from '@/Geocode/geomap.js'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 export default {
   components: {
