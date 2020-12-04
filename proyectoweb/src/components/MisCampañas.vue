@@ -10,8 +10,8 @@
                                 <span id='campaignName'>{{item.name}}</span>
                                 <span><br/><br/>Fechas: {{item.init_date}} - {{item.end_date}}<br/><br/></span>
                                 <span>Descripción: {{item.description}}</span>
-                                <v-row style="margin-top: 7%;">
-                                  <span v-if="campaigns[campaignSelected].active == true" id="activeTextOnNonDetailed">Activa</span>
+                                <v-row style="margin-top: 4%;">
+                                  <span v-if="item.active == true" id="activeTextOnNonDetailed">Activa</span>
                                   <span v-else id="inactiveTextOnNonDetailed">Inactiva</span>
                                 </v-row>
                             </v-card>
@@ -220,7 +220,7 @@ export default {
 }
 
 #activeTextOnNonDetailed{
-    margin-left: 70%;
+    margin: 0 0 0 70%;
     padding: 1% 2%;
     border: solid;
     border-width: thin;
@@ -228,7 +228,7 @@ export default {
 }
 
 #inactiveTextOnNonDetailed{
-    margin-left: 70%;
+    margin: 0 0 0 70%;
     padding: 1% 2%;
     border: solid;
     border-width: thin;
