@@ -47,11 +47,11 @@ const CampaignStore = {
         const category = new CampaignCategory(undefined, categoryId);
         return await CampaignApi.postCampaignCategory(campaignId, category)
     },
-
-    //async modifyCampaignCategory(campaignId, categoryId, wanted, total){
-      //  const category = new CampaignCategory(undefined, undefined, wanted, total);
-        //return await CampaignApi.putCampaignCategory(campaignId,categoryId,category);
-    //},
+    /*
+    async modifyCampaignCategory(campaignId, categoryId, wanted, total){
+        const category = new CampaignCategory(undefined, undefined, wanted, total);
+        return await CampaignApi.putCampaignCategory(campaignId,categoryId,category);
+    },*/
 
     async deleteCampaignCategory(campaignId, categoryId){
         return await CampaignApi.deleteCampaignCategory(campaignId, categoryId);

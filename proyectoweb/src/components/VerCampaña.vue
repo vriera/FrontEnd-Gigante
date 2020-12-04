@@ -207,15 +207,16 @@ export default {
 
     parsePhone(phone){
       let result = phone;
-      if(phone.toString().length == 8){
+      let phoneS = phone.toString();
+      if(phoneS.length == 8){
         //4-4
-        result = [phone.slice(0, 4), '-', phone.slice(4)].join('');
+        result = [phoneS.slice(0, 4), '-', phoneS.slice(4)].join('');
         return result;
       }
 
-      if(phone.toString().length == 10){
+      if(phoneS.length == 10){
         //2-4-4
-        result = [phone.slice(0, 2), '-', phone.slice(2, 6), '-', phone.slice(6)].join('');
+        result = [phoneS.slice(0, 2), '-', phoneS.slice(2, 6), '-', phoneS.slice(6)].join('');
         return result;
       }
 
