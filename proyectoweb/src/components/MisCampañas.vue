@@ -10,6 +10,10 @@
                                 <span id='campaignName'>{{item.name}}</span>
                                 <span><br/><br/>Fechas: {{item.init_date}} - {{item.end_date}}<br/><br/></span>
                                 <span>Descripción: {{item.description}}</span>
+                                <v-row style="margin-top: 7%;">
+                                  <span v-if="campaigns[campaignSelected].active == true" id="activeTextOnNonDetailed">Activa</span>
+                                  <span v-else id="inactiveTextOnNonDetailed">Inactiva</span>
+                                </v-row>
                             </v-card>
                         </template>
                     </v-virtual-scroll>
@@ -53,6 +57,8 @@
                 <v-row>
                   <span>Teléfono: {{parsePhone(campaigns[campaignSelected].phone)}}</span>
                 </v-row>
+                <span v-if="campaigns[campaignSelected].active == true" id="activeText">Activa</span>
+                <span v-else id="inactiveText">Inactiva</span>
                 <v-btn id="editarBtn" @click="$router.push(editar_campaña_link + campaigns[campaignSelected].id_campaign)" color="blue lighten-3">
                   <span>Editar</span>
                 </v-btn>
@@ -195,5 +201,37 @@ export default {
     display: table;
     color: white;
     width: 40%;
+}
+
+#activeText{
+    margin: 2% 0 0 80%;
+    padding: 1% 2%;
+    border: solid;
+    border-width: thin;
+    background-color: rgb(133, 241, 133);
+}
+
+#inactiveText{
+    margin: 2% 0 0 80%;
+    padding: 1% 2%;
+    border: solid;
+    border-width: thin;
+    background-color: rgb(252, 120, 120);
+}
+
+#activeTextOnNonDetailed{
+    margin-left: 70%;
+    padding: 1% 2%;
+    border: solid;
+    border-width: thin;
+    background-color: rgb(133, 241, 133);
+}
+
+#inactiveTextOnNonDetailed{
+    margin-left: 70%;
+    padding: 1% 2%;
+    border: solid;
+    border-width: thin;
+    background-color: rgb(252, 120, 120);
 }
 </style>

@@ -18,7 +18,7 @@
           </v-col>
     </v-row>
     <div style="text-align: center; margin-top:2%">
-      <h1> Comenzá a explorar las distintas opciones y empezá con está GIGANTE experiencia</h1>
+      <h1> Comenzá a explorar las distintas opciones y empezá con esta GIGANTE experiencia</h1>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
         {
           text1: "Si sos un/a",
           text2:"VOLUNTARIO/A",
-          text3:"podés donar tu tiempo para diversas causas."
+          text3:"Podés donar tu tiempo para diversas causas."
         },
         {
           text1:"Si sos una",

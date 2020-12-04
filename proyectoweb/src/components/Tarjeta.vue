@@ -1,6 +1,6 @@
 <template>
   <div >
-      <v-card class="anita" shaped elevation="5"  width="420px" height="250px" hover>                             <!-- aaa-->
+      <v-card class="anita" shaped elevation="5"  width="440px" height="250px" hover>                             <!-- aaa-->
         <p class="texto">{{DatosTarjeta.text1}}<p>
         <p class="categoria">{{DatosTarjeta.text2}}</p>
         <p class="texto"> {{DatosTarjeta.text3}} </p>
