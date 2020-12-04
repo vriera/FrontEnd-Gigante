@@ -240,6 +240,7 @@
 import { validationMixin } from 'vuelidate'
 import { required, email, sameAs, maxLength, minLength, minValue, integer, requiredIf} from 'vuelidate/lib/validators'
 import UserStore from "@/store/UserStore";
+import {AddressData, geomapApi} from "@/Geocode/geomap";
 
 export default {
   mixins: [validationMixin],
@@ -312,6 +313,8 @@ export default {
     nombreOng: '',
     calleOng:'',
     alturaOng:'',
+    latitude : 0,
+    longitude: 0,
 
     mensajeAlertForm: '',
     mensajeAlertSubmitted: 'Se ha registrado con éxito',
@@ -441,6 +444,21 @@ export default {
         this.region = ''
     },
 
+    async setLatLng(isDonator){
+
+      //lngLatVec[0]--> longitude
+      //lngLatVec[1]--> latitutde
+      let lngLatVec;
+      if(isDonator){
+        lngLatVec = await geomapApi.getCoordinates(new AddressData(this.calle, this.altura, this.region));
+      }
+      else{
+        lngLatVec = await geomapApi.getCoordinates(new AddressData(this.calleOng, this.alturaOng, this.region));
+      }
+      this.longitude = lngLatVec[0];
+      this.latitude = lngLatVec[1];
+    },
+
     async submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
@@ -468,11 +486,19 @@ export default {
     },
 
     async addDonator(){
-      return await UserStore.addDonator(this.email, this.username, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, /*latitud*/0, /*longitud*/0)
+
+      await this.setLatLng(true);
+      if(this.longitude === 0 && this.latitude === 0)
+        return false;
+      return await UserStore.addDonator(this.email, this.username, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, this.latitude , this.longitude);
     },
 
     async addOng(){
-      return await UserStore.addOng(this.email, this.username, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, /*latitud*/0, /*longitud*/0)
+
+      await this.setLatLng(false);
+      if(this.longitude === 0 && this.latitude === 0)
+        return false;
+      return await UserStore.addOng(this.email, this.username, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, this.latitude , this.longitude);
     },
 
     clear() {
