@@ -308,7 +308,8 @@ export default {
     console.log(this.catSelected);
     console.log(this.oldCatSelected);
 
-      //Prendo los botones con las categorías que tiene
+    this.forceCatBtnRerender();
+    //Prendo los botones con las categorías que tiene
   },
 
 
