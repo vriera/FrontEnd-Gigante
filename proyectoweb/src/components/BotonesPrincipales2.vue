@@ -2,21 +2,24 @@
   <div>
     <v-row>
           <v-col>
-            <div @click="change()" style="margin:0px; margin-left: 10px; margin-top:50%">
-              <Tarjeta v-bind:DatosTarjeta="infoTarjeta[0]"></Tarjeta>
-            </div>
+              <div style="margin:0px; margin-left: 10px; margin-top:50%">
+               <Tarjeta v-bind:DatosTarjeta="infoTarjeta[0]"></Tarjeta>
+              </div>
           </v-col>
           <v-col>
-            <div @click="change()" style="margin:0px;">
-              <Tarjeta v-bind:DatosTarjeta="infoTarjeta[1]"></Tarjeta>
-            </div>
+              <div style="margin:0px;">
+                <Tarjeta v-bind:DatosTarjeta="infoTarjeta[1]"></Tarjeta>
+              </div>
           </v-col>
           <v-col>
-            <div @click="change()" style="margin:0px; margin-top:50%; margin-right: 10px">
-              <Tarjeta v-bind:DatosTarjeta="infoTarjeta[2]"></Tarjeta>
-            </div>
+              <div style="margin:0px; margin-top:50%; margin-right: 10px">
+                <Tarjeta v-bind:DatosTarjeta="infoTarjeta[2]"></Tarjeta>
+              </div>
           </v-col>
     </v-row>
+    <div style="text-align: center; margin-top:2%">
+      <h1> Comenzá a explorar las distintas opciones y empezá con está GIGANTE experiencia</h1>
+    </div>
   </div>
 </template>
 
@@ -32,19 +35,19 @@ export default {
     return {
       infoTarjeta:[
         {
-          text1: "Quiero ayudar con",
-          text2: "DONACIONES",
-          text3: "Tengo distintos elementos que quisiera donar."
+          text1: "Si sos un/a",
+          text2: "DONADOR/A",
+          text3: "Podés realizar y ver tus donaciones para diferentes campañas."
         },
         {
-          text1: "Quiero ser",
-          text2:"VOLUNTARIO",
-          text3:"Quiero donar mi tiempo."
+          text1: "Si sos un/a",
+          text2:"VOLUNTARIO/A",
+          text3:"A su vez, podés donar tu tiempo para diversas causas."
         },
         {
-          text1:"Soy una",
+          text1:"Si sos una",
           text2:"ONG",
-          text3:"Quiero hacerme visible para gente que quiera ayudarnos."
+          text3:"Podés crear, editar y visualizar tus propias campañas."
         }
       ],
       aboutLink: '/about',
