@@ -88,7 +88,7 @@
             
             <div :key="catBtnRenderer">
             <v-row style="margin: 1% 5%;">
-              <v-col v-for="(category, index) in categories" :key="category.id">
+              <v-col v-for="(category, index) in categories" :key="category.id_category">
                 <v-btn id='categoryBtn' v-bind:color="catSelected[index]? 'blue lighten-5' : 'grey lighten-1'" rounded @click="catSelected[index] = !catSelected[index]; forceCatBtnRerender(); noCatError = false;">
                   <span>{{category.description}}</span>
                 </v-btn>

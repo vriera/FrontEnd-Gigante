@@ -88,9 +88,9 @@
             
             <div :key="catBtnRenderer">
             <v-row style="margin: 1% 5%;">
-              <v-col v-for="(category, index) in categories" :key="category">
+              <v-col v-for="(category, index) in categories" :key="category.id_category">
                 <v-btn id='categoryBtn' v-bind:color="catSelected[index]? 'blue lighten-5' : 'grey lighten-1'" rounded @click="catSelected[index] = !catSelected[index]; forceCatBtnRerender(); noCatError = false;">
-                  <span>{{category}}</span>
+                  <span>{{category.description}}</span>
                 </v-btn>
               </v-col>
             </v-row>
@@ -248,8 +248,10 @@ export default {
     return { 
         //campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"1540662487"},
         campaign: [],
-    categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
-    catSelected: [false, false, false, false, false, false, false, false],
+    //categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
+    categories: [],
+      catSelected: [false, false, false, false, false, false, false, false],
+    oldCatSelected: [false, false, false, false, false, false, false, false],
     catBtnRenderer: 0,
     noCatError: false,
 
@@ -289,8 +291,23 @@ export default {
       this.neighbourhood = this.campaign.location;
       this.horario = this.campaign.schedule;
       this.contacto = this.campaign.contact;
-      this.phone = this.campaign.phone;   
-      
+      this.phone = this.campaign.phone;
+
+    console.log('Estoy en created')
+    let result = await CampaignStore.getCategories();
+    this.categories = result.results;
+    result = await CampaignStore.getCampaignCategories(this.id);
+    for (let i = 0; i < result.results.length; i++){
+      for(let j = 0; j < this.categories.length; j++){
+        if(result.results[i].id_category === this.categories[j].id_category){
+          this.catSelected[j] = true;
+          this.oldCatSelected[j] = true;
+        }
+      }
+    }
+    console.log(this.catSelected);
+    console.log(this.oldCatSelected);
+
       //Prendo los botones con las categorías que tiene
   },
 
@@ -394,13 +411,23 @@ export default {
          result = await CampaignStore.modifyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
                                                       this.city, this.neighbourhood, this.horario, this.phone, this.contacto, this.campaign.active);
 
-
         if (!result.success){
           this.submitError = true;
           this.mensajeAlertForm = 'Error al actualizar la campaña, inténtelo más tarde';
         }
         else{
           this.submitted = true;
+
+          for(let i = 0; i < this.catSelected.length; i++){
+            if(this.catSelected[i] && !this.oldCatSelected[i]){
+              console.log(this.categories[i].id_category)
+              await CampaignStore.addCampaignCategory(this.id, this.categories[i].id_category);
+            }
+            else if(!this.catSelected[i] && this.oldCatSelected[i]){
+              await CampaignStore.deleteCampaignCategory(this.id,this.categories[i].id_category);
+            }
+          }
+
           this.$router.go(-1);
 
         }
@@ -409,8 +436,8 @@ export default {
       }
 
     },
-
   },
+
 }
 </script>
 
