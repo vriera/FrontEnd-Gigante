@@ -1,19 +1,30 @@
-export { geomapApi }
+export { geomapApi , AddressData }
+
+class AddressData{
+    constructor( calle , numero , ciudad){
+        this.calle = calle;
+        this.numero = numero;
+        this.ciudad = ciudad;
+    }
+}
 
 class geomapApi {
 
-    static async getCoordinates( data, controller  ){
-        const address = encodeURIComponent(data);
-        //const argISO = "AR"
+    static async getCoordinates( addressData, controller  ){
+        const address = encodeURIComponent(addressData.calle) + ','
+            + encodeURIComponent(addressData.numero) + ','
+            + encodeURIComponent(addressData.ciudad);
 
-        const res =  await this.get(`${this.baseUrl}geocoding/v5/mapbox.places/${address}.json?type=address&country=AR&access_token=pk.eyJ1IjoiYW5pdGFjcnV6IiwiYSI6ImNrZ3A5d2Z6ZDA3M3Iyc2tsbmJjeGd4N2EifQ.7XEbgzqidyEuJKVfFg4U2A` , controller)
+        console.log('Address = ' + address);
 
-        if ( res.message ){
-            console.log("small oopsy")
-            return [ 0 , 0 ];
-        }
-        if ( res.features ){
-            return res.features[0].center;
+        const res =  await this.get(`${this.baseUrl}/geocode/v1/json?q=${address}&countrycode=ar&key=${this.apiKey}` , controller)
+
+        // console.log('res.result[0].geometry = '+ res.results[0].geometry)
+
+
+        if ( res.results[0] ){
+            const geometry = res.results[0].geometry;
+            return [ geometry.lng  , geometry.lat ];
         }
         console.log("big oopsy doopsy");
         return [ 0 , 0 ];
@@ -21,13 +32,16 @@ class geomapApi {
     }
     //Chequear el puerto y si va el /api
     static get baseUrl() {
-        return 'https://api.mapbox.com/';
+        return 'https://api.opencagedata.com';
     }
 
     static get timeout() {
         return 60 * 1000;
     }
 
+    static get apiKey(){
+        return '9e6a46b41cfe43798db7c0ef1928f808';
+    }
     static async fetch(url, init= {}, controller) {
         controller = controller || new AbortController();
         const timer = setTimeout(() => controller.abort(), this.timeout);
@@ -36,9 +50,6 @@ class geomapApi {
         try {
             const response = await fetch(url, init);
             const text = await response.text();
-            console.log("AAA");
-            console.log(text);
-            console.log(response);
             const result = text ? (JSON).parse(text) : {};
             return result
         } finally {

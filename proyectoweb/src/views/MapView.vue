@@ -1,30 +1,30 @@
 <template>
   <div id="fondo">
 
-      <div class="sidebar pad2">
-          <v-card color="#FFFFFF" scrollable height="800px" width="100%">
-            <p class ="titulo" v-icon>Asociaciones
-              <v-icon>mdi-filter</v-icon>
-            </p>
-            <!--mdi-filter</v-icon>-->
-            <v-virtual-scroll height="700px"  item-height="180px" :items="descriptions">
-              <template v-slot:default="{ item }">
-                <v-card style="margin-top: 10px; margin-right:-25px; margin-left:10px;" width="92%" color="#DBEDF8" >
-                  <div v-on:click="item.marker.togglePopup()">
-                    <v-card-title >{{item.title}}</v-card-title>
-                    <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-map-marker sm</v-icon>{{item.direccion}}</v-card-text>
-                    <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-clock</v-icon> {{item.horario}}</v-card-text>
-                    <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-format-list-numbered</v-icon> {{item.lista}}</v-card-text>
-                  </div>
-                </v-card>
-              </template>
-            </v-virtual-scroll>
-          </v-card>
-      </div>
+    <div class="sidebar pad2">
+      <v-card color="#FFFFFF" scrollable height="800px" width="100%">
+        <p class ="titulo" v-icon>Asociaciones
+          <v-icon>mdi-filter</v-icon>
+        </p>
+        <!--mdi-filter</v-icon>-->
+        <v-virtual-scroll height="700px"  item-height="180px" :items="descriptions">
+          <template v-slot:default="{ item }">
+            <v-card style="margin-top: 10px; margin-right:-25px; margin-left:10px;" width="92%" color="#DBEDF8" >
+              <div v-on:click="item.marker.togglePopup()">
+                <v-card-title >{{item.title}}</v-card-title>
+                <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-map-marker sm</v-icon>{{item.direccion}}</v-card-text>
+                <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-clock</v-icon> {{item.horario}}</v-card-text>
+                <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-format-list-numbered</v-icon> {{item.lista}}</v-card-text>
+              </div>
+            </v-card>
+          </template>
+        </v-virtual-scroll>
+      </v-card>
+    </div>
 
-      <div>
-        <div id='map' class='map pad2'>Map</div>
-      </div>
+    <div>
+      <div id='map' class='map pad2'>Map</div>
+    </div>
   </div>
 </template>
 
@@ -33,7 +33,7 @@
 
 <script>
 // @ is an alias to /src
-import {geomapApi} from '@/Geocode/geomap.js'
+import {geomapApi, AddressData} from '@/Geocode/geomap.js'
 
 export default {
   components: {
@@ -104,7 +104,7 @@ export default {
 
 
     this.descriptions[0].marker = new mapboxgl.Marker()
-        .setLngLat(await geomapApi.getCoordinates("Recoleta", null))
+        .setLngLat(await geomapApi.getCoordinates(new AddressData("Angel Justiniano Carranza",1962, "CABA"), null))
         .addTo(this.map);
 
     // this.descriptions[0].marker = new mapboxgl.Marker()
