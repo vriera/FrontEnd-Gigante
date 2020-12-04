@@ -42,7 +42,7 @@ export default {
         {
           text1: "Si sos un/a",
           text2:"VOLUNTARIO/A",
-          text3:"A su vez, podés donar tu tiempo para diversas causas."
+          text3:"podés donar tu tiempo para diversas causas."
         },
         {
           text1:"Si sos una",
