@@ -480,7 +480,11 @@ export default {
         this.mensajeAlertEditProfile = 'Error al desloguearse , inténtelo más tarde';
       }
       else{
-        await this.$router.push('/');
+        //await this.$router.push('/');
+         await this.$router.go({
+          path: "/",
+          force: true
+        });
         // await this.$router.go((window.history.length -1 ) * (-1));
         // await this.$router.go(-2);
       }
