@@ -88,9 +88,9 @@
             
             <div :key="catBtnRenderer">
             <v-row style="margin: 1% 5%;">
-              <v-col v-for="(category, index) in categories" :key="category">
+              <v-col v-for="(category, index) in categories" :key="category.id">
                 <v-btn id='categoryBtn' v-bind:color="catSelected[index]? 'blue lighten-5' : 'grey lighten-1'" rounded @click="catSelected[index] = !catSelected[index]; forceCatBtnRerender(); noCatError = false;">
-                  <span>{{category}}</span>
+                  <span>{{category.description}}</span>
                 </v-btn>
               </v-col>
             </v-row>
@@ -247,8 +247,9 @@ export default {
   data(){
     return { 
         //campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
-    categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
-    catSelected: [false, false, false, false, false, false, false, false],
+    //categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
+    categories: [],
+      catSelected: [false, false, false, false, false, false, false, false],
     catBtnRenderer: 0,
     noCatError: false,
 
@@ -365,7 +366,7 @@ computed:{
       this.$v.$touch()
       if (!this.$v.$invalid && this.atLeastOneCategory()){
         this.loading = true;
-        let result = false;
+        let result;
 
         let currentOng = await UserStore.getCurrentUser();
         if (currentOng.id === undefined){
@@ -384,6 +385,13 @@ computed:{
         }
         else{
           this.submitted = true;
+
+          for(let i = 0; i < this.catSelected.length; i++){
+            if(this.catSelected[i]){
+              console.log(this.categories[i].id_category)
+              await CampaignStore.addCampaignCategory(result.id, this.categories[i].id_category);
+            }
+          }
           this.$router.go(-1);
         }
 
@@ -393,6 +401,11 @@ computed:{
     },
 
   },
+
+  async created(){
+      const result = await CampaignStore.getCategories();
+      this.categories = result.results;
+  }
 }
 </script>
 
