@@ -208,6 +208,18 @@
                 <v-spacer/>
             </v-row>
 
+            <v-row v-if="!this.active" style="width: 0%; display: table; margin: 0 auto">
+              <v-icon left>mdi-alert-outline</v-icon>
+              <span>Está marcando esta campaña como inactiva</span>
+            </v-row>
+            <v-switch
+              v-model="active"
+              label="Activa"
+              color="success"
+              hide-details
+              style="width: 0%; display: table; margin: 0 auto 2% auto;"
+            ></v-switch>
+
             <v-btn id="submitBtn" @click="submit" color="blue lighten-3">
               <span>Editar</span>
             </v-btn>
@@ -267,6 +279,7 @@ export default {
     horario:'',
     contacto:'',
     phone:'',
+    active: '',
 
     mensajeAlertForm: '',
     mensajeAlertSubmitted: 'Se ha creado la campaña con éxito',
@@ -292,8 +305,8 @@ export default {
       this.horario = this.campaign.schedule;
       this.contacto = this.campaign.contact;
       this.phone = this.campaign.phone;
+      this.active = this.campaign.active;
 
-    console.log('Estoy en created')
     let result = await CampaignStore.getCategories();
     this.categories = result.results;
     result = await CampaignStore.getCampaignCategories(this.id);
@@ -305,8 +318,6 @@ export default {
         }
       }
     }
-    console.log(this.catSelected);
-    console.log(this.oldCatSelected);
 
     this.forceCatBtnRerender();
     //Prendo los botones con las categorías que tiene
@@ -410,7 +421,7 @@ export default {
 
         //Cargar el id de la campaña, probablemente en el created()
          result = await CampaignStore.modifyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
-                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto, this.campaign.active);
+                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto, this.active);
 
         if (!result.success){
           this.submitError = true;
