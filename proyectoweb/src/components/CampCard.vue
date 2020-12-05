@@ -2,8 +2,11 @@
     <v-card flat>
         <v-card-title>{{ camp.name }}</v-card-title>
         <v-card-subtitle v-if="empty">Nada para mostrar, aún.</v-card-subtitle>
+        <v-layout v-if="!loaded" column align-center class="py-5">
+          <v-progress-circular indeterminate color="blue"/>
+        </v-layout>
         <v-flex v-for="f in formsAyuda" :key="f.id_donation" class="infoForm mx-4">
-            <InfoAyuda v-if="f.id_campaign === camp.id_campaign && !f.verified" :info="f" :infoId="f.id_donation" :incoming="true" v-on:loaded="empty=false"/>
+            <InfoAyuda v-if="!f.verified" :info="f" :infoId="f.id_donation" :incoming="true" v-on:loaded="empty=false"/>
         </v-flex>
     </v-card>
 </template>
@@ -41,7 +44,7 @@ export default Vue.extend({
     },
     async mounted() {
         try {
-            const ans = await CampaignStore.getDonations();
+            const ans = await CampaignStore.getDonationByCampaign(this.campId);
             this.formsAyuda = ans.results;
             this.loaded = true;
         } catch (e) {
