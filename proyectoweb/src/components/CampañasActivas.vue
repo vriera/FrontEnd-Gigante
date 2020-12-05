@@ -1,6 +1,11 @@
 <template>
     <v-container fluid grid-list-md>
-        <h1 class="ml-7 azulGigante">CAMPAÑAS ACTIVAS</h1>
+        <v-layout column align-center>
+            <h1 class="azulGigante">CAMPAÑAS ACTIVAS</h1>
+        </v-layout>
+        <v-layout v-if="!loaded" column align-center class="py-5">
+          <v-progress-circular indeterminate color="blue"/>
+        </v-layout>
         <v-layout wrap justify-space-around>
         <v-card v-for="c in campaigns" :key="c.id_campaign" class="mx-7 my-5" width="600" min-height="250">
             <v-card-title>{{ c.name }}</v-card-title>
@@ -13,7 +18,7 @@
                 </v-layout>
             </v-card-text>
             <v-card-actions>
-                <v-btn small dark color="blue mr-10 ml-auto mb-5" :to="'/VerCampaña/' + c.id_campaign">Ver más</v-btn>
+                <v-btn dark class="mr-10 ml-auto mb-5" color="blue" :to="'/VerCampaña/' + c.id_campaign">Más información</v-btn>
             </v-card-actions>
         </v-card>
         </v-layout>
@@ -26,6 +31,7 @@ import CampaignStore from "@/store/CampaignStore";
 export default {
     data() {
         return {
+            loaded: false,
             campaigns: {}
         }
     },
