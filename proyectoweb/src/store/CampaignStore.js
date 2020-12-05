@@ -17,6 +17,13 @@ const CampaignStore = {
         return await CampaignApi.getCampaigns(id);
     },
 
+    async getActiveCampaigns(id){
+        const answer = await this.getCampaigns(id);
+        let jsonToReturn = { };
+        jsonToReturn.results = answer.results.filter(campaign => campaign.active === true);
+        return jsonToReturn;
+    },
+
     async getMyCampaigns(){
         return await CampaignApi.getMyCampaigns();
     },

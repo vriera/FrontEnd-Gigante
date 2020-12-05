@@ -3,7 +3,7 @@
 
     <div class="sidebar pad2">
       <v-card color="#FFFFFF" scrollable height="800px" width="100%">
-        <p class ="titulo" v-icon>Asociaciones
+        <p class ="titulo">Asociaciones
           <v-icon>mdi-filter</v-icon>
         </p>
         <!--mdi-filter</v-icon>-->
@@ -35,6 +35,8 @@
 // @ is an alias to /src
 import {geomapApi, AddressData} from '@/Geocode/geomap.js'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import CampaignStore from "@/store/CampaignStore";
+// import UserStore from "@/store/UserStore";
 
 export default {
   components: {
@@ -45,52 +47,72 @@ export default {
       map: '',
       markers: [],
       descriptions: [
-        {
-          marker: {},
-          title: 'AAAAAAA',
-          direccion: 'Calle 1234 piso 1A',
-          horario: 'Lunes a viernes, 12:00- 18:00',
-          lista: 'ropa de abrigo, donaciones monetarias'
-        },
-        {
-          marker: {},
-          title: 'Fundación Sí',
-          direccion: 'Calle 1234 piso 1A',
-          horario: 'Lunes a viernes, 12:00- 18:00',
-          lista: 'ropa de abrigo, donaciones monetarias'
-        },
-        {
-          marker: {},
-          title: 'Fundación Sí',
-          direccion: 'Calle 1234 piso 1A',
-          horario: 'Lunes a viernes, 12:00- 18:00',
-          lista: 'ropa de abrigo, donaciones monetarias'
-        },
-        {
-          marker: {},
-          title: 'Fundación Sí',
-          direccion: 'Calle 1234 piso 1A',
-          horario: 'Lunes a viernes, 12:00- 18:00',
-          lista: 'ropa de abrigo, donaciones monetarias'
-        },
-        {
-          marker: {},
-          title: 'Fundación Sí',
-          direccion: 'Calle 1234 piso 1A',
-          horario: 'Lunes a viernes, 12:00- 18:00',
-          lista: 'ropa de abrigo, donaciones monetarias'
-        },
-        {
-          marker: {},
-          title: 'Fundación Sí',
-          direccion: 'Calle 1234 piso 1A',
-          horario: 'Lunes a viernes, 12:00- 18:00',
-          lista: 'ropa de abrigo, donaciones monetarias'
-        },
+        // {
+        //   marker: {},
+        //   title: 'AAAAAAA',
+        //   direccion: 'Calle 1234 piso 1A',
+        //   horario: 'Lunes a viernes, 12:00- 18:00',
+        //   lista: 'ropa de abrigo, donaciones monetarias'
+        // },
+        // {
+        //   marker: {},
+        //   title: 'Fundación Sí',
+        //   direccion: 'Calle 1234 piso 1A',
+        //   horario: 'Lunes a viernes, 12:00- 18:00',
+        //   lista: 'ropa de abrigo, donaciones monetarias'
+        // },
+        // {
+        //   marker: {},
+        //   title: 'Fundación Sí',
+        //   direccion: 'Calle 1234 piso 1A',
+        //   horario: 'Lunes a viernes, 12:00- 18:00',
+        //   lista: 'ropa de abrigo, donaciones monetarias'
+        // },
+        // {
+        //   marker: {},
+        //   title: 'Fundación Sí',
+        //   direccion: 'Calle 1234 piso 1A',
+        //   horario: 'Lunes a viernes, 12:00- 18:00',
+        //   lista: 'ropa de abrigo, donaciones monetarias'
+        // },
+        // {
+        //   marker: {},
+        //   title: 'Fundación Sí',
+        //   direccion: 'Calle 1234 piso 1A',
+        //   horario: 'Lunes a viernes, 12:00- 18:00',
+        //   lista: 'ropa de abrigo, donaciones monetarias'
+        // },
+        // {
+        //   marker: {},
+        //   title: 'Fundación Sí',
+        //   direccion: 'Calle 1234 piso 1A',
+        //   horario: 'Lunes a viernes, 12:00- 18:00',
+        //   lista: 'ropa de abrigo, donaciones monetarias'
+        // },
       ],
       filtro: 'mdi-filter'
     }
   },
+
+  async created(){
+
+    const answer = await CampaignStore.getActiveCampaigns();
+    const campaigns = answer.results;
+    console.log(campaigns);
+    // let ong;
+    for( let i=0 ; i < campaigns.length ; i++){
+        //ong = await UserStore.getOngs(campaigns[i].id_ong);
+        this.descriptions.push({
+          title : campaigns[i].name,
+          direccion : campaigns[i].street+' '+campaigns[i].street_number+' '+campaigns[i].city,
+          horario : campaigns[i].schedule,
+          lista : campaigns[i].description,
+          marker : {}
+         });
+      }
+    },
+
+  
   async mounted() {
     let mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5pdGFjcnV6IiwiYSI6ImNrZ3A5d2Z6ZDA3M3Iyc2tsbmJjeGd4N2EifQ.7XEbgzqidyEuJKVfFg4U2A';
@@ -103,10 +125,21 @@ export default {
     const nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "top-right");
 
+    const answer = await CampaignStore.getActiveCampaigns();
+    const campaigns = answer.results;
+    console.log(campaigns);
+    // let ong;
+    for( let i=0 ; i < campaigns.length ; i++){
+      this.descriptions[i].marker = new mapboxgl.Marker()
+            .setLngLat(await geomapApi.getCoordinates(new AddressData(campaigns[i].street,campaigns[i].street_number, campaigns[i].city)))
+            .addTo(this.map);
+     }
 
-    this.descriptions[0].marker = new mapboxgl.Marker()
-        .setLngLat(await geomapApi.getCoordinates(new AddressData("Angel Justiniano Carranza",1962, "CABA"), null))
-        .addTo(this.map);
+    }
+
+    // this.descriptions[0].marker = new mapboxgl.Marker()
+    //     .setLngLat(await geomapApi.getCoordinates(new AddressData("Angel Justiniano Carranza",1962, "CABA"), null))
+    //     .addTo(this.map);
 
     // this.descriptions[0].marker = new mapboxgl.Marker()
     //     .setLngLat([-58.3876273, -34.5903130])
@@ -147,7 +180,7 @@ export default {
     //         "<p>las Heras y arabe siria</p>" +
     //         "<p>No recibe donaciones</p>"))
     //     .addTo(this.map);
-  }
+
 
 }
 </script>
