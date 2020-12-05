@@ -70,7 +70,11 @@ const routes = [
     path: '/Mapa',
     name: 'Mapa',
     component: () => import(/* webpackChunkName: "about" */ '../views/MapView.vue')
-
+  },
+  {
+    path: '/CampañasActivas',
+    name: 'CampañasActivas',
+    component: () => import('../views/CampañasActivasView.vue')
   },
   {
     path: '*',

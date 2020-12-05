@@ -75,7 +75,7 @@
         <v-icon left>mdi-handshake-outline</v-icon>
         <span>Voluntariado</span>
       </v-btn>
-      <v-btn text>
+      <v-btn text :to="camp_activas">
         <v-icon left>mdi-bullhorn-outline</v-icon>
         <span>Campañas</span>
       </v-btn>
@@ -97,7 +97,7 @@
       <v-btn text>
         <v-icon left>mdi-handshake-outline</v-icon>
       </v-btn>
-      <v-btn text>
+      <v-btn text :to="camp_activas">
         <v-icon left>mdi-bullhorn-outline</v-icon>
       </v-btn>
       <v-btn v-if="isLoggedIn" text>
@@ -164,6 +164,7 @@ export default {
       recibido_link: '/AyudaRecibida',
       perfil_link: '/Perfil',
       mapa_link: '/Mapa',
+      camp_activas: '/CampañasActivas',
 
       profileBtns: [
         { title: 'Ver perfil' },
