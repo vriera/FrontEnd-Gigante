@@ -488,6 +488,8 @@ export default {
     async addDonator(){
 
       await this.setLatLng(true);
+
+      //Me fijo primero si se calculo correctamente la longitud y la latitud
       if(this.longitude === 0 && this.latitude === 0)
         return false;
       return await UserStore.addDonator(this.email, this.username, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, this.latitude , this.longitude);
@@ -496,6 +498,8 @@ export default {
     async addOng(){
 
       await this.setLatLng(false);
+
+      //Me fijo primero si se calculo correctamente la longitud y la latitud
       if(this.longitude === 0 && this.latitude === 0)
         return false;
       return await UserStore.addOng(this.email, this.username, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, this.latitude , this.longitude);

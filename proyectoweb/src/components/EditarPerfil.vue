@@ -29,10 +29,6 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="nombre" outlined
-                              :disabled="(editNombre !== true)"
-                              :rules="[rules.required(nombre)]"
-                              rounded background-color="#F7F2F2"/>-->
 
                 <v-text-field v-model="fullname" outlined
                               rounded background-color="#F7F2F2" :disabled="(editFullname !== true)"
@@ -56,10 +52,6 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="username" outlined
-                              :disabled="true"
-                              :rules="[rules.required(username)]"
-                              rounded background-color="#F7F2F2"/>-->
 
                 <v-text-field v-model="username" outlined
                               :disabled="true"
@@ -79,15 +71,6 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="email" outlined
-                              :disabled="(editEmail !== true)"
-                              :rules="[rules.required(email),rules.email(email)]"
-                              rounded background-color="#F7F2F2"/>-->
-
-                <!-- <v-text-field v-model="email" outlined
-                               rounded background-color="#F7F2F2" :disabled="(editEmail !== true)"
-                               :error-messages="emailErrors"
-                               @blur="$v.email.$touch()"/>-->
 
                 <v-text-field v-model="email" outlined
                               rounded background-color="#F7F2F2" :disabled="true"
@@ -95,10 +78,7 @@
                               @blur="$v.email.$touch()"/>
 
               </div>
-              <!--<v-icon size="34" color="#8B8686" style="position: relative; bottom: 15px; left: 5px;"
-                      @click="editEmail = !editEmail">
-                mdi-pencil
-              </v-icon>-->
+
             </v-row>
           </v-col>
         </v-row>
@@ -110,10 +90,6 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="region" outlined
-                              :disabled="(editRegion !== true)"
-                              :rules="[rules.required(region)]"
-                              rounded background-color="#F7F2F2"/>-->
 
                 <v-text-field v-model="region" outlined
                               rounded background-color="#F7F2F2" :disabled="(editRegion !== true)"
@@ -136,10 +112,6 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="calle" outlined
-                              :disabled="(editCalle !== true)"
-                              :rules="[rules.required(calle)]"
-                              rounded background-color="#F7F2F2"/>-->
 
                 <v-text-field v-model="street" outlined
                               rounded background-color="#F7F2F2" :disabled="(editStreet !== true)"
@@ -164,10 +136,7 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="numero" outlined
-                              :disabled="(editNumero !== true)"
-                              :rules="[rules.required(numero)]"
-                              rounded background-color="#F7F2F2"/>-->
+
 
                 <v-text-field v-model="street_number" outlined
                               rounded background-color="#F7F2F2" :disabled="(editStreetNumber !== true)"
@@ -190,10 +159,7 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="piso" outlined
-                              :disabled="(editPiso !== true)"
-                              :rules="[rules.required(piso)]"
-                              rounded background-color="#F7F2F2"/>-->
+
 
                 <v-text-field v-model="floor" outlined
                               rounded background-color="#F7F2F2" :disabled="(editFloor !== true)"
@@ -217,10 +183,7 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="rep_dni" outlined
-                              :disabled="(editRepDni!== true)"
-                              :rules="[rules.required(rep_dni)]"
-                              rounded background-color="#F7F2F2"/>-->
+
 
                 <v-text-field v-model="rep_dni" outlined
                               rounded background-color="#F7F2F2" :disabled="(editRepDni!== true)"
@@ -244,10 +207,7 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="rep_name" outlined
-                              :disabled="(editRepName!== true)"
-                              :rules="[rules.required(rep_name)]"
-                              rounded background-color="#F7F2F2"/>-->
+
 
                 <v-text-field v-model="rep_name" outlined
                               rounded background-color="#F7F2F2" :disabled="(editRepName !== true)"
@@ -271,10 +231,7 @@
           <v-col cols="8">
             <v-row>
               <div style="width: 650px">
-                <!--<v-text-field v-model="phone" outlined
-                              :disabled="(editPhone!== true)"
-                              :rules="[rules.required(phone)]"
-                              rounded background-color="#F7F2F2"/>-->
+
 
                 <v-text-field v-model="phone" outlined
                               rounded background-color="#F7F2F2" :disabled="(editPhone !== true)"
@@ -324,7 +281,8 @@ import router from '@/router';
 
 import UserStore from "@/store/UserStore";
 import {validationMixin} from "vuelidate";
-import {integer, maxLength, minValue, email, required, url, minLength} from "vuelidate/lib/validators";
+import {integer, maxLength, minValue, email, required, minLength} from "vuelidate/lib/validators";
+import {AddressData, geomapApi} from "@/Geocode/geomap";
 
 
 
@@ -358,8 +316,8 @@ export default {
       phone: '',
       editPhone: false,
       perfilLink: '/Perfil',
-      // longitude: 0,
-      // latitude : 0,
+      longitude: 0,
+      latitude : 0,
       rules: {
         required: value => !!value || 'Requerido.',
         validateURL: value => {
@@ -385,7 +343,6 @@ export default {
         street_number : {required, integer, minValue:minValue(0)},
         floor : {maxLength:maxLength(20)},
         region : {required, maxLength:maxLength(100)},
-        image : {url}
       };
     } else {
       return {
@@ -396,7 +353,6 @@ export default {
         street_number : {required, integer, minValue:minValue(0)},
         floor : {maxLength:maxLength(20)},
         region : {required, maxLength:maxLength(100)},
-        image : {url},
         phone : {required, integer, minValue:minValue(0), minLength:minLength(8)},
         rep_name : {required, maxLength:maxLength(100)},
         rep_dni : {required, maxLength:maxLength(50)}
@@ -405,41 +361,42 @@ export default {
   },
   methods : {
     async editUser () {
-      console.log('Editando el usuario')
+
       if(this.currentUser.rep_name === undefined){
         this.rep_name = this.fullname
         this.rep_dni = '0'
         this.phone = '0'
       }
       this.$v.$touch()
-      console.log('Valid = '+!this.$v.$invalid)
+
       if (!this.$v.$invalid){
-        console.log('Usuario validado')
+
         this.loading = true;
-        let result = false;
+        let result = {};
+        result.success = false;
 
-        console.log('Por modifcar usuario')
+        //lngLatVec[0]--> longitude
+        //lngLatVec[1]--> latitutde
+         const lngLatVec = await geomapApi.getCoordinates(new AddressData(this.street, this.street_number, this.region));
+         this.longitude = lngLatVec[0];
+         this.latitude = lngLatVec[1];
 
-        //Cargar el id de la campaña, probablemente en el created()
-        result = await UserStore.modifyCurrentUser(this.fullname, this.street, this.street_number, this.floor, this.region, this.currentUser.latitude, this.currentUser.longitude, this.rep_name, this.rep_dni, this.phone);
+         //Me fijo primero si se calculo correctamente la longitud y la latitud
+         if(this.longitude !== 0 || this.latitude !== 0){
 
-        console.log('Usuario modificado')
+           //Cargar el id de la campaña, probablemente en el created()
+           result = await UserStore.modifyCurrentUser(this.fullname, this.street, this.street_number, this.floor, this.region, this.latitude, this.longitude, this.rep_name, this.rep_dni, this.phone);
+         }
 
         if (!result.success){
-          console.log('Error en actualizar usuario')
-          console.log('Message = '+result.message);
           this.editProfileError = true;
           this.mensajeAlertEditProfile = 'Error al actualizar el perfil , inténtelo más tarde';
         }
         else{
-          console.log('Usuario actualizado')
           this.$router.go(-1);
         }
 
         this.loading = false;
-      }
-      else{
-        console.log('Fallo en validacion')
       }
 
     },
@@ -536,13 +493,7 @@ export default {
       if (!this.$v.phone.minValue || !this.$v.phone.integer || !this.$v.phone.minLength)
         errors.push('Inserte un teléfono válido')
       return errors
-    },
-    imageErrors () {
-      const errors = []
-      if (!this.$v.image.$dirty) return errors
-      !this.$v.image.url && errors.push('La imagen debe ser una url valida')
-      return errors
-    },
+    }
 
   },
   async created() {
