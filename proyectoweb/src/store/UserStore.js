@@ -1,4 +1,5 @@
 import {UsersApi, Donator, Ong, Credentials} from "@/api/users";
+import {AdvertisementsApi, Advertisement} from "@/api/advertisements";
 
 const UserStore = {
 
@@ -69,7 +70,26 @@ const UserStore = {
 
     async logout(){
       return await UsersApi.logout();
-    }
+    },
+
+    async getAdvertisements(id){
+        return await AdvertisementsApi.getAdvertisements(id);
+    },
+
+    async addAdvertisement(ongId, title, body){
+        const advertisement = new Advertisement(undefined,ongId, title, body);
+        return await AdvertisementsApi.postAdvertisement(advertisement);
+    },
+
+    async modifyAdvertisement(advertisementId, title, body){
+        const advertisement = new Advertisement(undefined, undefined, title, body)
+        return await AdvertisementsApi.putAdvertisement(advertisementId, advertisement);
+    },
+
+    async deleteAdvertisement(advertisementId){
+        return await AdvertisementsApi.deleteAdvertisement(advertisementId);
+    },
+
 
     //async logoutUser() {
     //    await UsersApi.logout();
