@@ -423,6 +423,11 @@ export default {
          result = await CampaignStore.modifyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
                                                       this.city, this.neighbourhood, this.horario, this.phone, this.contacto, this.active);
 
+
+        // result = await CampaignStore.modifyMyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
+        //     this.city, this.neighbourhood, this.horario, this.phone, this.contacto, this.active);
+
+
         if (!result.success){
           this.submitError = true;
           this.mensajeAlertForm = 'Error al actualizar la campaña, inténtelo más tarde';
@@ -433,10 +438,18 @@ export default {
           for(let i = 0; i < this.catSelected.length; i++){
             if(this.catSelected[i] && !this.oldCatSelected[i]){
               console.log(this.categories[i].id_category)
-              await CampaignStore.addCampaignCategory(this.id, this.categories[i].id_category);
+              const result = await CampaignStore.addCampaignCategory(this.id, this.categories[i].id_category);
+              if(!result.success){
+                this.submitError = true;
+                this.mensajeAlertForm = 'Error al añadir categoria a la campaña, inténtelo más tarde';
+              }
             }
             else if(!this.catSelected[i] && this.oldCatSelected[i]){
-              await CampaignStore.deleteCampaignCategory(this.id,this.categories[i].id_category);
+              const result = await CampaignStore.deleteCampaignCategory(this.id,this.categories[i].id_category);
+              if(!result.success){
+                this.submitError = true;
+                this.mensajeAlertForm = 'Error al eliminar categoria de la campaña, inténtelo más tarde';
+              }
             }
           }
 

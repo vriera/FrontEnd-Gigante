@@ -33,18 +33,33 @@ export default Vue.extend({
         loaded() {
             this.$emit('loaded');
         },
-        deleteDonation() {
-            CampaignStore.deleteDonation(this.infoId);
-            location.reload();
+        async deleteDonation() {
+            const result = await CampaignStore.deleteDonation(this.infoId);
+            if(result.success){
+              location.reload();
+            }
+            else{
+              this.$emit('verifyErrorEvent','Error durante la eliminación de la donación, inténtelo más tarde');
+            }
         },
-        verifyDonation() {
-            CampaignStore.modifyDonation(this.infoId,this.info.description,true);
+        async verifyDonation() {
+            const result = await CampaignStore.modifyDonation(this.infoId,this.info.description,true);
             // this.info.verified = true;
-            location.reload();
+            if(result.success){
+              location.reload();
+            }
+            else{
+              this.$emit('verifyErrorEvent','Error durante la verificación de la donación, inténtelo más tarde');
+            }
         },
-        unverifyDonation() {
-             CampaignStore.modifyDonation(this.infoId,this.info.description,false);
+        async unverifyDonation() {
+          const result = await CampaignStore.modifyDonation(this.infoId,this.info.description,false);
+          if(result.success){
             location.reload();
+          }
+          else{
+            this.$emit('verifyErrorEvent','Error durante la desverificación de la donación, inténtelo más tarde');
+          }
         }
     },
     async mounted() {

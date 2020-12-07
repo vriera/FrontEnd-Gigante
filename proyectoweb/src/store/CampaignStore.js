@@ -29,12 +29,17 @@ const CampaignStore = {
     },
 
     async getMyDonations(){
-        return await CampaignApi.getMyCampaigns();
+        return await DonationsApi.getMyDonations();
     },
 
 
     async getCampaignsByOngId(id){
         return await CampaignApi.getActiveCampaignsByOngId(id);
+    },
+
+    async modifyMyCampaign(id, name, description, init_date, end_date, street, street_number, city, location, schedule, phone, contact , active){
+        const campaign = new Campaign(undefined,undefined, name, description, init_date, end_date, street,street_number, city, location, schedule, phone, contact , active)
+        return await CampaignApi.putMyCampaign(id, campaign);
     },
 
     async modifyCampaign(id, name, description, init_date, end_date, street, street_number, city, location, schedule, phone, contact , active){
