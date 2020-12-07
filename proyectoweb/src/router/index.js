@@ -90,7 +90,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if ((to.name !== 'Home' && to.name !== 'Registro' && to.name !== 'QuienesSomos' && to.name !== 'AyudaRecibida')
+  if ((to.name !== 'Home' && to.name !== 'Registro' && to.name !== 'QuienesSomos')
       && UserStore.getCurrentToken() === null){
     next({ name: 'Home' })
   }
