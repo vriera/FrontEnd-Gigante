@@ -80,8 +80,8 @@
         <span>Campañas</span>
       </v-btn>
       <v-btn v-if="isLoggedIn" text>
-        <v-icon left>mdi-account-multiple-outline</v-icon>
-        <span>Actividad</span>
+        <v-icon left>mdi-hand-heart-outline</v-icon>
+        <span>Mi actividad</span>
       </v-btn>
     </v-app-bar>
 
@@ -100,8 +100,8 @@
       <v-btn text :to="camp_activas">
         <v-icon left>mdi-bullhorn-outline</v-icon>
       </v-btn>
-      <v-btn v-if="isLoggedIn" text>
-        <v-icon left>mdi-account-multiple-outline</v-icon>
+      <v-btn v-if="isLoggedIn" text :to="mi_actividad">
+        <v-icon left>mdi-hand-heart-outline</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -165,6 +165,7 @@ export default {
       perfil_link: '/Perfil',
       mapa_link: '/Mapa',
       camp_activas: '/CampañasActivas',
+      mi_actividad: '/MiActividad',
 
       profileBtns: [
         { title: 'Ver perfil' },

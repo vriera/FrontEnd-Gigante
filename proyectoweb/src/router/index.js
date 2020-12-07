@@ -77,6 +77,11 @@ const routes = [
     component: () => import('../views/CampañasActivasView.vue')
   },
   {
+    path: '/MiActividad',
+    name: 'MiActividad',
+    component: () => import('../views/MiActividadView.vue')
+  },
+  {
     path: '*',
     name: '404',
     component: PageNotFound,
