@@ -8,9 +8,9 @@
           <h3 class="pl-2">{{author}}</h3>
       </v-row>
       <body class="text-justify mx-1">{{desc}}</body>
-      <body class="text-center">
+      <!-- <body class="text-center">
         <v-btn :to="readMoreLink" class="text-center mt-3 mb-1" color="blue lighten-3"> Ver más <v-icon right>mdi-arrow-right</v-icon></v-btn>
-      </body>
+      </body> -->
     </v-card>
   </div>
 

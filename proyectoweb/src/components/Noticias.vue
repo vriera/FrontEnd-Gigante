@@ -1,5 +1,5 @@
 <template>
-  <div id="fondo" class="pa-5">
+  <div class="pa-5">
     <h1 class="ml-5">NOTICIAS</h1>
     <v-container fluid grid-list-xl>
       <v-layout wrap justify-space-around>
