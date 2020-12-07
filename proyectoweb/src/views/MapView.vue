@@ -7,15 +7,23 @@
           <v-icon>mdi-filter</v-icon>
         </p>
         <!--mdi-filter</v-icon>-->
-        <v-virtual-scroll height="700px"  item-height="180px" :items="descriptions">
+        <v-virtual-scroll height="700px"  item-height="270px" :items="descriptions">
           <template v-slot:default="{ item }">
-            <v-card style="margin-top: 10px; margin-right:-25px; margin-left:10px;" width="92%" color="#DBEDF8" >
-              <div v-on:click="item.marker.togglePopup()">
+            <v-card v-on:click="item.marker.togglePopup()" class="mx-2" color="#DBEDF8" height="250">
                 <v-card-title >{{item.title}}</v-card-title>
-                <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-map-marker sm</v-icon>{{item.direccion}}</v-card-text>
-                <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-clock</v-icon> {{item.horario}}</v-card-text>
-                <v-card-text style="margin-top: -15px; margin-left: 20px"><v-icon color="#72BAE6">mdi-format-list-numbered</v-icon> {{item.lista}}</v-card-text>
-              </div>
+                <v-card-subtitle>{{ item.ong}}</v-card-subtitle>
+                <v-card-text>
+                  <v-layout column>
+                    <v-flex><v-icon small color="#72BAE6">mdi-map-marker sm</v-icon> {{item.direccion}}</v-flex>
+                    <v-flex><v-icon small class="my-3" color="#72BAE6">mdi-clock</v-icon> {{item.horario}}</v-flex>
+                    <v-flex class="d-inline-block text-truncate"><v-icon small color="#72BAE6">mdi-format-list-numbered</v-icon> {{item.lista}}</v-flex>
+                  </v-layout>
+                </v-card-text>
+                <!-- TODO: Categorías -->
+                <v-card-actions>
+                  <v-spacer/>
+                  <v-btn dark color="blue" :to="'/VerCampaña/' + item.camp_id">Más información</v-btn>
+                </v-card-actions>
             </v-card>
           </template>
         </v-virtual-scroll>
@@ -36,7 +44,7 @@
 import {geomapApi, AddressData} from '@/Geocode/geomap.js'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import CampaignStore from "@/store/CampaignStore";
-// import UserStore from "@/store/UserStore";
+import UserStore from "@/store/UserStore";
 
 export default {
   components: {
@@ -99,20 +107,22 @@ export default {
     const answer = await CampaignStore.getActiveCampaigns();
     const campaigns = answer.results;
     console.log(campaigns);
-    // let ong;
+    let ong;
     for( let i=0 ; i < campaigns.length ; i++){
-        //ong = await UserStore.getOngs(campaigns[i].id_ong);
+        ong = await UserStore.getOngs(campaigns[i].id_ong);
         this.descriptions.push({
           title : campaigns[i].name,
+          ong : ong.fullname,
           direccion : campaigns[i].street+' '+campaigns[i].street_number+' '+campaigns[i].city,
           horario : campaigns[i].schedule,
           lista : campaigns[i].description,
+          camp_id: campaigns[i].id_campaign,
           marker : {}
          });
       }
     },
 
-  
+  // TODO: CENTRAR EN DIRECCIÓN DEL USUARIO
   async mounted() {
     let mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5pdGFjcnV6IiwiYSI6ImNrZ3A5d2Z6ZDA3M3Iyc2tsbmJjeGd4N2EifQ.7XEbgzqidyEuJKVfFg4U2A';
@@ -125,6 +135,9 @@ export default {
     const nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "top-right");
 
+
+    // TODO: SET POPUP
+    // Nombre campaña, nombre ong, dirección, descripción
     const answer = await CampaignStore.getActiveCampaigns();
     const campaigns = answer.results;
     console.log(campaigns);

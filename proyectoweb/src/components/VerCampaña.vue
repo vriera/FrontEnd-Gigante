@@ -4,13 +4,13 @@
       <v-spacer/>
       <v-col cols='10'>
         <v-card id="createCard">
-            <v-container v-if="loading" class="text-center" >
-                <v-progress-circular
-                :size="50"
-                color="blue lighten-3"
-                indeterminate
-                ></v-progress-circular>
-            </v-container>
+          <v-container v-if="loading" class="text-center" >
+              <v-progress-circular
+              :size="50"
+              color="blue lighten-3"
+              indeterminate
+              ></v-progress-circular>
+          </v-container>
 
           <div v-if="!submitted" style="padding: 2%;">
             <span id='cardTitle'>{{campaign.name}}</span>
@@ -55,15 +55,17 @@
             </v-row>
             <v-row>
                 <v-spacer/>
-                <v-col cols="4">
+                <v-col cols="3">
                     <span class="formHint">Teléfono:</span>
                     <span>{{parsePhone(campaign.phone)}}</span>
                 </v-col>
                 <v-spacer/>
-                <v-col cols="4">
+                <v-col cols="3">
                     <span class="formHint">Contacto:</span>
                     <span>{{campaign.contact}}</span>
                 </v-col>
+                <v-spacer/>
+                <v-col cols="3"/>
                 <v-spacer/>
             </v-row>
             
@@ -71,7 +73,9 @@
 
           </div>
 
-          <form v-if="!submitted" id='loadDonationBox'>
+          <v-divider class="mx-10"/>
+
+          <form v-if="!submitted" class="mt-10">
 
             <v-alert
             prominent
@@ -92,7 +96,8 @@
             </v-row>
             </v-alert>
 
-            <span id='donationBoxText'>¿Ya aportaste para esta campaña?</span>
+            <span>{{ "Donar a " + campaign.name }}</span>
+            <span id='donationBoxText' class="mb-5">¿Ya hiciste tu aporte en esta campaña?</span>
 
             <v-textarea
             v-model="donationDetail"
@@ -110,9 +115,13 @@
             color="blue lighten-1"
             rows="4"
             ></v-textarea>
-            <v-btn id="submitBtn" @click="submit" color="blue lighten-3">
-              <span>Cargar donación</span>
-            </v-btn>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn dark @click="submit" color="blue" class="mb-10">
+                <span>Cargar donación</span>
+              </v-btn>
+              <v-spacer/>
+            </v-card-actions>
           </form>
         </v-card>
       </v-col>
@@ -266,17 +275,18 @@ export default {
 #descRow{
     border: solid;
     border-color: cornflowerblue;
+    border-radius: 10px;
     margin: 3% 5%;
     padding: 2%;
 }
 
-#loadDonationBox{
+/* #loadDonationBox{
     margin: 2%;
     padding: 2%;
     border-width: thin;
     border: solid;
     border-color: cornflowerblue;
-}
+} */
 
 #donationBoxText{
     margin: 1% auto;
@@ -304,12 +314,12 @@ export default {
     font-weight: bold;
 }
 
-#submitBtn{
+/* #submitBtn{
     text-transform: none;
     width: 20%;
     display: table;
     color: white;
     margin: 0 auto;
-}
+} */
 
 </style>
