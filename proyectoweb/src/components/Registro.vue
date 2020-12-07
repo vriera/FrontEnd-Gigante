@@ -132,7 +132,7 @@
         ></v-text-field>
         <v-text-field v-if="isUser"
             v-model="piso"
-            label="Piso"
+            label="Piso (complete con un guión en caso de que no aplique)"
             solo
             required
             @blur="$v.piso.$touch()"
@@ -174,7 +174,7 @@
         ></v-text-field>
         <v-text-field v-if="!isUser"
             v-model="piso"
-            label="Piso"
+            label="Piso (complete con un guión en caso de que no aplique)"
             solo
             @blur="$v.piso.$touch()"
         ></v-text-field>
