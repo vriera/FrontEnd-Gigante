@@ -13,7 +13,7 @@
       <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
         <v-btn class='boton-superior' router :to="registro_link" text>Registrarse</v-btn>
       </v-col>
-      <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
+      <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2"  class="mr-10">
         <v-menu v-model="loggingIn" :close-on-content-click="false" offset-y nudge-bottom="10">
           <template v-slot:activator="{on}">
             <v-btn class='boton-superior' text v-on="on">Iniciar sesión</v-btn>
@@ -22,12 +22,14 @@
         </v-menu>
       </v-col>
       
-      <v-col v-if="isLoggedIn" xs='6' sm='4' md="3" lg="2">
+      <v-spacer v-if="isLoggedIn"/>
 
-      <div class="text-center">
+      <v-col v-if="isLoggedIn" xs='6'>
+
+      <!-- <div class="text-center"> -->
       <v-menu
-      top
       offset-y
+      class="ml-10"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn v-if="isUser" class='boton-superior' text v-bind="attrs" v-on="on">
@@ -55,7 +57,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      </div>
+      <!-- </div> -->
       </v-col>
     </v-row>
 

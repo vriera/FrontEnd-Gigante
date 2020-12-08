@@ -135,7 +135,7 @@
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 import CampaignStore from '@/store/CampaignStore'
-//import DonationStore from '@/store/DonationStore'
+import UserStore from "@/store/UserStore"
 
 export default {
     mixins: [validationMixin],
@@ -149,8 +149,11 @@ export default {
     return { 
         
     campaign: [],
+    campaignCategories: [],
 
     donationDetail: '',
+    currentUser: [],
+    userStore: UserStore,
 
     campaignId: '',
     campaignName:'',
@@ -177,7 +180,11 @@ export default {
   async created(){
       this.loading = true;
       this.campaign = await this.store.getCampaigns(this.id);
+      this.currentUser = await this.userStore.getCurrentUser();
+      const ans = await this.store.getCampaignCategories(this.id);
+      this.campaignCategories = ans.results;
       console.log(this.campaign);
+      console.log(this.currentUser);
       
       //Hago el get de los ids de las categorias que tiene asignada esta campaña
       //let categoriesIdsArray = await this.store.getCategories(this.campaign.id)
@@ -236,10 +243,10 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid){
         this.loading = true;
-        let result = false;
+        let result;
 
         //Hago un post de la nueva donación
-        //result = await DonationStore.addDonation(this.donationDetail);
+        result = await CampaignStore.addDonation(this.currentUser.id, this.campaignId, this.campaignCategories[0].id_category, this.donationDetail, false);
 
         if (!result.success){
           this.submitError = true;

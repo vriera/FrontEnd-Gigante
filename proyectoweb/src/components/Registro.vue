@@ -1,10 +1,10 @@
 <template>
   <div id="Fondo">
-    <v-row>
+    <!-- <v-row>
       <v-btn icon id='back' @click="$router.go(-1)" >
         <v-icon color="black" x-large> mdi-arrow-left </v-icon>
       </v-btn>
-    </v-row>
+    </v-row> -->
     <v-row>
       <v-spacer/>
       <v-col>
@@ -132,7 +132,7 @@
         ></v-text-field>
         <v-text-field v-if="isUser"
             v-model="piso"
-            label="Piso"
+            label="Piso (complete con un guión en caso de que no aplique)"
             solo
             required
             @blur="$v.piso.$touch()"
@@ -174,7 +174,7 @@
         ></v-text-field>
         <v-text-field v-if="!isUser"
             v-model="piso"
-            label="Piso"
+            label="Piso (complete con un guión en caso de que no aplique)"
             solo
             @blur="$v.piso.$touch()"
         ></v-text-field>
