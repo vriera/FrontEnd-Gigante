@@ -3,13 +3,31 @@
 
     <div class="sidebar pad2">
       <v-card color="#FFFFFF" scrollable height="800px" width="100%">
-        <p class ="titulo">Asociaciones
-          <v-icon>mdi-filter</v-icon>
-        </p>
-        <!--mdi-filter</v-icon>-->
-        <v-virtual-scroll height="700px"  item-height="270px" :items="descriptions">
+        <v-card-title>
+          <h2 class="azulGigante">CAMPAÑAS</h2>
+          <v-spacer/>
+          <v-tooltip bottom>
+            <template v-slot:activator="{on, attrs}">
+              <v-btn icon v-on:click="filtros=!filtros" v-on="on" v-bind="attrs">
+                <v-icon>{{ filtros ? 'mdi-filter-variant-remove':'mdi-filter-variant' }}</v-icon>
+              </v-btn>
+            </template>
+            <span>Filtrar</span>
+          </v-tooltip>
+        </v-card-title>
+        <v-card-text v-if="filtros" v-model="selection">
+            <v-chip-group active-class="primary--text" column multiple>
+              <v-chip v-for="tag in categories" :key="tag.id_category">{{ tag.description }}</v-chip>
+            </v-chip-group>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn text color="blue" v-on:click="filter()">Aplicar filtros</v-btn>
+            </v-card-actions>
+        </v-card-text>
+
+        <v-virtual-scroll height="700px"  item-height="270px" :items="filteredList">
           <template v-slot:default="{ item }">
-            <v-card v-on:click="item.marker.togglePopup()" class="mx-2" color="#DBEDF8" height="250">
+            <v-card v-on:click="pan(item.lat_lng); item.marker.togglePopup();" class="mx-2" color="#DBEDF8" height="250">
                 <v-card-title >{{item.title}}</v-card-title>
                 <v-card-subtitle>{{ item.ong}}</v-card-subtitle>
                 <v-card-text>
@@ -20,6 +38,8 @@
                   </v-layout>
                 </v-card-text>
                 <!-- TODO: Categorías -->
+
+
                 <v-card-actions>
                   <v-spacer/>
                   <v-btn dark color="blue" :to="'/VerCampaña/' + item.camp_id">Más información</v-btn>
@@ -37,8 +57,6 @@
 </template>
 
 
-
-
 <script>
 // @ is an alias to /src
 import {geomapApi, AddressData} from '@/Geocode/geomap.js'
@@ -47,67 +65,44 @@ import CampaignStore from "@/store/CampaignStore";
 import UserStore from "@/store/UserStore";
 
 export default {
-  components: {
-    //'listado' : Listado,
-  },
   data() {
     return {
       map: '',
       currentUser : {},
       userStore: UserStore,
       markers: [],
-      descriptions: [
-        // {
-        //   marker: {},
-        //   title: 'AAAAAAA',
-        //   direccion: 'Calle 1234 piso 1A',
-        //   horario: 'Lunes a viernes, 12:00- 18:00',
-        //   lista: 'ropa de abrigo, donaciones monetarias'
-        // },
-        // {
-        //   marker: {},
-        //   title: 'Fundación Sí',
-        //   direccion: 'Calle 1234 piso 1A',
-        //   horario: 'Lunes a viernes, 12:00- 18:00',
-        //   lista: 'ropa de abrigo, donaciones monetarias'
-        // },
-        // {
-        //   marker: {},
-        //   title: 'Fundación Sí',
-        //   direccion: 'Calle 1234 piso 1A',
-        //   horario: 'Lunes a viernes, 12:00- 18:00',
-        //   lista: 'ropa de abrigo, donaciones monetarias'
-        // },
-        // {
-        //   marker: {},
-        //   title: 'Fundación Sí',
-        //   direccion: 'Calle 1234 piso 1A',
-        //   horario: 'Lunes a viernes, 12:00- 18:00',
-        //   lista: 'ropa de abrigo, donaciones monetarias'
-        // },
-        // {
-        //   marker: {},
-        //   title: 'Fundación Sí',
-        //   direccion: 'Calle 1234 piso 1A',
-        //   horario: 'Lunes a viernes, 12:00- 18:00',
-        //   lista: 'ropa de abrigo, donaciones monetarias'
-        // },
-        // {
-        //   marker: {},
-        //   title: 'Fundación Sí',
-        //   direccion: 'Calle 1234 piso 1A',
-        //   horario: 'Lunes a viernes, 12:00- 18:00',
-        //   lista: 'ropa de abrigo, donaciones monetarias'
-        // },
-      ],
-      filtro: 'mdi-filter'
+      descriptions: [],
+      filtros: false,
+      selection: [],
+      categories: []
+    }
+  },
+  computed: {
+    filteredList() {
+      // if(this.selection.length < 1) {
+        return this.descriptions;
+      // }
+      // return this.descriptions.filter(camp => {
+      //   const ans = CampaignStore.getCampaignCategories(camp.camp_id);
+      //   console.log(ans);
+      //   return;
+      // });
+    }
+  },
+  methods: {
+    filter() {
+      this.filtros = false;
+    },
+    pan(coord) {
+      this.map.panTo(coord);
     }
   },
 
   async created(){
-
     const answer = await CampaignStore.getActiveCampaigns();
     const campaigns = answer.results;
+    const ans = await CampaignStore.getCategories();
+    this.categories = ans.results;
     console.log(campaigns);
     let ong;
     for( let i=0 ; i < campaigns.length ; i++){
@@ -119,6 +114,7 @@ export default {
           horario : campaigns[i].schedule,
           lista : campaigns[i].description,
           camp_id: campaigns[i].id_campaign,
+          lat_lng: {},
           marker : {}
          });
       }
@@ -138,80 +134,27 @@ export default {
     const nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "top-right");
 
-
-    // TODO: SET POPUP
-    // Nombre campaña, nombre ong, dirección, descripción
     const answer = await CampaignStore.getActiveCampaigns();
     const campaigns = answer.results;
     console.log(campaigns);
-    // let ong;
 
     for( let i=0 ; i < campaigns.length ; i++){
       //let titleBackup = this.descriptions[i].title;
       // console.log(this.descriptions[i].title);
       // this.descriptions[i].title.concat("\n");
+      const latLong = await geomapApi.getCoordinates(new AddressData(campaigns[i].street,campaigns[i].street_number, campaigns[i].city));
+      this.descriptions[i].lat_lng = latLong;
       this.descriptions[i].marker = new mapboxgl.Marker()
-            .setLngLat(await geomapApi.getCoordinates(new AddressData(campaigns[i].street,campaigns[i].street_number, campaigns[i].city)))
+            .setLngLat(latLong)
             .setPopup(new mapboxgl.Popup().setHTML('<h3>'+this.descriptions[i].title+'</h3><h4>'+this.descriptions[i].ong+'</h4><h5>'
             +this.descriptions[i].direccion+'</h5><p>'+this.descriptions[i].lista+'</p>'))
-            // .setPopup(new mapboxgl.Popup().setTitle(this.descriptions[i].title).setText(this.descriptions[i].ong+'\n'
-            //      +this.descriptions[i].direccion+'\n'+this.descriptions[i].lista))
-            // .setPopup(new mapboxgl.Popup().setHTML("<h1>{{this.descriptions[i].title}}</h1>" +
-            //        "<p>{{this.descriptions[i].ong}}</p>" +
-            //        "<p>{{this.descriptions[i].direccion}}</p>"))
             .addTo(this.map);
       //this.descriptions[i].title = titleBackup;
-     }
-
     }
-
-    // this.descriptions[0].marker = new mapboxgl.Marker()
-    //     .setLngLat(await geomapApi.getCoordinates(new AddressData("Angel Justiniano Carranza",1962, "CABA"), null))
-    //     .addTo(this.map);
-
-    // this.descriptions[0].marker = new mapboxgl.Marker()
-    //     .setLngLat([-58.3876273, -34.5903130])
-    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-    //         "<p>Quintana y montevideo</p>" +
-    //         "<p>No recibe donaciones</p>"))
-    //     .addTo(this.map);
-
-    // this.descriptions[1].marker = new mapboxgl.Marker()
-    //     .setLngLat([-58.414281,-34.581505])
-    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-    //         "<p>las Heras y arabe siria</p>" +
-    //         "<p>No recibe donaciones</p>"))
-    //     .addTo(this.map);
-    //
-    // this.descriptions[2].marker = new mapboxgl.Marker()
-    //     .setLngLat([-58.378482,-34.595680])
-    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-    //         "<p>Esmeralda y Santa fe</p>" +
-    //         "<p>No recibe donaciones</p>"))
-    //     .addTo(this.map);
-    //
-    // this.descriptions[3].marker = new mapboxgl.Marker()
-    //     .setLngLat([-58.399482,-34.595780])
-    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-    //         "<p>Esmeralda y Santa fe</p>" +
-    //         "<p>No recibe donaciones</p>"))
-    //     .addTo(this.map);
-    // this.descriptions[4].marker = new mapboxgl.Marker()
-    //     .setLngLat([-58.389482,-34.598780])
-    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-    //         "<p>Esmeralda y Santa fe</p>" +
-    //         "<p>No recibe donaciones</p>"))
-    //     .addTo(this.map);
-    // this.descriptions[5].marker = new mapboxgl.Marker()
-    //     .setLngLat([-58.414281,-34.591505])
-    //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Fundación Sí</h1>" +
-    //         "<p>las Heras y arabe siria</p>" +
-    //         "<p>No recibe donaciones</p>"))
-    //     .addTo(this.map);
-
-
+  }
 }
 </script>
+
 
 <style scoped>
 body {
@@ -245,11 +188,9 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.titulo {
-  font-size: 45px;
-  font-family: "Arial Black";
-  text-align: center;
 
+.azulGigante {
+        color: rgb(88, 118, 189);
 }
 
 </style>
