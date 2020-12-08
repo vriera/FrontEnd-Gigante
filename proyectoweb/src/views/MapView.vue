@@ -152,8 +152,8 @@ export default {
       // this.descriptions[i].title.concat("\n");
       this.descriptions[i].marker = new mapboxgl.Marker()
             .setLngLat(await geomapApi.getCoordinates(new AddressData(campaigns[i].street,campaigns[i].street_number, campaigns[i].city)))
-            .setPopup(new mapboxgl.Popup().setText(this.descriptions[i].title+'\n'+this.descriptions[i].ong+'\n'
-            +this.descriptions[i].direccion+'\n'+this.descriptions[i].lista))
+            .setPopup(new mapboxgl.Popup().setHTML('<h3>'+this.descriptions[i].title+'</h3><h4>'+this.descriptions[i].ong+'</h4><h5>'
+            +this.descriptions[i].direccion+'</h5><p>'+this.descriptions[i].lista+'</p>'))
             // .setPopup(new mapboxgl.Popup().setTitle(this.descriptions[i].title).setText(this.descriptions[i].ong+'\n'
             //      +this.descriptions[i].direccion+'\n'+this.descriptions[i].lista))
             // .setPopup(new mapboxgl.Popup().setHTML("<h1>{{this.descriptions[i].title}}</h1>" +
