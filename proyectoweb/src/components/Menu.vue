@@ -2,18 +2,18 @@
   <div>
     <v-img :src="require('../assets/LogoGigante.png')" @click="$router.push(home_link)" alt="Logo Gigante" id="logo" class="mx-3"></v-img>
 
-    <v-row class="filaMenu blue lighten-3" >
+    <v-row class="filaMenu blue lighten-3">
       <v-col xs='6' sm='4' md="3" lg="2">
         <v-btn router :to='home_link' id='gigante' text>GIGANTE</v-btn>
       </v-col>
-      <v-col xs='6' sm='4' md="3" lg="2">
+      <v-col id='topCol' xs='6' sm='4' md="3" lg="2">
         <v-btn router :to='quienesSomos_link' class='boton-superior' text>Quiénes somos</v-btn>
       </v-col>
       <v-spacer></v-spacer>
-      <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2">
+      <v-col v-if="!isLoggedIn" id='topCol' xs='6' sm='4' md="3" lg="2">
         <v-btn class='boton-superior' router :to="registro_link" text>Registrarse</v-btn>
       </v-col>
-      <v-col v-if="!isLoggedIn" xs='6' sm='4' md="3" lg="2"  class="mr-10">
+      <v-col v-if="!isLoggedIn" id='topCol' xs='6' sm='4' md="3" lg="2"  class="mr-10">
         <v-menu v-model="loggingIn" :close-on-content-click="false" offset-y nudge-bottom="10">
           <template v-slot:activator="{on}">
             <v-btn class='boton-superior' text v-on="on">Iniciar sesión</v-btn>
@@ -24,7 +24,7 @@
       
       <v-spacer v-if="isLoggedIn"/>
 
-      <v-col v-if="isLoggedIn" xs='6'>
+      <v-col v-if="isLoggedIn" id='topCol' xs='6'>
 
       <!-- <div class="text-center"> -->
       <v-menu
@@ -221,6 +221,10 @@ export default {
 
 .filaMenu{
   padding: 0 0 0 8%;
+}
+
+#topCol{
+  padding: 1.2%;
 }
 
 .v-btn {
