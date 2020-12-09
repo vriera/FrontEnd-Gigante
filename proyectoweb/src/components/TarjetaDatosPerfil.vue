@@ -93,9 +93,35 @@
           </v-col>
         </v-row>
 
-        <v-row></v-row>
+        <v-card @click="logOut()"  style="border-color: white; background-color: white; box-shadow: none">
+          <v-row style="margin-left: 5%" >
+            <v-col cols="2">
+              <v-icon >mdi-logout</v-icon>
+            </v-col>
+            <v-col >
+              <h3>Cerrar sesión</h3>
+            </v-col>
+          </v-row>
+        </v-card>
 
-
+        <v-alert
+            prominent
+            max-width="50%"
+            style="margin: 3% auto;"
+            class="mx-auto"
+            v-if="editProfileError"
+            color="red"
+            icon="mdi-bullhorn"
+            type="error" >
+          <v-row align="center">
+            <v-col>
+              {{ mensajeAlertEditProfile}}
+            </v-col>
+            <v-col class="shrink">
+              <v-btn @click="editProfileError = !editProfileError">Aceptar</v-btn>
+            </v-col>
+          </v-row>
+        </v-alert>
 
       </v-card>
   </div>
@@ -113,16 +139,37 @@ export default {
   data() {
     return {
       edit_link: "/EditarPerfil",
-      currentUser : {},
+      currentUser: {},
       userStore: UserStore,
       isOng: false,
+      editProfileError: false,
+      mensajeAlertEditProfile: '',
+    }
+  },
+  methods: {
+    async logOut() {
+      const result = await UserStore.logout();
+      if (!result.success){
+        this.loading = false;
+        this.editProfileError = true;
+        this.mensajeAlertEditProfile = 'Error al desloguearse , inténtelo más tarde';
+      }
+      else{
+        //await this.$router.push('/');
+        await this.$router.go({
+          path: "/",
+          force: true
+        });
+        // await this.$router.go((window.history.length -1 ) * (-1));
+        // await this.$router.go(-2);
+      }
     }
   },
 
   async created() {
 
       this.currentUser = await this.userStore.getCurrentUser();
-      this.isOng = await this.userStore.getCurrentCategory() === 'ong';
+      this.isOng = await this.userStore.isOng();
 
   }
 }

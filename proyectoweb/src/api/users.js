@@ -18,6 +18,10 @@ class UsersApi {
         return this.userCategory;
     }
 
+    static isOng(){
+        return this.userCategory === 'ong';
+    }
+
     static get donatorUrl() {
         return `${Api.baseUrl}/donators`;
     }

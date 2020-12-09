@@ -1,6 +1,6 @@
 <template>
   <div class="pa-5">
-    <h1 class="ml-5">NOTICIAS</h1>
+    <h1 class="ml-5" align="center">NOTICIAS</h1>
     <v-container fluid grid-list-xl>
       <v-layout wrap justify-space-around>
         <v-flex v-for="(noticia,index) in noticias" :key="noticia.id_advertisement">
