@@ -109,19 +109,12 @@
               <span>¿Ya hiciste tu aporte en esta campaña?</span>
             </div>
             <div class="ml-16">
-              <h4>Marca la categoria a la cual fue hecha la donacion:</h4>
+              <h4>Marca la categoría a la cual fue hecha la donación:</h4>
             </div>
 
-            <div :key="catBtnRenderer">
-              <v-row style="margin: 1% 5%;">
-                <v-col v-for="(category, index) in campaignCategories" :key="category.id_category">
-                  <v-btn id='categoryBtn' v-bind:color="index === selectedIndex? 'blue lighten-5' : 'grey lighten-1'" rounded @click="selectedIndex === index? selectedIndex = -1 : selectedIndex = index; forceCatBtnRerender(); noCatError = false;">
-                    <span>{{category.description}}</span>
-                  </v-btn>
-                </v-col>
-              </v-row>
-              <span v-if="noCatError" style="color: red; margin: 0 0 0 6%;">Debe seleccionar una categoría</span>
-            </div>
+            <v-chip-group show-arrows class="ml-16" mandatory active-class="primary--text">
+                <v-chip v-for="category in campaignCategories" :key="category.id_category" class="mr-2 black--text" v-on:click="selectedIndex=category.id_category">{{ category.description }}</v-chip>
+            </v-chip-group>
 
             <v-textarea
             v-model="donationDetail"
@@ -178,9 +171,8 @@ export default {
     donationDetail: '',
     currentUser: [],
     userStore: UserStore,
-      catBtnRenderer: 0,
-      selectedIndex : -1,
-      noCatError: false,
+
+    selectedIndex: '',
 
     campaignId: '',
     campaignName:'',
@@ -251,20 +243,6 @@ export default {
 
   methods: {
 
-    forceCatBtnRerender() {
-      this.catBtnRenderer += 1;
-    },
-
-    isCategorySelected() {
-
-      if(this.selectedIndex === -1) {
-        this.noCatError = true;
-        this.forceCatBtnRerender();
-        return false;
-      }
-      return true;
-    },
-
     parsePhone(phone){
       let result = phone;
       let phoneS = phone.toString();
@@ -285,7 +263,7 @@ export default {
 
     async submit () {
       this.$v.$touch()
-      if (!this.$v.$invalid && this.isCategorySelected() ){
+      if (!this.$v.$invalid){
         this.loading = true;
         let result;
 
