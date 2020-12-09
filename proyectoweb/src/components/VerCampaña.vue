@@ -74,7 +74,7 @@
               <v-spacer/>
               <v-col cols="11" class="pl-9">
                 <span class="font-weight-bold mr-3">Categorías: </span>
-                <v-chip v-for="tag in campaignCategories" :key="tag" class="mr-2 cats">{{ tag }}</v-chip>
+                <v-chip v-for="tag in campaignCategories" :key="tag.id_category" class="mr-2 cats">{{ tag.description }}</v-chip>
               </v-col>
               <v-spacer/>
             </v-row>
@@ -109,6 +109,17 @@
               <span>¿Ya hiciste tu aporte en esta campaña?</span>
             </div>
 
+            <div :key="catBtnRenderer">
+              <v-row style="margin: 1% 5%;">
+                <v-col v-for="(category, index) in campaignCategories" :key="category.id_category">
+                  <v-btn id='categoryBtn' v-bind:color="index === selectedIndex? 'blue lighten-5' : 'grey lighten-1'" rounded @click="selectedIndex === index? selectedIndex = -1 : selectedIndex = index; forceCatBtnRerender(); noCatError = false;">
+                    <span>{{category.description}}</span>
+                  </v-btn>
+                </v-col>
+              </v-row>
+              <span v-if="noCatError" style="color: red; margin: 0 0 0 6%;">Debe seleccionar una categoría</span>
+            </div>
+
             <v-textarea
             v-model="donationDetail"
             :error-messages="donationDetailErrors"
@@ -127,7 +138,7 @@
             ></v-textarea>
             <v-card-actions>
               <v-spacer/>
-              <v-btn dark @click="submit" color="blue" class="mb-10">
+              <v-btn dark @click="submit()" color="blue" class="mb-10">
                 <span>Cargar donación</span>
               </v-btn>
               <v-spacer/>
@@ -164,6 +175,9 @@ export default {
     donationDetail: '',
     currentUser: [],
     userStore: UserStore,
+      catBtnRenderer: 0,
+      selectedIndex : -1,
+      noCatError: false,
 
     campaignId: '',
     campaignName:'',
@@ -194,7 +208,7 @@ export default {
       const ans = await this.store.getCampaignCategories(this.id);
       for(let i=0; i<ans.results.length; i++) {
         let cat = await CampaignStore.getCategories(ans.results[i].id_category);
-        this.campaignCategories.push(cat.description);
+        this.campaignCategories.push(cat);
       }
       console.log(this.campaign);
       console.log(this.currentUser);
@@ -234,6 +248,20 @@ export default {
 
   methods: {
 
+    forceCatBtnRerender() {
+      this.catBtnRenderer += 1;
+    },
+
+    isCategorySelected() {
+
+      if(this.selectedIndex === -1) {
+        this.noCatError = true;
+        this.forceCatBtnRerender();
+        return false;
+      }
+      return true;
+    },
+
     parsePhone(phone){
       let result = phone;
       let phoneS = phone.toString();
@@ -254,12 +282,14 @@ export default {
 
     async submit () {
       this.$v.$touch()
-      if (!this.$v.$invalid){
+      if (!this.$v.$invalid && this.isCategorySelected() ){
         this.loading = true;
         let result;
 
         //Hago un post de la nueva donación
-        result = await CampaignStore.addDonation(this.currentUser.id, this.campaignId, this.campaignCategories[0].id_category, this.donationDetail, false);
+        console.log(this.campaignCategories[0]);
+        console.log("Estoy por agregar la donacion")
+        result = await CampaignStore.addDonation(this.currentUser.id, this.campaignId, this.campaignCategories[this.selectedIndex].id_category, this.donationDetail, false);
 
         if (!result.success){
           this.submitError = true;
