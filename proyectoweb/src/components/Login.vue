@@ -24,6 +24,13 @@
     <v-row>
         <v-spacer/>
             <v-col>
+              <v-container v-if="loading" class="text-center" >
+                <v-progress-circular
+                    :size="50"
+                    color="white"
+                    indeterminate
+                ></v-progress-circular>
+              </v-container>
                 <v-btn rounded @click="submit" id="botonLogin">
                     Iniciar Sesión
                 </v-btn>
@@ -71,6 +78,7 @@ export default {
     return {
         password:'',
         username: '',
+        loading : false,
         showPass: false,
 
         submitError: false,
@@ -99,16 +107,17 @@ export default {
     async submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
+        this.loading = true;
         let success = false
 
         success = await UserStore.login(this.username, this.password)
 
         if (!success){
+          this.loading = false;
           this.submitError = true;
           this.mensajeAlertForm = `Error durante el ingreso, inténtelo más tarde`;
         }
         else{
-          console.log("Estoy logueado")
           location.reload();
         }
       }
