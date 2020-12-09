@@ -12,7 +12,7 @@
               ></v-progress-circular>
           </v-container>
 
-          <div v-if="!submitted" style="padding: 2%;">
+          <div v-if="!submitted" class="pa-2">
             <span id='cardTitle'>{{campaign.name}}</span>
             <v-row id='descRow'>
                   <span>{{campaign.description}}</span>
@@ -70,12 +70,20 @@
             </v-row>
             
             <!-- CATEGORIAS -->
+            <v-row>
+              <v-spacer/>
+              <v-col cols="11" class="pl-9">
+                <span class="font-weight-bold mr-3">Categorías: </span>
+                <v-chip v-for="tag in campaignCategories" :key="tag" class="mr-2 cats">{{ tag }}</v-chip>
+              </v-col>
+              <v-spacer/>
+            </v-row>
 
           </div>
 
           <v-divider class="mx-10"/>
 
-          <form v-if="!submitted" class="mt-10">
+          <form v-if="!submitted" class="mt-5">
 
             <v-alert
             prominent
@@ -96,8 +104,10 @@
             </v-row>
             </v-alert>
 
-            <span>{{ "Donar a " + campaign.name }}</span>
-            <span id='donationBoxText' class="mb-5">¿Ya hiciste tu aporte en esta campaña?</span>
+            <div class="text-center mb-5">
+              <h3>{{ "Donar a " + campaign.name }}</h3>
+              <span>¿Ya hiciste tu aporte en esta campaña?</span>
+            </div>
 
             <v-textarea
             v-model="donationDetail"
@@ -182,7 +192,10 @@ export default {
       this.campaign = await this.store.getCampaigns(this.id);
       this.currentUser = await this.userStore.getCurrentUser();
       const ans = await this.store.getCampaignCategories(this.id);
-      this.campaignCategories = ans.results;
+      for(let i=0; i<ans.results.length; i++) {
+        let cat = await CampaignStore.getCategories(ans.results[i].id_category);
+        this.campaignCategories.push(cat.description);
+      }
       console.log(this.campaign);
       console.log(this.currentUser);
       
