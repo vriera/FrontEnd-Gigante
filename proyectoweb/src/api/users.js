@@ -131,7 +131,12 @@ class Ong{
         this.phone = phone;
         this.street = street;
         this.street_number = street_number;
-        this.floor = floor;
+        // if( floor !== undefined && floor !== ' '){
+            this.floor = floor;
+        // }
+        // else {
+        //     this.floor = '-';
+        // }
         this.region = region;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -160,7 +165,15 @@ class Donator{
         this.fullname = fullname;
         this.street = street;
         this.street_number = street_number;
-        this.floor = floor;
+        // console.log('Floor = '+floor);
+        // if( floor !== undefined && floor !== ''){
+            this.floor = floor;
+        //     console.log('No es undefined');
+        // }
+        // else {
+        //     this.floor = '-';
+        //     console.log('Es undefined');
+        // }
         this.region = region;
         this.latitude = latitude;
         this.longitude = longitude;

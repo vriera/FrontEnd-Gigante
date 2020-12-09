@@ -341,7 +341,7 @@ export default {
         email : {required, email, maxLength:maxLength(100)},
         street : {required, maxLength:maxLength(50)},
         street_number : {required, integer, minValue:minValue(0)},
-        floor : {maxLength:maxLength(20)},
+        floor : { required, maxLength:maxLength(20)},
         region : {required, maxLength:maxLength(100)},
       };
     } else {
@@ -469,6 +469,7 @@ export default {
     floorErrors () {
       const errors = []
       if (!this.$v.floor.$dirty) return errors
+      !this.$v.floor.required && errors.push('El piso es obligatorio ( complete con un guión en caso de que no aplique )')
       !this.$v.floor.maxLength && errors.push('El piso debe tener maximo 20 caracteres')
       return errors
     },

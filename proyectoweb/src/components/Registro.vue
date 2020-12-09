@@ -12,7 +12,7 @@
         <v-spacer/>
         <v-col>
         <v-btn v-bind:class="isUser?'blue lighten-4':'grey lighten-1'" class="tipo-cuenta" @click="setUser">
-            <span color="black" x-large> Soy un usuario </span>
+            <span color="black" x-large> Soy un donador </span>
         </v-btn>
         </v-col>
         <v-spacer/>
@@ -132,6 +132,7 @@
         ></v-text-field>
         <v-text-field v-if="isUser"
             v-model="piso"
+            :error-messages="floorErrors"
             label="Piso (complete con un guión en caso de que no aplique)"
             solo
             required
@@ -174,6 +175,7 @@
         ></v-text-field>
         <v-text-field v-if="!isUser"
             v-model="piso"
+            :error-messages="floorErrors"
             label="Piso (complete con un guión en caso de que no aplique)"
             solo
             @blur="$v.piso.$touch()"
@@ -267,7 +269,7 @@ export default {
         }), integer, minValue:minValue(0)
       },
 
-    piso:{},  //Aunque no tenga restricciones o tira warning
+    piso:{ required, maxLength:maxLength(20)},  //Aunque no tenga restricciones o tira warning
     
     dni: {required: requiredIf(function(){
           return !this.isUser
@@ -360,7 +362,7 @@ export default {
       if (!this.$v.confirmationPassword.$dirty) return errors
       !this.$v.confirmationPassword.required && errors.push('La confirmación de la contraseña es obligatoria')
       !this.$v.confirmationPassword.sameAsPassword && errors.push('La confirmación no es igual a la contraseña')
-      !this.$v.confirmationPassword.maxLength && errors.push('La confinrmacion de la contraseña debe tener maximo 50 caracteres')
+      !this.$v.confirmationPassword.maxLength && errors.push('La confinrmación de la contraseña debe tener maximo 50 caracteres')
       return errors
     },
     emailErrors () {
@@ -369,6 +371,14 @@ export default {
       !this.$v.email.email && errors.push('El e-mail debe ser válido')
       !this.$v.email.required && errors.push('El e-mail es obligatorio')
       !this.$v.email.maxLength && errors.push('El e-mail debe tener maximo 100 caracteres')
+      return errors
+    },
+
+    floorErrors () {
+      const errors = []
+      if (!this.$v.piso.$dirty) return errors
+      !this.$v.piso.required && errors.push('El piso es obligatorio ( complete con un guión en caso de que no aplique )')
+      !this.$v.piso.maxLength && errors.push('El piso debe tener maximo 20 caracteres')
       return errors
     },
 
