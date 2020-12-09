@@ -14,7 +14,7 @@
                 <v-progress-circular indeterminate color="blue"/>
             </v-layout>
             <v-chip-group show-arrows v-if="loaded">
-                <v-chip v-for="tag in categories" :key="tag.id" class="mr-2 black--text">{{ tag.description }}</v-chip>
+                <v-chip v-for="tag in getCategories" :key="tag.id" class="mr-2 black--text">{{ tag.description }}</v-chip>
             </v-chip-group>
             <v-spacer/>
             <v-btn dark color="blue" :to="'/VerCampaña/' + camp.id_campaign">Más información</v-btn>
@@ -28,8 +28,7 @@ import CampaignStore from "@/store/CampaignStore";
 export default {
     props: {
         camp: Object,
-        ong: String,
-        cat_list: Array
+        ong: String
     },
     data() {
         return { 
@@ -37,13 +36,20 @@ export default {
             loaded: false,
         }
     },
+    computed: {
+        getCategories() {
+            return this.categories;
+        }
+    },
     async created() {
-        // console.log("Item "+this.camp.name);
-        for(let i=0; i<this.cat_list.length; i++) {
-            // console.log("Cat "+this.cat_list[i]);
-            let cat = await CampaignStore.getCategories(this.cat_list[i]);
+        // for(let i=0; i<this.cat_list.length; i++) {
+        //     let cat = await CampaignStore.getCategories(this.cat_list[i]);
+        //     this.categories.push({ id: cat.id_category, description: cat.description});
+        // }
+        const campCat = await CampaignStore.getCampaignCategories(this.camp.id_campaign);
+        for(let i=0; i<campCat.results.length; i++) {
+            let cat = await CampaignStore.getCategories(campCat.results[i].id_category);
             this.categories.push({ id: cat.id_category, description: cat.description});
-            // console.log(this.c.name + cat.description);
         }
         this.loaded = true;
     }

@@ -8,7 +8,7 @@
           <v-spacer/>
           <v-tooltip bottom>
             <template v-slot:activator="{on, attrs}">
-              <v-btn icon v-on:click="filtros=!filtros" v-on="on" v-bind="attrs">
+              <v-btn icon v-on:click="showFilters()" v-on="on" v-bind="attrs">
                 <v-icon>{{ filtros ? 'mdi-filter-variant-remove':'mdi-filter-variant' }}</v-icon>
               </v-btn>
             </template>
@@ -16,23 +16,30 @@
           </v-tooltip>
         </v-card-title>
         <v-card-text v-if="filtros">
-            <v-chip-group active-class="primary--text" column multiple>
+            <v-chip-group active-class="primary--text" column multiple v-model="sel">
               <v-chip v-for="tag in categories" :key="tag.id_category" v-on:click="addCat(tag.id_category)">{{ tag.description }}</v-chip>
             </v-chip-group>
-            <!-- <v-card-actions>
+            <v-card-actions>
               <v-spacer/>
+              <v-btn text color="red" v-on:click="deleteFilters()">Borrar filtros</v-btn>
               <v-btn text color="blue" v-on:click="filter()">Aplicar filtros</v-btn>
-            </v-card-actions> -->
+            </v-card-actions>
+            <v-layout v-if="filtros && !search" column align-center class="pt-10">
+              <span>Presione "Aplicar filtros" para ver los cambios</span>
+            </v-layout>
+            <v-layout v-if="filteredList.length == 0 && search" column align-center class="pt-10">
+              <span>No se encontraron resultados</span>
+            </v-layout>
         </v-card-text>
 
         <v-layout v-if="!loaded" column align-center class="py-5">
           <v-progress-circular indeterminate color="blue"/>
         </v-layout>
 
-        <v-virtual-scroll height="700px"  item-height="285px" :items="filteredList" v-if="loaded">
+        <v-virtual-scroll height="700px"  item-height="285px" :items="filteredList" v-if="loaded && search">
           <template v-slot:default="{ item }">
             <v-card flat v-on:click="pan(item.lat_lng); item.marker.togglePopup();">
-              <map-item :camp="item.obj" :ong="item.ong" :cat_list="item.cat_camp"/>
+              <map-item :camp="item.obj" :ong="item.ong"/>
             </v-card>
           </template>
         </v-virtual-scroll>
@@ -65,6 +72,7 @@ export default {
       descriptions: [],
       filtros: false,
       loaded: false,
+      search: true,
       selection: [],
       categories: []
     }
@@ -86,19 +94,32 @@ export default {
   },
   methods: {
     filter() {
-      // this.search = true;
+      this.search = true;
       console.log("SELECTED FILTERS: "+this.selection);
+    },
+    showFilters() {
+      this.filtros = !this.filtros ;
+      if(this.filtros)
+        this.search = false;
+    },
+    deleteFilters() {
+      this.selection = [];
+      this.sel = [];
+      this.search = true;
     },
     pan(coord) {
       this.map.panTo(coord);
     },
     addCat(cat_id) {
+      this.search = false;
       if(!this.selection.includes(cat_id)) {
           this.selection.push(cat_id);
       } else {
         var index = this.selection.indexOf(cat_id);
-        if (index > -1)
+        if (index > -1) {
           this.selection.splice(index, 1);
+          // this.search = true;
+        }
       }
     }
   },
