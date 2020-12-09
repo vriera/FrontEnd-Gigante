@@ -30,7 +30,11 @@ const routes = [
     name: 'CrearNoticia',
     component: () => import('../views/CrearNoticiaView.vue')
   },
-
+  {
+    path: '/EditarNoticia',
+    name: 'EditarNoticia',
+    component: () => import('../views/EditarNoticiaView.vue')
+  },
   {
     path: '/Registro',
     name: 'Registro',
