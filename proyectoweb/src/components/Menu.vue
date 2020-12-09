@@ -70,13 +70,15 @@
         <span>Noticias</span>
       </v-btn>
       <v-btn :to="mapa_link" text>
-        <v-icon left>mdi-package-variant-closed</v-icon>
-        <span>Donaciones</span>
+        <!-- <v-icon left>mdi-package-variant-closed</v-icon>
+        <span>Donaciones</span> -->
+        <v-icon left>mdi-map-search-outline</v-icon>
+        <span>Mapa</span>
       </v-btn>
-      <v-btn text>
+      <!-- <v-btn text>
         <v-icon left>mdi-handshake-outline</v-icon>
         <span>Voluntariado</span>
-      </v-btn>
+      </v-btn> -->
       <v-btn text :to="camp_activas">
         <v-icon left>mdi-bullhorn-outline</v-icon>
         <span>Campañas</span>
@@ -94,11 +96,12 @@
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
       </v-btn>
       <v-btn :to="mapa_link" text>
-        <v-icon left>mdi-package-variant-closed</v-icon>
+        <!-- <v-icon left>mdi-package-variant-closed</v-icon> -->
+        <v-icon left>mdi-map-search-outline</v-icon>
       </v-btn>
-      <v-btn text>
+      <!-- <v-btn text>
         <v-icon left>mdi-handshake-outline</v-icon>
-      </v-btn>
+      </v-btn> -->
       <v-btn text :to="camp_activas">
         <v-icon left>mdi-bullhorn-outline</v-icon>
       </v-btn>
