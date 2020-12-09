@@ -1,8 +1,15 @@
 <template>
   <v-card color="blue" class="white--text mb-5">
+    <v-container v-if="loading" class="text-center" >
+      <v-progress-circular
+          :size="50"
+          color="white"
+          indeterminate
+      ></v-progress-circular>
+    </v-container>
     <v-card-title>{{ donator.fullname }}</v-card-title>
     <v-divider class="mx-4" color="white"/>
-    <v-card-text class="text-justify white--text">{{ info.description }}</v-card-text>
+    <v-card-text class="text-justify white--text">Categoria: {{category.description}} <br/> Descripcion: {{ info.description }}</v-card-text>
     <v-card-actions v-if="incoming">
         <v-spacer/>
         <v-btn dark color="red" v-on:click="deleteDonation()">Datos incorrectos</v-btn>
@@ -20,8 +27,10 @@ export default Vue.extend({
     data() {
         return {
             donator: {
-                fullname: "María Gonzalez"
-            }
+                fullname: ''
+            },
+            category: '',
+            loading: false
         }
     },
     props: {
@@ -64,8 +73,11 @@ export default Vue.extend({
     },
     async mounted() {
         try {
+            this.loading = true;
             this.donator = await UserStore.getDonators(this.info.id_donator);
+            this.category = await CampaignStore.getCategories(this.info.id_category);
             this.loaded();
+            this.loading = false;
         } catch(e) {
           console.log('NO SE PUDO CARGAR LA INFO');
 

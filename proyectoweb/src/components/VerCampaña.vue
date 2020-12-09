@@ -108,6 +108,9 @@
               <h3>{{ "Donar a " + campaign.name }}</h3>
               <span>¿Ya hiciste tu aporte en esta campaña?</span>
             </div>
+            <div class="ml-16">
+              <h4>Marca la categoria a la cual fue hecha la donacion:</h4>
+            </div>
 
             <div :key="catBtnRenderer">
               <v-row style="margin: 1% 5%;">
