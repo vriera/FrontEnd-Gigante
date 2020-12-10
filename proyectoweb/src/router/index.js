@@ -112,7 +112,8 @@ router.beforeEach((to, from, next) => {
       && UserStore.getCurrentToken() === null){
     next({ name: 'Home' })
   }
-  else if((to.name === 'EditarCampaña' || to.name === 'CrearCampaña' || to.name === 'MisCampañas')
+  else if((to.name === 'EditarCampaña' || to.name === 'CrearCampaña' || to.name === 'MisCampañas' 
+      || to.name === 'CrearNoticia' || to.name === 'EditarNoticia')
       && UserStore.getCurrentCategory() === 'donator'){
     next({ name: 'Home' })
   }
