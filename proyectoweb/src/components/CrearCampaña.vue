@@ -40,7 +40,7 @@
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span class="formHint">Fecha de inicio: </span>
+                        <!--<span class="formHint">Fecha de inicio: </span>
                         <v-text-field
                         v-model="desdeFecha"
                         :error-messages="desdeFechaErrors"
@@ -49,13 +49,92 @@
                         rounded
                         required
                         @blur="$v.desdeFecha.$touch()"
-                        ></v-text-field>
+                        ></v-text-field>-->
+                      <v-menu
+                          ref="menuFechaInicio"
+                          v-model="menuFechaInicio"
+                          :close-on-content-click="false"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="290px"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-text-field
+                              v-model="desdeFecha"
+                              :error-messages="desdeFechaErrors"
+                              label="Fecha de inicio:"
+                              solo
+                              append-icon="mdi-calendar"
+                              readonly
+                              rounded
+                              @input="$v.desdeFecha.$touch()"
+                              @blur="$v.desdeFecha.$touch()"
+                              v-bind="attrs"
+                              v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <!--<v-date-picker
+                            color="#E78200"
+                            ref="picker"
+                            v-model="date"
+                            :max="new Date().toISOString().substr(0, 10)"
+                            min="1970-01-01"
+                            @change="save"
+                        ></v-date-picker>-->
+                        <v-date-picker
+                            color="blue lighten-3"
+                            ref="picker"
+                            v-model="desdeFecha"
+                            :min="new Date().toISOString().substr(0, 10)"
+                            @change="saveInitialDate"
+                        ></v-date-picker>
+                      </v-menu>
+
                     </v-row>
                 </v-col>
                 <v-spacer/>
                 <v-col cols="5">
                     <v-row>
-                        <span class="formHint">Fecha de fin: </span>
+                      <v-menu
+                          ref="menuFechaFin"
+                          v-model="menuFechaFin"
+                          :close-on-content-click="false"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="290px"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-text-field
+                              v-model="hastaFecha"
+                              :error-messages="hastaFechaErrors"
+                              label="Fecha de fin:"
+                              solo
+                              append-icon="mdi-calendar"
+                              readonly
+                              rounded
+                              @input="$v.hastaFecha.$touch()"
+                              @blur="$v.hastaFecha.$touch()"
+                              v-bind="attrs"
+                              v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <!--<v-date-picker
+                            color="#E78200"
+                            ref="picker"
+                            v-model="date"
+                            :max="new Date().toISOString().substr(0, 10)"
+                            min="1970-01-01"
+                            @change="save"
+                        ></v-date-picker>-->
+                        <v-date-picker
+                            color="blue lighten-3"
+                            ref="picker"
+                            v-model="hastaFecha"
+                            :min="new Date().toISOString().substr(0, 10)"
+                            @change="saveFinalDate"
+                        ></v-date-picker>
+                      </v-menu>
+                        <!--<span class="formHint">Fecha de fin: </span>
                         <v-text-field
                         v-model="hastaFecha"
                         :error-messages="hastaFechaErrors"
@@ -64,7 +143,7 @@
                         rounded
                         required
                         @blur="$v.hastaFecha.$touch()"
-                        ></v-text-field>
+                        ></v-text-field>-->
                     </v-row>
                 </v-col>
                 <v-spacer/>
@@ -275,6 +354,8 @@ export default {
     submitError : false,
     submitted : false, 
     loading : false,
+    menuFechaInicio : false,
+    menuFechaFin : false
     }
   },
 
@@ -371,7 +452,7 @@ computed:{
       this.$v.$touch()
       if (!this.$v.$invalid && this.atLeastOneCategory()){
         this.loading = true;
-        let result;
+        let result = {};
 
         let currentOng = await UserStore.getCurrentUser();
         if (currentOng.id === undefined){
@@ -381,8 +462,21 @@ computed:{
           return;
         }
 
-         result = await CampaignStore.addCampaign(currentOng.id, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
-                                                      this.city, this.neighbourhood, this.horario, this.phone, this.contacto, true);
+         if(Date.parse(this.desdeFecha)<Date.parse(this.hastaFecha)){
+
+           console.log('Fecha inicio date = '+Date.parse(this.desdeFecha));
+           console.log('Fecha fin date = '+Date.parse(this.hastaFecha));
+           console.log('Fecha valida');
+           result = await CampaignStore.addCampaign(currentOng.id, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
+               this.city, this.neighbourhood, this.horario, this.phone, this.contacto, true);
+
+         }
+         else{
+           console.log('Fecha inicio date inv= '+Date.parse(this.desdeFecha));
+           console.log('Fecha fin date inv= '+Date.parse(this.hastaFecha));
+           console.log('Fecha invalida');
+           result.success = false;
+         }
 
         if (!result.success){
           this.submitError = true;
@@ -405,7 +499,22 @@ computed:{
 
     },
 
+    saveInitialDate (date) {
+      this.$refs.menuFechaInicio.save(date)
+    },
+
+    saveFinalDate (date) {
+      this.$refs.menuFechaFin.save(date)
+    },
+
+
   },
+
+    watch: {
+      menu (val) {
+        val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
+      },
+    },
 
   async created(){
       const result = await CampaignStore.getCategories();
