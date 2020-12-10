@@ -1,10 +1,10 @@
 <template>
   <div class="pa-5">
-    <h1 class="ml-5">NOTICIAS</h1>
+    <h1 class="ml-5" align="center">NOTICIAS</h1>
     <v-container fluid grid-list-xl>
       <v-layout wrap justify-space-around>
         <v-flex v-for="(noticia,index) in noticias" :key="noticia.id_advertisement">
-          <item-noticias :image="image" :title="noticia.title" :author="authors[index]" :desc="noticia.body" :read-more-link="readMoreLink"/>
+          <item-noticias :is-ong="isOng" :image="image" :title="noticia.title" :author="authors[index]" :desc="noticia.body" :read-more-link="readMoreLink"/>
         </v-flex>
       </v-layout>
     </v-container>
@@ -17,6 +17,7 @@ import UserStore from "@/store/UserStore";
 
 export default {
   name: "Noticias",
+  props:["isOng"],
   components: {
     'item-noticias' : ItemNoticias,
   },

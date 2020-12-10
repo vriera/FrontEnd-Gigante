@@ -410,6 +410,13 @@ computed:{
   async created(){
       const result = await CampaignStore.getCategories();
       this.categories = result.results;
+      const infoUser = await UserStore.getCurrentUser();
+      this.street = infoUser.street;
+      this.street_number = infoUser.street_number;
+      this.city = infoUser.region;
+      this.phone = infoUser.phone;
+      this.contacto = infoUser.rep_name;
+
   }
 }
 </script>
