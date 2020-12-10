@@ -26,6 +26,16 @@ const routes = [
     component: () => import('../views/NoticiasView.vue')
   },
   {
+    path: '/CrearNoticia',
+    name: 'CrearNoticia',
+    component: () => import('../views/CrearNoticiaView.vue')
+  },
+  {
+    path: '/EditarNoticia',
+    name: 'EditarNoticia',
+    component: () => import('../views/EditarNoticiaView.vue')
+  },
+  {
     path: '/Registro',
     name: 'Registro',
     component: () => import('../views/RegistroView.vue')

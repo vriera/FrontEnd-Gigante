@@ -400,24 +400,6 @@ export default {
       }
 
     },
-    async logOut() {
-      this.loading = true;
-      const result = await UserStore.logout();
-      if (!result.success){
-        this.loading = false;
-        this.editProfileError = true;
-        this.mensajeAlertEditProfile = 'Error al desloguearse , inténtelo más tarde';
-      }
-      else{
-        //await this.$router.push('/');
-         await this.$router.go({
-          path: "/",
-          force: true
-        });
-        // await this.$router.go((window.history.length -1 ) * (-1));
-        // await this.$router.go(-2);
-      }
-    }
 
   },
 
@@ -494,7 +476,7 @@ export default {
       if (!this.$v.phone.minValue || !this.$v.phone.integer || !this.$v.phone.minLength)
         errors.push('Inserte un teléfono válido')
       return errors
-    }
+    },
 
   },
   async created() {

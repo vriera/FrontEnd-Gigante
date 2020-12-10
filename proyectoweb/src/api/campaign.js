@@ -35,7 +35,7 @@ class CampaignApi {
     }
 
     static async putMyCampaign(id, campaign, controller){
-        return await Api.put(`${CampaignApi.url}/user/current/campaigns/${id}`,true, campaign, true, controller)
+        return await Api.put(`${Api.baseUrl}/user/current/campaigns/${id}`,true, campaign, true, controller)
     }
 
     static async deleteCampaign(id, controller){

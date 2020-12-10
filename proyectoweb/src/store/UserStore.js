@@ -15,6 +15,10 @@ const UserStore = {
         return UsersApi.getCurrentCategory();
     },
 
+    isOng(){
+        return UsersApi.isOng();
+    },
+
     async addDonator(email, username, password, fullname, street, street_number, floor, region, latitude, longitude) {
         try{
             const donator = new Donator(undefined, email,username,password, fullname, street, street_number, floor, region, latitude, longitude);
