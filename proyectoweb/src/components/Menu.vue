@@ -83,7 +83,7 @@
         <v-icon left>mdi-bullhorn-outline</v-icon>
         <span>Campañas</span>
       </v-btn>
-      <v-btn v-if="isLoggedIn" text>
+      <v-btn v-if="isLoggedIn" text :to="mi_actividad">
         <v-icon left>mdi-hand-heart-outline</v-icon>
         <span>Mi actividad</span>
       </v-btn>

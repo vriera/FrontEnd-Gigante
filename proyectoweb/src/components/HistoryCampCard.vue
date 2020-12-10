@@ -52,15 +52,6 @@ export default Vue.extend({
             loaded: false,
             messageAlertVerify: '',
             verifyError : false,
-            // formsAyuda: [
-            //     { id_donation: 1, id_campaign: 1, id_donator: 1, description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque quam nam nostrum praesentium asperiores?", verified: true },
-            //     { id_donation: 2, id_campaign: 1, id_donator: 2, description: "Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque.", verified: false },
-            //     { id_donation: 3, id_campaign: 2, id_donator: 3, description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius cupiditate quae quibusdam tempora ullam rerum in itaque quam nam nostrum praesentium asperiores?", verified: false },
-            //     { id_donation: 4, id_campaign: 2, id_donator: 1, description: "Adipisicing elit. Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque quam nam nostrum praesentium asperiores?", verified: false },
-            //     { id_donation: 5, id_campaign: 3, id_donator: 2, description: "Cupiditate quae quibusdam tempora ullam assumenda nam nostrum praesentium asperiores?", verified: false },
-            //     { id_donation: 6, id_campaign: 3, id_donator: 4, description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus rerum in itaque quam nam nostrum praesentium asperiores?", verified: false },
-            //     { id_donation: 7, id_campaign: 3, id_donator: 5, description: "Eius cupiditate quae quibusdam tempora ullam assumenda voluptatem quos consequatur, corporis ipsa architecto repellendus.", verified: false },
-            // ]
         }
     },
     methods :{
