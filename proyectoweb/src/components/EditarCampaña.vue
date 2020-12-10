@@ -220,6 +220,11 @@
               style="width: 0%; display: table; margin: 0 auto 2% auto;"
             ></v-switch>
 
+            <v-row justify="center" class="my-15" >
+              <v-progress-circular size="40" width="15" style="position: relative; top: 40%"
+                                   indeterminate color="primary" v-if="loading"/>
+            </v-row>
+
             <v-btn id="submitBtn" @click="submit" color="blue lighten-3">
               <span>Editar</span>
             </v-btn>
