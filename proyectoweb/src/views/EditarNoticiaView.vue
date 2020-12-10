@@ -104,6 +104,7 @@ name: "EditarNoticiaView",
         imagen: '',
         titulo: '',
         texto: '',
+        id: '',
 
         mensajeAlertForm: '',
         mensajeAlertSubmitted: 'Se ha editado la publicación con éxito',
