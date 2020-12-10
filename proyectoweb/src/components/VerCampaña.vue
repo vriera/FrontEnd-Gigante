@@ -205,6 +205,7 @@ export default {
         let cat = await CampaignStore.getCategories(ans.results[i].id_category);
         this.campaignCategories.push(cat);
       }
+      this.selectedIndex = this.campaignCategories[0].id_category;
       console.log(this.campaign);
       console.log(this.currentUser);
       
@@ -268,9 +269,8 @@ export default {
         let result;
 
         //Hago un post de la nueva donación
-        console.log(this.campaignCategories[0]);
-        console.log("Estoy por agregar la donacion")
-        result = await CampaignStore.addDonation(this.currentUser.id, this.campaignId, this.campaignCategories[this.selectedIndex].id_category, this.donationDetail, false);
+        console.log("Estoy por agregar la donacion");
+        result = await CampaignStore.addDonation(this.currentUser.id, this.campaignId, this.selectedIndex, this.donationDetail, false);
 
         if (!result.success){
           this.submitError = true;
