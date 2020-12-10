@@ -1,6 +1,8 @@
 <template>
   <div class="pa-5">
-    <h1 class="ml-5" align="center">NOTICIAS</h1>
+    <h1 class="ml-5" align="center">NOTICIAS
+      <v-btn dark small v-if="isOng" :to="crear_noticia" color="blue" class="ml-5 mb-2">Crear noticia</v-btn>
+    </h1>
     <v-container fluid grid-list-xl>
       <v-layout wrap justify-space-around>
         <v-flex v-for="(noticia,index) in noticias" :key="noticia.id_advertisement">
@@ -28,6 +30,7 @@ export default {
       author: '',
       desc: '',
       readMoreLink: '',
+      crear_noticia: "/CrearNoticia",
       //noticias: [
         //{image: this.image, title: this.title, author: this.author, desc: this.desc, readMoreLink: this.readMoreLink},
         //{image: this.image, title: this.title, author: this.author, desc: this.desc, readMoreLink: this.readMoreLink},
@@ -67,9 +70,10 @@ export default {
 </script>
 
 <style scoped>
-
-.flex {
-  flex-grow: 0;
-}
-
+  .flex {
+    flex-grow: 0;
+  }
+  .azulGigante {
+    color: rgb(88, 118, 189);
+  }
 </style>

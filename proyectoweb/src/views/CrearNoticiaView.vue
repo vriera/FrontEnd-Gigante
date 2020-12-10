@@ -6,7 +6,7 @@
     <v-card class="justify-center" style="margin: 0 10%; padding: 2%;">
 
       <v-layout column align-center class="py-5">
-        <v-img contain max-height="220" :src="imagen" lazy-src="@/assets/default.png"/>
+        <v-img contain max-height="220" :src="imagen" @error="errorHandler" lazy-src="@/assets/default.png"/>
       </v-layout>
 
     <form v-if="!submitted" style="padding: 2%;">
@@ -37,7 +37,6 @@
                     label="Insertá el link a tu imagen"
                     outlined
                     rounded
-                    required
                     @blur="$v.imagen.$touch()"
                     ></v-text-field>
             </v-row>
@@ -105,6 +104,7 @@ name: "CrearNoticiaView",
 
         mensajeAlertForm: '',
         mensajeAlertSubmitted: 'Se ha creado la publicación con éxito',
+        imgError: false,
         submitError : false,
         submitted : false, 
         loading : false,
@@ -126,15 +126,24 @@ name: "CrearNoticiaView",
       return errors
     },
   },
-
+  async created() {
+    this.imagen = "https://i.ibb.co/kQ2V4zz/placeholder.png";
+  },
   methods: {
+    errorHandler() {
+      this.imgError = true;
+      // this.$forceUpdate();
+    },
     async submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
         console.log("entra")
         this.loading = true;
-        let result;
 
+        if(this.imgError)
+          this.imagen = "https://i.ibb.co/kQ2V4zz/placeholder.png";
+        
+        let result;
         result = await this.store.addAdvertisement(this.store.getCurrentId(), this.titulo, this.texto, this.imagen)
 
         if (!result.success){

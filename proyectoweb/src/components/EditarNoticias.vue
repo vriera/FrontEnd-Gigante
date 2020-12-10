@@ -6,7 +6,7 @@
     <v-card class="justify-center" style="margin: 0 10%; padding: 2%;">
 
       <v-layout column align-center class="py-5">
-        <v-img contain max-height="220" :src="imagen" lazy-src="@/assets/default.png"/>
+        <v-img contain max-height="220" :src="imagen" @error="errorHandler" lazy-src="@/assets/default.png"/>
       </v-layout>
 
       <form v-if="!submitted" style="padding: 2%;">
@@ -37,7 +37,6 @@
               label="Insertá el link a tu imagen"
               outlined
               rounded
-              required
               @blur="$v.imagen.$touch()"
           ></v-text-field>
         </v-row>
@@ -72,10 +71,16 @@
               rows="4"
           ></v-textarea>
         </v-row>
-        <v-btn id="submitBtn" @click="submit" color="blue lighten-3">
-          <span>Editar</span>
-        </v-btn>
-
+        <v-layout column align-center>
+          <v-row>
+            <v-btn :to="noticiaslink" color="gray" class="mr-3">
+              <span>Volver</span>
+            </v-btn>
+            <v-btn dark @click="submit" color="blue">
+              <span>Editar</span>
+            </v-btn>
+          </v-row>
+        </v-layout>
       </form>
     </v-card>
   </div>
@@ -100,7 +105,7 @@ export default {
     return{
       noticia: '',
 
-      noticiaslink: 'Noticias',
+      noticiaslink: '/Noticias',
       imagen: '',
       titulo: '',
       texto: '',
@@ -111,10 +116,10 @@ export default {
       submitError : false,
       submitted : false,
       loading : false,
+      imgErr: false,
       store: UserStore
     }
   },
-
   async created(){
     console.log(this.$route.params.id)
     this.noticia = await this.store.getAdvertisements(this.$route.params.id);
@@ -141,14 +146,28 @@ export default {
   },
 
   methods: {
+    errorHandler() {
+      this.imgErr = true;
+      // this.$forceUpdate();
+    },
     async submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
         console.log("entra")
         this.loading = true;
-        let result;
-
-        result = await this.store.modifyAdvertisement(this.id, this.titulo, this.texto, this.imagen)
+        
+        if(this.imgError || this.imagen == undefined) {
+          if(this.noticia.image_url == undefined)
+            this.noticia.image_url = "https://i.ibb.co/kQ2V4zz/placeholder.png";
+          this.imagen = this.noticia.image_url;
+        }
+        
+        let result = await this.store.modifyAdvertisement(this.id, this.titulo, this.texto, this.imagen);
+        // try {
+        //   result = await this.store.modifyAdvertisement(this.id, this.titulo, this.texto, this.imagen);
+        // } catch(e) {
+        //   console.log("ERROR AL EDITAR NOTICIA");
+        // }
 
         if (!result.success){
           this.submitError = true;

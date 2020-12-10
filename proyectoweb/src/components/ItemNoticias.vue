@@ -1,21 +1,20 @@
 <template>
-  <div>
-    <v-card max-width="400" class="pa-3">
+    <v-card width="400">
       <v-img height="250" :src="image"/>
-      <h2 style="margin-top: 5%;">{{title}}</h2>
-      <v-row class="pl-3">
-          <v-icon color="blue lighten-3">mdi-pencil</v-icon>
+      <v-card-title>{{title}}</v-card-title>
+      <v-card-subtitle class="ml-3 black--text">
+        <v-row>
+          <v-icon color="blue lighten-3 pr-2">mdi-pencil</v-icon>
           <h3 class="pl-2">{{author}}</h3>
-      </v-row>
-      <body class="text-justify mx-1">{{desc}}</body>
-
-      <div align="center">
-        <v-btn v-if="isOng" color="primary"  :to="editNoticiasLink + id">Editar</v-btn>
-      </div>
-
+        </v-row>
+      </v-card-subtitle>
+      <v-card-text class="text-justify black--text">{{desc}}</v-card-text>
+      <v-card-actions v-if="isOng" class="pb-5">
+        <v-spacer/>
+        <v-btn color="primary" :to="editNoticiasLink + id">Editar</v-btn>
+        <v-spacer/>
+      </v-card-actions>
     </v-card>
-  </div>
-
 </template>
 
 <script>

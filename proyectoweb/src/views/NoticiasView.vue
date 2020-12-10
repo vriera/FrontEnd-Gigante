@@ -4,7 +4,6 @@
 
       <div v-if="isOng">
         <noticias :is-ong="isOng"/>
-        <v-btn style="left: 50%;width: 300px;height: 100px; font-size: 15pt;" color="primary" class="rounded-pill" fixed bottom :to="crear_noticia">CREAR NOTICIA</v-btn>
       </div>
 
       <div v-if="!isOng">
@@ -27,7 +26,6 @@ export default {
   },
   data(){
     return {
-      crear_noticia: "/CrearNoticia",
       userStore: UserStore,
       isOng: false,
     }
