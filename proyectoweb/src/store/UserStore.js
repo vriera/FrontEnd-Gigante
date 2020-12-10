@@ -23,7 +23,7 @@ const UserStore = {
         try{
             const donator = new Donator(undefined, email,username,password, fullname, street, street_number, floor, region, latitude, longitude);
             const result = await UsersApi.addDonator(donator);
-            return result.success;
+            return result;
         } catch (error) {
             console.log(error);
         }
@@ -33,7 +33,7 @@ const UserStore = {
         try{
             const ong = new Ong(undefined,email,username, password, fullname, rep_name, rep_dni, phone, street, street_number, floor, region, latitude, longitude);
             const result = await UsersApi.addOng(ong);
-            return result.success;
+            return result;
         } catch (error) {
             console.log(error);
         }

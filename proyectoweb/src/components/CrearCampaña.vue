@@ -309,6 +309,7 @@ import { validationMixin } from 'vuelidate'
 import { required, minLength, minValue, integer} from 'vuelidate/lib/validators'
 import CampaignStore from '@/store/CampaignStore'
 import UserStore from '@/store/UserStore'
+import {AddressData, geomapApi} from "@/Geocode/geomap";
 
 export default {
     mixins: [validationMixin],
@@ -462,7 +463,20 @@ computed:{
           return;
         }
 
-         if(Date.parse(this.desdeFecha)<Date.parse(this.hastaFecha)){
+        const lngLatVec = await geomapApi.getCoordinates(new AddressData(this.street, this.street_number, this.city));
+        this.longitude = lngLatVec[0];
+        this.latitude = lngLatVec[1];
+
+        //Me fijo primero si se calculo correctamente la longitud y la latitud
+        if(this.longitude === 0 || this.latitude === 0){
+          this.submitError = true;
+          this.mensajeAlertForm = 'Error, direccion o ciudad invalida';
+          this.loading = false;
+          return;
+        }
+
+
+          if(Date.parse(this.desdeFecha)<Date.parse(this.hastaFecha)){
 
            console.log('Fecha inicio date = '+Date.parse(this.desdeFecha));
            console.log('Fecha fin date = '+Date.parse(this.hastaFecha));
@@ -480,7 +494,7 @@ computed:{
 
         if (!result.success){
           this.submitError = true;
-          this.mensajeAlertForm = 'Error al crear la campaña, inténtelo más tarde';
+          this.mensajeAlertForm = 'Error, nombre de campaña repetido';
         }
         else{
           this.submitted = true;

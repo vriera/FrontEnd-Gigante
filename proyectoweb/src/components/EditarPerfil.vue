@@ -390,7 +390,7 @@ export default {
 
         if (!result.success){
           this.editProfileError = true;
-          this.mensajeAlertEditProfile = 'Error al actualizar el perfil , inténtelo más tarde';
+          this.mensajeAlertEditProfile = 'Error, direccion o ciudad invalida';
         }
         else{
           this.$router.go(-1);
@@ -480,6 +480,7 @@ export default {
 
   },
   async created() {
+    this.loading = true;
     this.currentUser = await UserStore.getCurrentUser();
     this.fullname = this.currentUser.fullname;
     this.username = this.currentUser.username;
@@ -497,7 +498,9 @@ export default {
     if( this.currentUser.phone !== undefined){
       this.phone = this.currentUser.phone ;
     }
+    this.loading = false;
   }
+
 }
 </script>
 

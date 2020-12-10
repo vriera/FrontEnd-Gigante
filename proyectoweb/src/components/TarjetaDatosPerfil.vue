@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="profileId">
       <v-card width="500px" style="border-radius: 50px">
         <v-row style="margin-top: 5%; margin-left: 5%">
           <h3 style="margin-top: 5%">Datos</h3>
@@ -72,26 +72,6 @@
             </v-col>
           </v-row>
         </v-card>
-
-
-
-        <v-row style="margin-left: 5%">
-          <v-col cols="2">
-            <v-icon>mdi-bell</v-icon>
-          </v-col>
-          <v-col >
-            <h3>Notificaciones</h3>
-          </v-col>
-        </v-row>
-
-        <v-row style="margin-left: 5%">
-          <v-col cols="2">
-            <v-icon>mdi-key</v-icon>
-          </v-col>
-          <v-col>
-            <h3>Privacidad</h3>
-          </v-col>
-        </v-row>
 
         <v-card @click="logOut()"  style="border-color: white; background-color: white; box-shadow: none">
           <v-row style="margin-left: 5%" >
@@ -178,4 +158,7 @@ export default {
 
 <style scoped>
 
+#profileId{
+  margin: 0 auto;
+}
 </style>

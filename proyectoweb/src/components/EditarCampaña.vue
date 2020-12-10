@@ -320,6 +320,7 @@
 import { validationMixin } from 'vuelidate'
 import { required, minLength, minValue, integer} from 'vuelidate/lib/validators'
 import CampaignStore from '@/store/CampaignStore'
+import {AddressData, geomapApi} from "@/Geocode/geomap";
 
 export default {
     mixins: [validationMixin],
@@ -377,6 +378,7 @@ export default {
   },
 
   async created(){
+      this.loading = true;
       this.campaign = await this.store.getCampaigns(this.id);
 
       this.campaignId = this.id;
@@ -407,6 +409,7 @@ export default {
 
     this.forceCatBtnRerender();
     //Prendo los botones con las categorías que tiene
+    this.loading = false;
   },
 
   watch: {
@@ -511,6 +514,18 @@ export default {
         this.loading = true;
         let result = {};
 
+        const lngLatVec = await geomapApi.getCoordinates(new AddressData(this.street, this.street_number, this.city));
+        this.longitude = lngLatVec[0];
+        this.latitude = lngLatVec[1];
+
+        //Me fijo primero si se calculo correctamente la longitud y la latitud
+        if(this.longitude === 0 || this.latitude === 0){
+          this.submitError = true;
+          this.mensajeAlertForm = 'Error, direccion o ciudad invalida';
+          this.loading = false;
+          return;
+        }
+
         if(Date.parse(this.desdeFecha)<=Date.parse(this.hastaFecha)){
 
           //Cargar el id de la campaña, probablemente en el created()
@@ -529,7 +544,7 @@ export default {
 
         if (!result.success){
           this.submitError = true;
-          this.mensajeAlertForm = 'Error al actualizar la campaña, inténtelo más tarde';
+          this.mensajeAlertForm = 'Error al actualizar la campaña, nombre ya existente';
         }
         else{
           this.submitted = true;
