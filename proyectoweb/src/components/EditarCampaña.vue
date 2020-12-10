@@ -514,12 +514,12 @@ export default {
         if(Date.parse(this.desdeFecha)<=Date.parse(this.hastaFecha)){
 
           //Cargar el id de la campaña, probablemente en el created()
-          result = await CampaignStore.modifyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
-              this.city, this.neighbourhood, this.horario, this.phone, this.contacto, this.active);
-
-
-          // result = await CampaignStore.modifyMyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
+          // result = await CampaignStore.modifyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
           //     this.city, this.neighbourhood, this.horario, this.phone, this.contacto, this.active);
+
+
+          result = await CampaignStore.modifyMyCampaign(this.campaignId, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
+              this.city, this.neighbourhood, this.horario, this.phone, this.contacto, this.active);
 
         }
         else{
