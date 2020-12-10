@@ -473,17 +473,24 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid){
         this.loading = true;
-        let success = false;
+        let result;
 
         if(this.isUser){
-          success = await this.addDonator();
+          result = await this.addDonator();
         }
         else
-          success = await this.addOng()
+          result = await this.addOng()
 
-        if (!success){
+        if (!result.success){
           this.submitError = true;
-          this.mensajeAlertForm = 'Error durante el registro, inténtelo más tarde';
+          console.log(result.code);
+          if(result.code === 99){
+            this.mensajeAlertForm = 'Error la direccion y/o ciudad es invalida';
+          }
+          else{
+            this.mensajeAlertForm = 'Error, nombre de usuario o email ya existente'
+          }
+          //this.mensajeAlertForm = 'Error durante el registro, revise si sus datos son invalidos';
         }
         else{
           this.submitted = true;
@@ -501,7 +508,7 @@ export default {
 
       //Me fijo primero si se calculo correctamente la longitud y la latitud
       if(this.longitude === 0 && this.latitude === 0)
-        return false;
+        return {success:false, code:99};
       return await UserStore.addDonator(this.email, this.username, this.password, this.fullname, this.calle, this.altura, this.piso, this.region, this.latitude , this.longitude);
     },
 
@@ -511,7 +518,7 @@ export default {
 
       //Me fijo primero si se calculo correctamente la longitud y la latitud
       if(this.longitude === 0 && this.latitude === 0)
-        return false;
+        return {success:false, code: 99};
       return await UserStore.addOng(this.email, this.username, this.password, this.nombreOng, this.fullname, this.dni, this.telefono, this.calleOng, this.alturaOng, this.piso, this.region, this.latitude , this.longitude);
     },
 

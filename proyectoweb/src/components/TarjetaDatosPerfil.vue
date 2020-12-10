@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="profileId">
       <v-card width="500px" style="border-radius: 50px">
         <v-row style="margin-top: 5%; margin-left: 5%">
           <h3 style="margin-top: 5%">Datos</h3>
@@ -158,4 +158,7 @@ export default {
 
 <style scoped>
 
+#profileId{
+  margin: 0 auto;
+}
 </style>
