@@ -42,10 +42,6 @@ export default {
         }
     },
     async created() {
-        // for(let i=0; i<this.cat_list.length; i++) {
-        //     let cat = await CampaignStore.getCategories(this.cat_list[i]);
-        //     this.categories.push({ id: cat.id_category, description: cat.description});
-        // }
         const campCat = await CampaignStore.getCampaignCategories(this.camp.id_campaign);
         for(let i=0; i<campCat.results.length; i++) {
             let cat = await CampaignStore.getCategories(campCat.results[i].id_category);

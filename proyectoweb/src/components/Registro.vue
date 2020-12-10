@@ -1,10 +1,5 @@
 <template>
   <div id="Fondo">
-    <!-- <v-row>
-      <v-btn icon id='back' @click="$router.go(-1)" >
-        <v-icon color="black" x-large> mdi-arrow-left </v-icon>
-      </v-btn>
-    </v-row> -->
     <v-row>
       <v-spacer/>
       <v-col>
@@ -12,7 +7,7 @@
         <v-spacer/>
         <v-col>
         <v-btn v-bind:class="isUser?'blue lighten-4':'grey lighten-1'" class="tipo-cuenta" @click="setUser">
-            <span color="black" x-large> Soy un donador </span>
+            <span color="black" x-large> Soy un colaborador </span>
         </v-btn>
         </v-col>
         <v-spacer/>
@@ -483,14 +478,12 @@ export default {
 
         if (!result.success){
           this.submitError = true;
-          console.log(result.code);
           if(result.code === 99){
             this.mensajeAlertForm = 'Error la direccion y/o ciudad es invalida';
           }
           else{
             this.mensajeAlertForm = 'Error, nombre de usuario o email ya existente'
           }
-          //this.mensajeAlertForm = 'Error durante el registro, revise si sus datos son invalidos';
         }
         else{
           this.submitted = true;

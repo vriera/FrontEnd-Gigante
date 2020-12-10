@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-row justify="center">
-      <v-card style="min-width: 70%; border-radius: 20px;">
+      <v-card style="min-width: 70%; border-radius: 20px;" class="my-15">
+        
+      <v-row justify="center">
+        <h1 class="ml-5" style="margin: 2% 0;">EDITAR PERFIL</h1>
+      </v-row>
 
         <v-alert
             prominent
@@ -22,9 +26,9 @@
           </v-row>
         </v-alert>
 
-        <v-row style="margin-top: 10%;" justify="center">
+        <v-row justify="center">
           <v-col cols="2">
-            <p  style="text-align: center">Nombre</p>
+            <p class="mt-3" style="text-align: center">Nombre</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -47,7 +51,7 @@
 
         <v-row justify="center">
           <v-col cols="2">
-            <p  style="text-align: center">Nombre de usuario</p>
+            <p class="mt-3" style="text-align: center">Nombre de usuario</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -66,7 +70,7 @@
 
         <v-row justify="center">
           <v-col cols="2">
-            <p style="text-align: center">Email</p>
+            <p class="mt-3" style="text-align: center">Email</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -85,7 +89,7 @@
 
         <v-row justify="center">
           <v-col cols="2">
-            <p style="text-align: center">Región</p>
+            <p class="mt-3" style="text-align: center">Región</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -107,7 +111,7 @@
 
         <v-row justify="center">
           <v-col cols="2">
-            <p style="text-align: center">Calle</p>
+            <p class="mt-3" style="text-align: center">Calle</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -130,8 +134,7 @@
 
         <v-row justify="center">
           <v-col cols="2">
-            <!--<p style="text-align: center">Número</p>-->
-            <p style="text-align: center">Altura</p>
+            <p class="mt-3" style="text-align: center">Altura</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -154,7 +157,7 @@
 
         <v-row justify="center">
           <v-col cols="2">
-            <p style="text-align: center">Piso</p>
+            <p class="mt-3" style="text-align: center">Piso</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -178,7 +181,7 @@
 
         <v-row justify="center" v-if="currentUser.rep_dni!==undefined">
           <v-col cols="2">
-            <p style="text-align: center">DNI del responsable</p>
+            <p class="mt-3" style="text-align: center">DNI del responsable</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -202,7 +205,7 @@
 
         <v-row justify="center" v-if="currentUser.rep_name!==undefined">
           <v-col cols="2">
-            <p style="text-align: center">Nombre del responsable</p>
+            <p class="mt-3" style="text-align: center">Nombre del responsable</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -226,7 +229,7 @@
 
         <v-row justify="center" v-if="currentUser.phone!==undefined">
           <v-col cols="2">
-            <p style="text-align: center">Telefono del responsable</p>
+            <p class="mt-3" style="text-align: center">Teléfono del responsable</p>
           </v-col>
           <v-col cols="8">
             <v-row>
@@ -248,13 +251,6 @@
           </v-col>
         </v-row>
 
-        <div style="height: 50px">
-          <v-row justify="center" class="my-15" >
-            <v-progress-circular size="40" width="15" style="position: relative; top: 40%"
-                                 indeterminate color="primary" v-if="loading"/>
-            <p v-else-if="loaded" class="texto" style="color: #4BB543;">Cambios guardados.</p>
-          </v-row>
-        </div>
         <div style="text-align: center;" class="my-8">
           <v-btn height="64px" width="350px" class="rounded-pill"
                  depressed router :to="perfilLink">
@@ -269,6 +265,13 @@
           </v-btn>
         </div>
 
+        <div style="height: 50px">
+          <v-row justify="center" class="my-15" >
+            <v-progress-circular size="40" width="15" style="position: relative; top: 40%"
+                                 indeterminate color="primary" v-if="loading"/>
+            <p v-else-if="loaded" class="texto" style="color: #4BB543;">Cambios guardados.</p>
+          </v-row>
+        </div>
 
       </v-card>
     </v-row>

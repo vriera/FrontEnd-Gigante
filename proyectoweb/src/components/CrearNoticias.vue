@@ -71,10 +71,16 @@
               rows="4"
           ></v-textarea>
         </v-row>
-        <v-btn id="submitBtn" @click="submit" color="blue lighten-3">
-          <span>Publicar</span>
-        </v-btn>
-
+        <v-layout column align-center>
+          <v-row>
+            <v-btn :to="noticiaslink" color="gray" class="mr-3">
+              <span>Cancelar</span>
+            </v-btn>
+            <v-btn dark @click="submit" color="blue">
+              <span>Publicar</span>
+            </v-btn>
+          </v-row>
+        </v-layout>
       </form>
     </v-card>
   </div>
@@ -137,7 +143,6 @@ export default {
     async submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
-        console.log("entra")
         this.loading = true;
 
         if(this.imgError)

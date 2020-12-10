@@ -4,8 +4,8 @@
       <v-card-title>{{title}}</v-card-title>
       <v-card-subtitle class="ml-3 black--text">
         <v-row>
-          <v-icon color="blue lighten-3 pr-2">mdi-pencil</v-icon>
-          <h3 class="pl-2">{{author}}</h3>
+          <v-icon color="blue lighten-3 pr-2">mdi-account-group</v-icon>
+          <h3 class="pl-2 mt-1">{{author}}</h3>
         </v-row>
       </v-card-subtitle>
       <v-card-text class="text-justify black--text">{{desc}}</v-card-text>

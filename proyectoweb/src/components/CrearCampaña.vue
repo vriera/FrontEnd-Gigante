@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <v-row style="height: 75vh;">
-      <v-spacer/>
-      <v-col cols='10'>
+  <div class="fondo">
         <v-card id="createCard">
+          <h1 class="text-center pt-5 mx-10">CREAR CAMPAÑA</h1>
           <form v-if="!submitted" style="padding: 2%;">
 
             <v-alert
@@ -73,14 +71,6 @@
                               v-on="on"
                           ></v-text-field>
                         </template>
-                        <!--<v-date-picker
-                            color="#E78200"
-                            ref="picker"
-                            v-model="date"
-                            :max="new Date().toISOString().substr(0, 10)"
-                            min="1970-01-01"
-                            @change="save"
-                        ></v-date-picker>-->
                         <v-date-picker
                             color="blue lighten-3"
                             ref="picker"
@@ -118,14 +108,6 @@
                               v-on="on"
                           ></v-text-field>
                         </template>
-                        <!--<v-date-picker
-                            color="#E78200"
-                            ref="picker"
-                            v-model="date"
-                            :max="new Date().toISOString().substr(0, 10)"
-                            min="1970-01-01"
-                            @change="save"
-                        ></v-date-picker>-->
                         <v-date-picker
                             color="blue lighten-3"
                             ref="picker"
@@ -134,16 +116,6 @@
                             @change="saveFinalDate"
                         ></v-date-picker>
                       </v-menu>
-                        <!--<span class="formHint">Fecha de fin: </span>
-                        <v-text-field
-                        v-model="hastaFecha"
-                        :error-messages="hastaFechaErrors"
-                        label="Fecha"
-                        outlined
-                        rounded
-                        required
-                        @blur="$v.hastaFecha.$touch()"
-                        ></v-text-field>-->
                     </v-row>
                 </v-col>
                 <v-spacer/>
@@ -286,21 +258,19 @@
                 </v-col>
                 <v-spacer/>
             </v-row>
-
-            <v-row justify="center" class="my-15" >
-              <v-progress-circular size="40" width="15" style="position: relative; top: 40%"
-                                   indeterminate color="primary" v-if="loading"/>
+            <v-layout column align-center>
+              <v-row>
+                <v-btn :to="miscamplink" color="gray" class="mr-3">
+                  <span>Cancelar</span>
+                </v-btn>
+                <v-btn dark @click="submit" color="blue">Publicar</v-btn>
+              </v-row>
+            </v-layout>
+            <v-row justify="center" class="my-15" v-if="loading">
+              <v-progress-circular size="40" width="15" style="position: relative; top: 40%" indeterminate color="primary"/>
             </v-row>
-
-            <v-btn id="submitBtn" @click="submit" color="blue lighten-3">
-              <span>Publicar</span>
-            </v-btn>
           </form>
         </v-card>
-      </v-col>
-      <v-spacer/>
-    </v-row>
-
   </div>
 </template>
 
@@ -331,10 +301,8 @@ export default {
 
   data(){
     return { 
-        //campaign: {name: "Campaña 1", start: "14/07/2020", end:"05/08/2020", description:"Junta de tapitas para el Garrahan", street:"Libertador", street_number:"542", city: "C.A.B.A.", neighbourhood:"Palermo", horario:"14:00 - 18:00", contacto: "pepegomez@gmail.com", phone:"15-4066-2487"},
-    //categories: ["Voluntariado", "Alimentos", "Ropa", "Dinero", "Juguetes", "Tecnología", "Muebles", "Otros"],
     categories: [],
-      catSelected: [false, false, false, false, false, false, false, false],
+    catSelected: [false, false, false, false, false, false, false, false],
     catBtnRenderer: 0,
     noCatError: false,
 
@@ -349,6 +317,8 @@ export default {
     horario:'',
     contacto:'',
     phone:'',
+
+    miscamplink: '/MisCampañas',
 
     mensajeAlertForm: '',
     mensajeAlertSubmitted: 'Se ha creado la campaña con éxito',
@@ -477,13 +447,8 @@ computed:{
 
 
           if(Date.parse(this.desdeFecha)<Date.parse(this.hastaFecha)){
-
-           console.log('Fecha inicio date = '+Date.parse(this.desdeFecha));
-           console.log('Fecha fin date = '+Date.parse(this.hastaFecha));
-           console.log('Fecha valida');
            result = await CampaignStore.addCampaign(currentOng.id, this.campaignName, this.description, this.desdeFecha, this.hastaFecha, this.street, this.street_number,
                this.city, this.neighbourhood, this.horario, this.phone, this.contacto, true);
-
          }
          else{
            console.log('Fecha inicio date inv= '+Date.parse(this.desdeFecha));
@@ -501,7 +466,6 @@ computed:{
 
           for(let i = 0; i < this.catSelected.length; i++){
             if(this.catSelected[i]){
-              console.log(this.categories[i].id_category)
               await CampaignStore.addCampaignCategory(result.id, this.categories[i].id_category);
             }
           }
@@ -578,5 +542,10 @@ computed:{
     display: table;
     margin: 0 auto;
 }
+
+#fondo{
+   background-image: url('../assets/fondoColores2.png');
+   background-size: cover;
+ }
 
 </style>

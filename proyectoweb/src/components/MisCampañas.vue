@@ -1,75 +1,80 @@
 <template>
   <div>    
-    <v-row>
+    <v-row class="mb-15 pb-5">
         <v-col cols='5'>
-            <v-card id='sectionCampaignsCard' color="blue lighten-5">
-                    <span class='cardTitle'>Mis Campañas</span>
-                    <v-virtual-scroll height="640px"  item-height="300px" :items="campaigns">
+            <v-card id='sectionCampaignsCard' color="rgb(88, 118, 189)">
+                    <h1 class="white--text text-center mb-5 mx-10">
+                      MIS CAMPAÑAS
+                      <v-btn depressed id='newCampaignBtn' :to="crear_campaña_link" color="white" rounded>Añadir nueva campaña</v-btn>
+                    </h1>
+                    <v-virtual-scroll height="650px" item-height="220px" :items="campaigns">
                         <template v-slot:default="{index, item}">
-                            <v-card id='campaignCard' outlined shaped elevation="2" @click="campaignSelected=index">
+                            <v-card id='campaignCard' outlined shaped elevation="2" @click="changeCamp(index)">
                                 <span id='campaignName'>{{item.name}}</span>
-                                <span><br/><br/>Fechas: {{item.init_date}} - {{item.end_date}}<br/><br/></span>
-                                <span>Descripción: {{item.description}}</span>
-                                <v-row style="margin-top: 4%;">
-                                  <span v-if="item.active == true" id="activeTextOnNonDetailed">Activa</span>
-                                  <span v-else id="inactiveTextOnNonDetailed">Inactiva</span>
-                                </v-row>
+                                <span class="mb-1"><br/><b>Fechas:</b> {{item.init_date}} - {{item.end_date}}</span>
+                                <span class="text-justify"><br/><b>Descripción:</b> {{item.description}}</span>
+                                <v-card-actions>
+                                  <v-spacer/>
+                                  <v-chip dark :color="item.active ? 'green':'red'" >{{ item.active ? "Activa":"Inactiva" }}</v-chip>
+                                </v-card-actions>
                             </v-card>
                         </template>
                     </v-virtual-scroll>
             </v-card>
         </v-col>
-        <v-col cols='5'>
+        <v-col cols='7' class="mb-3">
             <v-card v-if='campaignSelected < 0' shaped color="blue lighten-2" id='noCampaignSelected'>
               <span id='noCampaignText'>Seleccione una campaña activa de la lista de la izquierda para mostrar aquí sus detalles</span>
             </v-card>
-            <v-card v-else id='sectionSelectedCard' color="blue lighten-5">
+            <v-card v-else id='sectionSelectedCard' color="rgb(88, 118, 189)">
               <v-card style="padding: 5%; height: 100%;">
-                <span class='cardTitle'>{{campaigns[campaignSelected].name}}</span>
-                <div id="campaignInfo">
+                
                 <v-row>
-                  <span>Desde: {{campaigns[campaignSelected].init_date}}</span>
-                </v-row>
-                <v-row>
-                  <span>Hasta: {{campaigns[campaignSelected].end_date}}</span>
-                </v-row>
-                <v-row id='descRow'>
-                  <span>{{campaigns[campaignSelected].description}}</span>
-                </v-row>
-                <v-row style="margin-bottom: 5%;">
-                  <span>*Botones de categorias para seleccionar*</span>
+                  <v-spacer/>
+                  <span class="cardTitle mb-1">{{campaigns[campaignSelected].name}}</span>
+                  <v-spacer/>
                 </v-row>
                 <v-row>
-                  <span>Dirección: {{campaigns[campaignSelected].street}} {{campaigns[campaignSelected].street_number}}</span>
+                  <v-spacer/>
+                  <v-chip dark class="mb-5" :color="campaigns[campaignSelected].active ? 'green':'red'" >Campaña {{ campaigns[campaignSelected].active ? "activa":"inactiva" }}</v-chip>
+                  <v-spacer/>
+                </v-row>
+
+                <v-row>
+                  <span class="mr-5"><b>Desde:</b> {{campaigns[campaignSelected].init_date}}</span>
+                  <span><b>Hasta:</b> {{campaigns[campaignSelected].end_date}}</span>
+                </v-row>
+                
+                <v-row>
+                  <span><b>Descripción: </b>{{campaigns[campaignSelected].description}}</span>
+                </v-row>
+
+                <v-row class="my-3">
+                    <span class="font-weight-bold mr-3">Categorías: </span>
+                    <tag-row :id_campaign="campaigns[campaignSelected].id_campaign"/>
+                </v-row>
+
+                <v-row>
+                  <span><b>Dirección:</b> {{campaigns[campaignSelected].street}} {{campaigns[campaignSelected].street_number}}, {{campaigns[campaignSelected].location}}, {{campaigns[campaignSelected].city}}. </span>
+                </v-row>
+                
+                <v-row>
+                  <span><b>Contacto:</b> {{campaigns[campaignSelected].contact}}</span>
                 </v-row>
                 <v-row>
-                  <span>Ciudad: {{campaigns[campaignSelected].city}}</span>
-                </v-row>
-                <v-row style="margin-bottom: 5%;">
-                  <span>Barrio: {{campaigns[campaignSelected].location}}</span>
+                  <span><b>Teléfono:</b> {{parsePhone(campaigns[campaignSelected].phone)}}</span>
                 </v-row>
                 <v-row>
-                  <span>Horarios: {{campaigns[campaignSelected].schedule}}</span>
+                  <span><b>Horario de atención:</b> {{campaigns[campaignSelected].schedule}}</span>
                 </v-row>
-                <v-row>
-                  <span>Contacto: {{campaigns[campaignSelected].contact}}</span>
+
+                <v-row class="mt-5">
+                  <v-spacer/>
+                  <v-btn dark @click="$router.push(editar_campaña_link + campaigns[campaignSelected].id_campaign)" color="blue">Editar campaña</v-btn>
+                  <v-spacer/>
                 </v-row>
-                <v-row>
-                  <span>Teléfono: {{parsePhone(campaigns[campaignSelected].phone)}}</span>
-                </v-row>
-                <span v-if="campaigns[campaignSelected].active == true" id="activeText">Activa</span>
-                <span v-else id="inactiveText">Inactiva</span>
-                <v-btn id="editarBtn" @click="$router.push(editar_campaña_link + campaigns[campaignSelected].id_campaign)" color="blue lighten-3">
-                  <span>Editar</span>
-                </v-btn>
-                </div>
               </v-card>
             </v-card>
-        </v-col>
-        <v-col cols='2' id='btnCol'>
-            <v-btn id='newCampaignBtn' :to="crear_campaña_link" color="blue lighten-3" rounded elevation="10">
-                <span>Añadir nueva campaña</span>
-            </v-btn>
         </v-col>
     </v-row>
   </div>
@@ -78,8 +83,10 @@
 <script>
 
 import CampaignStore from "@/store/CampaignStore";
+import TagRow from './TagRow.vue';
 
 export default {
+  components: { TagRow },
 
   data(){
     return {
@@ -97,10 +104,13 @@ export default {
   async created(){
     const result = await this.store.getMyCampaigns();
     this.campaigns = result.results;
-    console.log(this.campaigns);
   },
 
   methods: {
+    changeCamp(index) {
+      this.campaignSelected = index;
+      this.$forceUpdate();
+    },
     parsePhone(phone){
       let result = phone;
       let phoneS = phone.toString();
@@ -117,7 +127,7 @@ export default {
       }
 
       return phone;
-    },
+    }
   },
 
 }
@@ -126,11 +136,8 @@ export default {
 <style scoped>
 
 #newCampaignBtn{
-  color:white;
+  color:rgb(88, 118, 189);
   font-weight: bold;
-  margin: 100% 0;
-  padding: 10% 10% 10% 10%;
-  text-transform: none;
 }
 
 #sectionCampaignsCard{
@@ -162,7 +169,7 @@ export default {
 }
 
 .cardTitle{
-    margin: 0 auto 2% auto;
+    /* margin: 0 auto 2% auto; */
     display: table;
     color: rgb(88, 118, 189);
     font-weight: bold;
@@ -173,11 +180,12 @@ export default {
 #campaignCard{
     margin: 0 2%;
     padding: 4% 5%;
-    height: 280px;
+    height: 200px;
 }
 
 #campaignName{
-    color: #90CAF9;
+    /* color: #90CAF9; */
+    color: rgb(88, 118, 189);
     font-weight: bold;
     font-size: 1.8em;
     text-transform: uppercase;
@@ -234,4 +242,8 @@ export default {
     border-width: thin;
     background-color: rgb(252, 120, 120);
 }
+
+.azulGigante {
+    color: rgb(88, 118, 189);
+  }
 </style>

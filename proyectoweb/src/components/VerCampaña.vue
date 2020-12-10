@@ -206,8 +206,6 @@ export default {
         this.campaignCategories.push(cat);
       }
       this.selectedIndex = this.campaignCategories[0].id_category;
-      console.log(this.campaign);
-      console.log(this.currentUser);
       
       //Hago el get de los ids de las categorias que tiene asignada esta campaña
       //let categoriesIdsArray = await this.store.getCategories(this.campaign.id)
@@ -269,7 +267,6 @@ export default {
         let result;
 
         //Hago un post de la nueva donación
-        console.log("Estoy por agregar la donacion");
         result = await CampaignStore.addDonation(this.currentUser.id, this.campaignId, this.selectedIndex, this.donationDetail, false);
 
         if (!result.success){
@@ -311,14 +308,6 @@ export default {
     padding: 2%;
 }
 
-/* #loadDonationBox{
-    margin: 2%;
-    padding: 2%;
-    border-width: thin;
-    border: solid;
-    border-color: cornflowerblue;
-} */
-
 #donationBoxText{
     margin: 1% auto;
     display: table;
@@ -344,13 +333,5 @@ export default {
     margin: 2.5% 2% 0 0;
     font-weight: bold;
 }
-
-/* #submitBtn{
-    text-transform: none;
-    width: 20%;
-    display: table;
-    color: white;
-    margin: 0 auto;
-} */
 
 </style>

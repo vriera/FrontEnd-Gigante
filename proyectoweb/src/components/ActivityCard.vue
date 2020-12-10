@@ -27,7 +27,6 @@ export default {
     },
     async created() {
         try {
-            console.log(this.camp_id);
             const ans = await CampaignStore.getCampaigns(this.camp_id);
             this.camp_name = ans.name;
             const ong = await UserStore.getOngs(ans.id_ong);

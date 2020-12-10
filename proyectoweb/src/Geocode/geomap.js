@@ -15,18 +15,12 @@ class geomapApi {
             + encodeURIComponent(addressData.numero) + ','
             + encodeURIComponent(addressData.ciudad);
 
-        console.log('Address = ' + address);
-
         const res =  await this.get(`${this.baseUrl}/geocode/v1/json?q=${address}&countrycode=ar&key=${this.apiKey}` , controller)
-
-        // console.log('res.result[0].geometry = '+ res.results[0].geometry)
-
 
         if ( res.results[0] ){
             const geometry = res.results[0].geometry;
             return [ geometry.lng  , geometry.lat ];
         }
-        console.log("big oopsy doopsy");
         return [ 0 , 0 ];
 
     }

@@ -40,21 +40,11 @@ export default Vue.extend({
       campañas: [],
       history: false,
       loaded: false,
-      // campañas: [
-      //   { id_campaign: 1, name: "Colecta de tapitas: Diciembre 2020", active:true },
-      //   { id_campaign: 2, name: "Alimentos no perecederos para el Hogar Escuela", active:true },
-      //   { id_campaign: 3, name: "Platos y tazas para el Merendero Sonrisas", active:true },
-      //   { id_campaign: 4, name: "Voluntariado: Pintemos la Salita Nro 32", active:true },
-      // ]
     }
   },
   async mounted() {
     try {
       const answer = await CampaignStore.getMyCampaigns();
-      // if(answer.results !== undefined)
-      //   console.log("TODO OK");
-      // else
-      //   console.log(answer.message);
       this.campañas = answer.results;
       this.loaded = true;
     } catch (e) {

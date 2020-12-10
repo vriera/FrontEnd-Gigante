@@ -12,6 +12,9 @@
         <v-layout v-if="!loaded" column align-center class="py-5">
           <v-progress-circular indeterminate color="blue"/>
         </v-layout>
+        <v-layout v-if="loaded && empty" column align-center class="pb-5">
+          <span>No se registran aportes a campañas. ¡Busca en el mapa para comenzar a ayudar!</span>
+        </v-layout>
       </v-card>
     </v-container>
 </template>
@@ -26,15 +29,18 @@ export default {
     data() {
         return {
             forms: [],
-            loaded: false
+            loaded: false,
+            empty: true
         }
     },
     async created() {
         try {
             const id = await UserStore.getCurrentId();
-            console.log(id);
             const ans = await CampaignStore.getDonations();
             this.forms = ans.results.filter(d => d.id_donator==id);
+            if(this.forms.length > 0) {
+              this.empty = false;
+            }
             this.loaded = true;
         } catch (e) {
             console.log('ERROR AL CARGAR CAMPAÑAS');

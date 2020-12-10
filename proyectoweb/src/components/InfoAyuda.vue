@@ -53,7 +53,6 @@ export default Vue.extend({
         },
         async verifyDonation() {
             const result = await CampaignStore.modifyDonation(this.infoId,this.info.description,true);
-            // this.info.verified = true;
             if(result.success){
               location.reload();
             }

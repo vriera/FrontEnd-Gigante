@@ -74,7 +74,7 @@
         <v-layout column align-center>
           <v-row>
             <v-btn :to="noticiaslink" color="gray" class="mr-3">
-              <span>Volver</span>
+              <span>Cancelar</span>
             </v-btn>
             <v-btn dark @click="submit" color="blue">
               <span>Editar</span>
@@ -121,7 +121,6 @@ export default {
     }
   },
   async created(){
-    console.log(this.$route.params.id)
     this.noticia = await this.store.getAdvertisements(this.$route.params.id);
 
     this.titulo = this.noticia.title;
@@ -153,7 +152,6 @@ export default {
     async submit () {
       this.$v.$touch()
       if (!this.$v.$invalid){
-        console.log("entra")
         this.loading = true;
         
         if(this.imgError || this.imagen == undefined) {
@@ -163,11 +161,6 @@ export default {
         }
         
         let result = await this.store.modifyAdvertisement(this.id, this.titulo, this.texto, this.imagen);
-        // try {
-        //   result = await this.store.modifyAdvertisement(this.id, this.titulo, this.texto, this.imagen);
-        // } catch(e) {
-        //   console.log("ERROR AL EDITAR NOTICIA");
-        // }
 
         if (!result.success){
           this.submitError = true;

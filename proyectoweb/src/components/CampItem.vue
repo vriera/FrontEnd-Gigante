@@ -38,7 +38,6 @@ export default {
             for(let i=0; i<campCat.results.length; i++) {
                 let cat = await CampaignStore.getCategories(campCat.results[i].id_category);
                 this.categories.push(cat.description);
-                console.log(this.c.name + cat.description);
             }
             this.loaded = true;
         }

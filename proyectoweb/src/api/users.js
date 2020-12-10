@@ -50,7 +50,6 @@ class UsersApi {
     }
 
     static async login(credentials, controller) {
-        console.log(credentials);
         const result = await Api.post(`${Api.baseUrl}/login`, false, credentials, controller);
         sessionStorage.setItem('token', result.token);
         sessionStorage.setItem('category', result.category);
@@ -59,7 +58,6 @@ class UsersApi {
         this.userCategory = result.category
         Api.token = result.token;
         this.userToken = result.token;
-        console.log(result);
         return result;
     }
 
@@ -69,11 +67,6 @@ class UsersApi {
         }
         return await Api.get(`${UsersApi.userUrl}/donators`, true, controller);
     }
-
-    //static async logout(controller) {
-    //    await Api.post(`${UsersApi.url}/logout`, true, controller);
-    //    sessionStorage.removeItem('token');
-    //}
 
     static async getOngs(id, controller){
         if(id === undefined) {
@@ -135,12 +128,7 @@ class Ong{
         this.phone = phone;
         this.street = street;
         this.street_number = street_number;
-        // if( floor !== undefined && floor !== ' '){
             this.floor = floor;
-        // }
-        // else {
-        //     this.floor = '-';
-        // }
         this.region = region;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -169,15 +157,9 @@ class Donator{
         this.fullname = fullname;
         this.street = street;
         this.street_number = street_number;
-        // console.log('Floor = '+floor);
-        // if( floor !== undefined && floor !== ''){
-            this.floor = floor;
-        //     console.log('No es undefined');
-        // }
-        // else {
-        //     this.floor = '-';
-        //     console.log('Es undefined');
-        // }
+        
+        this.floor = floor;
+        
         this.region = region;
         this.latitude = latitude;
         this.longitude = longitude;

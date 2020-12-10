@@ -1,6 +1,6 @@
 <template>
   <div class="pa-5">
-    <h1 class="ml-5" align="center">NOTICIAS
+    <h1 class="ml-5 azulGigante" align="center">{{ isOng ? "MIS NOTICIAS":"ÚLTIMAS NOTICIAS" }}
       <v-btn dark small v-if="isOng" :to="crear_noticia" color="blue" class="ml-5 mb-2">Crear noticia</v-btn>
     </h1>
     <v-container fluid grid-list-xl>
@@ -31,14 +31,6 @@ export default {
       desc: '',
       readMoreLink: '',
       crear_noticia: "/CrearNoticia",
-      //noticias: [
-        //{image: this.image, title: this.title, author: this.author, desc: this.desc, readMoreLink: this.readMoreLink},
-        //{image: this.image, title: this.title, author: this.author, desc: this.desc, readMoreLink: this.readMoreLink},
-        //{image: this.image, title: this.title, author: this.author, desc: this.desc, readMoreLink: this.readMoreLink},
-        //{image: this.image, title: this.title, author: this.author, desc: this.desc, readMoreLink: this.readMoreLink},
-        //{image: this.image, title: this.title, author: this.author, desc: this.desc, readMoreLink: this.readMoreLink},
-        //{image: this.image, title: this.title, author: this.author, desc: this.desc, readMoreLink: this.readMoreLink},
-      //],
       noticias: [],
       authors: [],
       store: UserStore,
@@ -54,16 +46,11 @@ export default {
       result = await this.store.getAdvertisements();
     }
     this.noticias = result.results;
-    console.log(this.noticias);
     let ong;
     for(let i = 0; i < this.noticias.length; i++){
       ong = await this.store.getOngs(this.noticias[i].id_ong)
       this.authors.push(ong.fullname);
     }
-    console.log(this.authors);
-    //this.title = "400 voluntarios nuevos";
-    //this.author = "Capital Humano";
-    //this.desc = "Estamos desbordados de la felicidad con la cantidad de gente que se presentó esta semana a la colecta en la sucursal de plaza alemania, …";
     this.readMoreLink = "/" //FIXME: placeholder
   }
 }

@@ -26,7 +26,6 @@
 
       <v-col v-if="isLoggedIn" id='topCol' xs='6'>
 
-      <!-- <div class="text-center"> -->
       <v-menu
       offset-y
       class="ml-10"
@@ -57,11 +56,17 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <!-- </div> -->
       </v-col>
     </v-row>
 
-    <v-row class="blue lighten-5 pl-6">
+    <v-row v-if="!isLoggedIn" class="blue lighten-5 pl-6">
+      <v-app-bar class="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
+          <v-icon left color="black">mdi-hand-heart-outline</v-icon>
+          <span><b>Inicia sesión para ver todas las funcionalidades</b></span>
+      </v-app-bar>
+    </v-row>
+
+    <v-row v-if="isLoggedIn" class="blue lighten-5 pl-6">
     <!-- donante -->
     <v-app-bar v-if="showDetail && isUser" class="filaMenu" color="blue lighten-5" flat width="100%" height="50%">
       <v-icon color='black' style="margin: 0 1%;" @click="showDetail = !showDetail">mdi-chevron-right</v-icon>
@@ -70,15 +75,9 @@
         <span>Noticias</span>
       </v-btn>
       <v-btn :to="mapa_link" text>
-        <!-- <v-icon left>mdi-package-variant-closed</v-icon>
-        <span>Donaciones</span> -->
         <v-icon left>mdi-map-search-outline</v-icon>
         <span>Mapa</span>
       </v-btn>
-      <!-- <v-btn text>
-        <v-icon left>mdi-handshake-outline</v-icon>
-        <span>Voluntariado</span>
-      </v-btn> -->
       <v-btn text :to="camp_activas">
         <v-icon left>mdi-bullhorn-outline</v-icon>
         <span>Campañas</span>
@@ -96,12 +95,8 @@
         <v-icon left>mdi-newspaper-variant-outline</v-icon>
       </v-btn>
       <v-btn :to="mapa_link" text>
-        <!-- <v-icon left>mdi-package-variant-closed</v-icon> -->
         <v-icon left>mdi-map-search-outline</v-icon>
       </v-btn>
-      <!-- <v-btn text>
-        <v-icon left>mdi-handshake-outline</v-icon>
-      </v-btn> -->
       <v-btn text :to="camp_activas">
         <v-icon left>mdi-bullhorn-outline</v-icon>
       </v-btn>
@@ -181,7 +176,6 @@ export default {
 
 
   created() {
-    console.log('Checkeando login');
     if (sessionStorage.getItem('token') != null){
       this.isLoggedIn = true;
       this.isUser = sessionStorage.getItem('category') !== 'ong';

@@ -82,7 +82,6 @@ export default {
       if(this.selection.length > 0) {
         return this.descriptions.filter(desc => {
           for(let i=0; i<desc.cat_camp.length; i++) {
-            console.log("COMPARING "+this.selection+" WITH "+desc.cat_camp[i]);
             if(this.selection.includes(desc.cat_camp[i]))
               return true;
           }
@@ -95,7 +94,6 @@ export default {
   methods: {
     filter() {
       this.search = true;
-      console.log("SELECTED FILTERS: "+this.selection);
     },
     showFilters() {
       this.filtros = !this.filtros ;
@@ -176,13 +174,10 @@ export default {
 
       const campCat = await CampaignStore.getCampaignCategories(this.descriptions[i].obj.id_campaign);
       const aux = [];
-      // console.log(this.descriptions[i].title);
       for(let i=0; i<campCat.results.length; i++) {
-        // console.log(campCat.results[i].id_category);
         aux[i] = campCat.results[i].id_category;
       }
       this.descriptions[i].cat_camp = aux;
-      // console.log(this.descriptions[i].title+" ARRAY: "+this.descriptions[i].cat_camp+" ----");
     }
   }
 }

@@ -1,88 +1,62 @@
 <template>
   <div id="profileId">
-      <v-card width="500px" style="border-radius: 50px">
-        <v-row style="margin-top: 5%; margin-left: 5%">
-          <h3 style="margin-top: 5%">Datos</h3>
+      <v-card width="600px" style="border-radius: 50px">
+        <v-row justify="center" class="pt-5">
+          <h1 class="azulGigante mb-2">PERFIL</h1>
+        </v-row>
+        <v-row class="ml-10">
+          <v-icon color="black" class="mr-3">{{ isOng ? "mdi-account-group":"mdi-account-details" }}</v-icon>
+          <h3>{{ isOng ? "Datos de la organización":"Mis datos" }}</h3>
         </v-row>
 
-          <v-row style="margin-left: 5%" >
-            <v-col cols="3">
-              <h3> Nombre : </h3>
-            </v-col>
-            <v-col >
-              <h3>{{currentUser.fullname}}</h3>
-            </v-col>
+          <v-row class="ml-10">
+            <h4 class="mr-3"> Nombre: </h4>
+            <h4>{{currentUser.fullname}}</h4>
           </v-row>
 
-        <v-row style="margin-left: 5%">
-          <v-col cols="3">
-            <h3> Mail : </h3>
-          </v-col>
-          <v-col >
-            <h3>{{currentUser.email}}</h3>
-          </v-col>
+        <v-row class="ml-10">
+            <h4 class="mr-3"> Mail: </h4>
+            <h4>{{currentUser.email}}</h4>
         </v-row>
 
-        <v-row style="margin-left: 5%">
-          <v-col cols="3">
-            <h3> Dirección : </h3>
-          </v-col>
-          <v-col>
-            <h3>{{currentUser.street}} {{currentUser.street_number}}</h3>
-          </v-col>
+        <v-row class="ml-10">
+            <h4 class="mr-3"> Dirección: </h4>
+            <h4>{{currentUser.street}} {{currentUser.street_number}}</h4>
         </v-row>
 
         <div v-if="isOng">
-          <v-row  style="margin-top: 5%; margin-left: 5%">
-            <h3 >Datos del representante</h3>
+          <v-row class="ml-10 mt-5">
+            <v-icon color="black" class="mr-3">mdi-account-details</v-icon>
+            <h3>Datos del representante</h3>
           </v-row>
 
-          <v-row style="margin-left: 5%">
-            <v-col cols="3">
-              <h3> Nombre : </h3>
-            </v-col>
-            <v-col >
-              <h3>{{currentUser.rep_name}}</h3>
-            </v-col>
+          <v-row class="ml-10">
+              <h4 class="mr-3"> Nombre: </h4>
+              <h4>{{currentUser.rep_name}}</h4>
           </v-row>
 
-          <v-row style="margin-left: 5%">
-            <v-col cols="3">
-              <h3> DNI : </h3>
-            </v-col>
-            <v-col >
-              <h3>{{currentUser.rep_dni}}</h3>
-            </v-col>
+          <v-row class="ml-10">
+              <h4 class="mr-3"> DNI: </h4>
+              <h4>{{currentUser.rep_dni}}</h4>
           </v-row>
 
         </div>
 
-        <v-row style="margin-top: 5%; margin-left: 5%">
+        <v-row class="ml-10 mt-5 mb-2">
+           <v-icon color="black" class="mr-3">mdi-cog</v-icon>
           <h3>Configuración</h3>
         </v-row>
 
-
-        <v-card :to="edit_link"  style="border-color: white; background-color: white; box-shadow: none">
-          <v-row style="margin-left: 5%" >
-            <v-col cols="2">
-                <v-icon >mdi-pencil</v-icon>
-            </v-col>
-            <v-col >
-              <h3>Editar perfil</h3>
-            </v-col>
-          </v-row>
-        </v-card>
-
-        <v-card @click="logOut()"  style="border-color: white; background-color: white; box-shadow: none">
-          <v-row style="margin-left: 5%" >
-            <v-col cols="2">
-              <v-icon >mdi-logout</v-icon>
-            </v-col>
-            <v-col >
-              <h3>Cerrar sesión</h3>
-            </v-col>
-          </v-row>
-        </v-card>
+        <v-row class="pb-5 pl-13">
+          <v-btn :to="edit_link" rounded color="gray" class="mr-5">
+                <v-icon class="mr-5">mdi-pencil</v-icon>
+                <h3>Editar perfil</h3>
+          </v-btn>
+          <v-btn @click="logOut()" rounded color="gray">
+                <v-icon class="mr-5">mdi-logout</v-icon>
+                <h3>Cerrar sesión</h3>
+          </v-btn>
+        </v-row>
 
         <v-alert
             prominent
@@ -157,7 +131,9 @@ export default {
 </script>
 
 <style scoped>
-
+.azulGigante {
+        color: rgb(88, 118, 189);
+    }
 #profileId{
   margin: 0 auto;
 }
