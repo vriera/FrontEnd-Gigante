@@ -4,7 +4,7 @@
     <v-container fluid grid-list-xl>
       <v-layout wrap justify-space-around>
         <v-flex v-for="(noticia,index) in noticias" :key="noticia.id_advertisement">
-          <item-noticias :is-ong="isOng" :image="image" :title="noticia.title" :author="authors[index]" :desc="noticia.body" :read-more-link="readMoreLink"/>
+          <item-noticias :is-ong="isOng" :image="noticia.image_url" :id="noticia.id_advertisement" :title="noticia.title" :author="authors[index]" :desc="noticia.body" :read-more-link="readMoreLink"/>
         </v-flex>
       </v-layout>
     </v-container>
@@ -43,7 +43,13 @@ export default {
   },
   async created(){
     this.image = "https://cdn.vuetifyjs.com/images/cards/cooking.png";
-    const result = await this.store.getAdvertisements();
+    let result;
+    if(this.isOng) {
+      result = await this.store.getMyAdvertisements();
+    }
+    else{
+      result = await this.store.getAdvertisements();
+    }
     this.noticias = result.results;
     console.log(this.noticias);
     let ong;

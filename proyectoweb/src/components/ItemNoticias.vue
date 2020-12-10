@@ -10,7 +10,7 @@
       <body class="text-justify mx-1">{{desc}}</body>
 
       <div align="center">
-        <v-btn v-if="isOng" color="primary"  :to="editNoticiasLink">Editar</v-btn>
+        <v-btn v-if="isOng" color="primary"  :to="editNoticiasLink + id">Editar</v-btn>
       </div>
 
     </v-card>
@@ -21,10 +21,10 @@
 <script>
 export default {
   name: "ItemNoticias",
-  props: ['image','title','author','desc','readMoreLink', 'isOng'],
+  props: ['id','image','title','author','desc','readMoreLink', 'isOng'],
   data(){
     return {
-      editNoticiasLink: '/EditarNoticia'
+      editNoticiasLink: '/EditarNoticia/'
     }
   },
   methods:{
