@@ -6,7 +6,7 @@
     <v-card class="justify-center" style="margin: 0 10%; padding: 2%;">
 
       <v-layout column align-center class="py-5">
-        <v-img contain max-height="220" :src="avatarURLFUNC" lazy-src="@/assets/default.png"/>
+        <v-img contain max-height="220" :src="imagen" lazy-src="@/assets/default.png"/>
       </v-layout>
 
     <form v-if="!submitted" style="padding: 2%;">
@@ -84,6 +84,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required} from 'vuelidate/lib/validators'
+import UserStore from "@/store/UserStore";
 
 export default {
   mixins: [validationMixin],
@@ -109,15 +110,18 @@ name: "EditarNoticiaView",
         submitError : false,
         submitted : false, 
         loading : false,
+        store: UserStore
     }
   },
 
   async created(){
-      //this.noticia = await this.store.getNoticia(*id de la noticia*);
+      console.log(this.$route.params.id)
+      this.noticia = await this.store.getAdvertisements(this.$route.params.id);
 
-      this.title = this.noticia.title;
-      this.imagen = this.noticia.imagen;
-      this.texto = this.noticia.texto;
+      this.titulo = this.noticia.title;
+      this.id = this.noticia.id_advertisement;
+      this.imagen = this.noticia.image_url;
+      this.texto = this.noticia.body;
     },
 
   computed:{
@@ -143,7 +147,7 @@ name: "EditarNoticiaView",
         this.loading = true;
         let result;
 
-        //result = await storeDeLoQueSea.editNoticia(this.titulo, this.imagen, this.texto);
+        result = await this.store.modifyAdvertisement(this.id, this.titulo, this.texto, this.imagen)
 
         if (!result.success){
           this.submitError = true;

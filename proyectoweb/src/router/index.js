@@ -31,7 +31,7 @@ const routes = [
     component: () => import('../views/CrearNoticiaView.vue')
   },
   {
-    path: '/EditarNoticia',
+    path: '/EditarNoticia/:id',
     name: 'EditarNoticia',
     component: () => import('../views/EditarNoticiaView.vue')
   },

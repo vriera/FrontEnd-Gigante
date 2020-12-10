@@ -6,7 +6,7 @@
     <v-card class="justify-center" style="margin: 0 10%; padding: 2%;">
 
       <v-layout column align-center class="py-5">
-        <v-img contain max-height="220" :src="avatarURLFUNC" lazy-src="@/assets/default.png"/>
+        <v-img contain max-height="220" :src="imagen" lazy-src="@/assets/default.png"/>
       </v-layout>
 
     <form v-if="!submitted" style="padding: 2%;">
@@ -84,6 +84,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required} from 'vuelidate/lib/validators'
+import UserStore from "@/store/UserStore";
 
 export default {
   mixins: [validationMixin],
@@ -107,6 +108,7 @@ name: "CrearNoticiaView",
         submitError : false,
         submitted : false, 
         loading : false,
+        store: UserStore
     }
   },
 
@@ -133,7 +135,7 @@ name: "CrearNoticiaView",
         this.loading = true;
         let result;
 
-        //result = await storeDeLoQueSea.addNoticia(this.titulo, this.imagen, this.texto);
+        result = await this.store.addAdvertisement(this.store.getCurrentId(), this.titulo, this.texto, this.imagen)
 
         if (!result.success){
           this.submitError = true;

@@ -80,13 +80,17 @@ const UserStore = {
         return await AdvertisementsApi.getAdvertisements(id);
     },
 
-    async addAdvertisement(ongId, title, body){
-        const advertisement = new Advertisement(undefined,ongId, title, body);
+    async getMyAdvertisements(){
+        return await AdvertisementsApi.getMyAdvertisements();
+    },
+
+    async addAdvertisement(ongId, title, body, image_url){
+        const advertisement = new Advertisement(undefined,ongId, title, body, image_url);
         return await AdvertisementsApi.postAdvertisement(advertisement);
     },
 
-    async modifyAdvertisement(advertisementId, title, body){
-        const advertisement = new Advertisement(undefined, undefined, title, body)
+    async modifyAdvertisement(advertisementId, title, body, image_url){
+        const advertisement = new Advertisement(undefined, undefined, title, body, image_url)
         return await AdvertisementsApi.putAdvertisement(advertisementId, advertisement);
     },
 
