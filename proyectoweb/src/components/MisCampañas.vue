@@ -7,6 +7,9 @@
                       MIS CAMPAÑAS
                       <v-btn depressed id='newCampaignBtn' :to="crear_campaña_link" color="white" rounded>Añadir nueva campaña</v-btn>
                     </h1>
+                    <v-card v-if="noCampaignsYet" id='noCampaignsYet' outlined shaped elevation="2">
+                      <span>Aún no tiene campañas creadas</span>
+                    </v-card>
                     <v-virtual-scroll height="650px" item-height="220px" :items="campaigns">
                         <template v-slot:default="{index, item}">
                             <v-card id='campaignCard' outlined shaped elevation="2" @click="changeCamp(index)">
@@ -94,7 +97,8 @@ export default {
         crear_campaña_link: '/CrearCampaña',
         editar_campaña_link: '/EditarCampaña/',
 
-        campaignSelected: 0,//-1,   //Índice de la campaña que estoy mostrando en detalle
+        noCampaignsYet: false,
+        campaignSelected: -1,   //Índice de la campaña que estoy mostrando en detalle
 
       campaigns: [],
       store: CampaignStore,
@@ -104,6 +108,8 @@ export default {
   async created(){
     const result = await this.store.getMyCampaigns();
     this.campaigns = result.results;
+    if (this.campaigns.length === 0)
+      this.noCampaignsYet = true;
   },
 
   methods: {
@@ -181,6 +187,11 @@ export default {
     margin: 0 2%;
     padding: 4% 5%;
     height: 200px;
+}
+
+#noCampaignsYet{
+    margin: 10% 2% 0 2%;
+    padding: 4% 5%;
 }
 
 #campaignName{
