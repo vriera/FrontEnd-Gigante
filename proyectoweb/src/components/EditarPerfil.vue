@@ -393,7 +393,7 @@ export default {
 
         if (!result.success){
           this.editProfileError = true;
-          this.mensajeAlertEditProfile = 'Error, direccion o ciudad invalida';
+          this.mensajeAlertEditProfile = 'Error, dirección o ciudad inválida';
         }
         else{
           this.$router.go(-1);
@@ -411,14 +411,14 @@ export default {
       const errors = []
       if (!this.$v.fullname.$dirty) return errors
       !this.$v.fullname.required && errors.push('El nombre es obligatorio')
-      !this.$v.fullname.maxLength && errors.push('El nombre debe tener maximo 50 caracteres')
+      !this.$v.fullname.maxLength && errors.push('El nombre debe tener máximo 50 caracteres')
       return errors
     },
     usernameErrors () {
       const errors = []
       if (!this.$v.username.$dirty) return errors
-      !this.$v.username.required && errors.push('El username es obligatorio')
-      !this.$v.username.maxLength && errors.push('El username debe tener maximo 100 caracteres')
+      !this.$v.username.required && errors.push('El nombre de usuario es obligatorio')
+      !this.$v.username.maxLength && errors.push('El nombre de usuario debe tener máximo 100 caracteres')
       return errors
     },
     emailErrors () {
@@ -426,14 +426,14 @@ export default {
       if (!this.$v.email.$dirty) return errors
       !this.$v.email.email && errors.push('El e-mail debe ser válido')
       !this.$v.email.required && errors.push('El e-mail es obligatorio')
-      !this.$v.email.maxLength && errors.push('El e-mail debe tener maximo 100 caracteres')
+      !this.$v.email.maxLength && errors.push('El e-mail debe tener máximo 100 caracteres')
       return errors
     },
     streetErrors () {
       const errors = []
       if (!this.$v.street.$dirty) return errors
       !this.$v.street.required && errors.push('La calle es obligatoria')
-      !this.$v.street.maxLength && errors.push('La calle debe tener maximo 50 caracteres')
+      !this.$v.street.maxLength && errors.push('La calle debe tener máximo 50 caracteres')
       return errors
     },
     streetNumberErrors () {
@@ -448,28 +448,28 @@ export default {
       const errors = []
       if (!this.$v.region.$dirty) return errors
       !this.$v.region.required && errors.push('La region es obligatoria')
-      !this.$v.region.maxLength && errors.push('El region debe tener maximo 100 caracteres')
+      !this.$v.region.maxLength && errors.push('La localidad debe tener máximo 100 caracteres')
       return errors
     },
     floorErrors () {
       const errors = []
       if (!this.$v.floor.$dirty) return errors
       !this.$v.floor.required && errors.push('El piso es obligatorio ( complete con un guión en caso de que no aplique )')
-      !this.$v.floor.maxLength && errors.push('El piso debe tener maximo 20 caracteres')
+      !this.$v.floor.maxLength && errors.push('El piso debe tener máximo 20 caracteres')
       return errors
     },
     repNameErrors () {
       const errors = []
       if (!this.$v.rep_name.$dirty) return errors
       !this.$v.rep_name.required && errors.push('El nombre del responsable es obligatorio')
-      !this.$v.rep_name.maxLength && errors.push('El nombre del responsable debe tener maximo 100 caracteres')
+      !this.$v.rep_name.maxLength && errors.push('El nombre del responsable debe tener máximo 100 caracteres')
       return errors
     },
     repDniErrors () {
       const errors = []
       if (!this.$v.rep_dni.$dirty) return errors
       !this.$v.rep_dni.required && errors.push('El DNI del responsable es obligatorio')
-      !this.$v.rep_dni.maxLength && errors.push('El DNI del responsable debe tener maximo 50 caracteres')
+      !this.$v.rep_dni.maxLength && errors.push('El DNI del responsable debe tener máximo 50 caracteres')
       return errors
     },
     phoneErrors () {
