@@ -5,7 +5,9 @@
             <v-card id='sectionCampaignsCard' color="blue lighten-2">
                     <h1 class="white--text text-center mb-5 mx-10">
                       MIS CAMPAÑAS
-                      <v-btn depressed id='newCampaignBtn' :to="crear_campaña_link" color="white" rounded>Añadir nueva campaña</v-btn>
+                      <div>
+                        <v-btn depressed id='newCampaignBtn' :to="crear_campaña_link" color="white" rounded>Añadir nueva campaña</v-btn>
+                      </div>
                     </h1>
                     <v-card v-if="noCampaignsYet" id='noCampaignsYet' outlined shaped elevation="2">
                       <span>Aún no tiene campañas creadas</span>
