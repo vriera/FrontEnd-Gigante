@@ -77,7 +77,7 @@
               <span>Cancelar</span>
             </v-btn>
             <v-btn dark @click="submit" color="blue">
-              <span>Editar</span>
+              <span>Guardar cambios</span>
             </v-btn>
           </v-row>
         </v-layout>
