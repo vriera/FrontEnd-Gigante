@@ -151,7 +151,7 @@ export default {
 
   data(){
     return {
-      showDetail: false,
+      showDetail: true,
       isUser: true,       //Si es true es donante, sino es ong
       isLoggedIn: false,
       loggingIn: false,

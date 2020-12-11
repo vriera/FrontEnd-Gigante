@@ -8,8 +8,9 @@
           <v-spacer/>
           <v-tooltip bottom>
             <template v-slot:activator="{on, attrs}">
-              <v-btn icon v-on:click="showFilters()" v-on="on" v-bind="attrs">
-                <v-icon>{{ filtros ? 'mdi-filter-variant-remove':'mdi-filter-variant' }}</v-icon>
+              <v-btn depressed v-on:click="showFilters()" v-on="on" v-bind="attrs" class="mr-2">
+                <v-icon left>{{ filtros ? 'mdi-filter-variant-remove':'mdi-filter-variant' }}</v-icon>
+                Filtros
               </v-btn>
             </template>
             <span>{{ filtros ? 'Ocultar filtros':'Ver filtros' }}</span>

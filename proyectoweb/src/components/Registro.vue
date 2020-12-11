@@ -5,7 +5,8 @@
       <v-col>
         <v-row>
         <v-spacer/>
-        <v-col>
+        <v-col class="text-center">
+        <v-row><span>Elige el tipo de cuenta</span></v-row>
         <v-btn v-bind:class="isUser?'blue lighten-4':'grey lighten-1'" class="tipo-cuenta" @click="setUser">
             <span color="black" x-large> Soy un colaborador </span>
         </v-btn>

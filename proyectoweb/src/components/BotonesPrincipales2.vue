@@ -4,29 +4,28 @@
         <h1 class="text-center">Una pequeña ayuda siempre es GIGANTE</h1>
         <h3 class="text-center">Explora las distintas opciones y empieza hoy con esta increíble experiencia</h3>
     </v-layout>
-    <v-row>
-          <v-col>
-              <div style="margin:0px; margin-left: 10px; margin-top:30%">
-               <Tarjeta v-bind:DatosTarjeta="infoTarjeta[0]"></Tarjeta>
-              </div>
-          </v-col>
-          <v-col>
-              <div style="margin:0px;">
-                <Tarjeta v-bind:DatosTarjeta="infoTarjeta[1]"></Tarjeta>
-              </div>
-          </v-col>
-          <v-col>
-              <div style="margin:0px; margin-top:30%; margin-right: 10px">
-                <Tarjeta v-bind:DatosTarjeta="infoTarjeta[2]"></Tarjeta>
-              </div>
-          </v-col>
+    <v-row class="mt-10">
+      <v-spacer/>
+      <div style="margin:0px; margin-left: 10px; margin-top:5%">
+        <Tarjeta v-bind:DatosTarjeta="infoTarjeta[0]"></Tarjeta>
+      </div>
+      <v-spacer/>
+      <div style="margin:0px;">
+        <Tarjeta v-bind:DatosTarjeta="infoTarjeta[1]"></Tarjeta>
+      </div>
+      <v-spacer/>
+      <div style="margin:0px; margin-top:5%; margin-right: 10px">
+        <Tarjeta v-bind:DatosTarjeta="infoTarjeta[2]"></Tarjeta>
+      </div>
+      <v-spacer/>
     </v-row>
   </v-container>
 </template>
 
 
 <script>
-import Tarjeta from "./Tarjeta"
+import Tarjeta from "./Tarjeta";
+
 export default {
   name: 'BotonesPrincipales2',
   components: {
@@ -52,7 +51,8 @@ export default {
         }
       ],
       aboutLink: '/about',
-      homeLink: '/'
+      homeLink: '/',
+      isLoggedIn: false
     }
   },
   methods: {
