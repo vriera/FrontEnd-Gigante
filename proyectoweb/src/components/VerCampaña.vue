@@ -1,8 +1,4 @@
 <template>
-  <div>
-    <v-row style="height: 75vh;">
-      <v-spacer/>
-      <v-col cols='10'>
         <v-card id="createCard">
           <v-container v-if="loading" class="text-center" >
               <v-progress-circular
@@ -141,11 +137,6 @@
             </v-card-actions>
           </form>
         </v-card>
-      </v-col>
-      <v-spacer/>
-    </v-row>
-
-  </div>
 </template>
 
 <script>
