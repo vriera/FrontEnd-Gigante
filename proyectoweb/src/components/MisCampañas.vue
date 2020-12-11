@@ -2,7 +2,7 @@
   <div>    
     <v-row class="mb-15 pb-5">
         <v-col cols='5'>
-            <v-card id='sectionCampaignsCard' color="rgb(88, 118, 189)">
+            <v-card id='sectionCampaignsCard' color="blue lighten-2">
                     <h1 class="white--text text-center mb-5 mx-10">
                       MIS CAMPAÑAS
                       <v-btn depressed id='newCampaignBtn' :to="crear_campaña_link" color="white" rounded>Añadir nueva campaña</v-btn>
@@ -31,7 +31,7 @@
             <v-card v-if='campaignSelected < 0' shaped color="blue lighten-2" id='noCampaignSelected'>
               <span id='noCampaignText'>Seleccione una campaña activa de la lista de la izquierda para mostrar aquí sus detalles</span>
             </v-card>
-            <v-card v-else id='sectionSelectedCard' color="rgb(88, 118, 189)">
+            <v-card v-else id='sectionSelectedCard' color="blue lighten-2" style="margin-top: 3.5%">
               <v-card style="padding: 5%; height: 100%;">
                 
                 <v-row>
