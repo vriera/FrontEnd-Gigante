@@ -5,6 +5,7 @@
       <v-main>
         <router-view/>
       </v-main>
+      <footer-comp/>
     </v-app>
   </div>
 </template>
@@ -12,10 +13,12 @@
 <script>
   // @ is an alias to /src
   import Menu from '@/components/Menu.vue';
+import FooterComp from './components/FooterComp.vue';
 
   export default {
     components: {
       'app-menu' : Menu,
+      FooterComp,
     }
   }
 </script>
