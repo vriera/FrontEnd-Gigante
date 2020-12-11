@@ -21,7 +21,7 @@
 
         <v-row class="ml-10">
             <h4 class="mr-3"> Dirección: </h4>
-            <h4>{{currentUser.street}} {{currentUser.street_number}}</h4>
+            <h4>{{currentUser.street}} {{currentUser.street_number}}{{currentUser.floor != '-' ? " - Piso "+currentUser.floor:"" }}, {{currentUser.region}}.</h4>
         </v-row>
 
         <div v-if="isOng">
@@ -48,13 +48,13 @@
         </v-row>
 
         <v-row class="pb-5 pl-13">
-          <v-btn :to="edit_link" rounded color="gray" class="mr-5">
-                <v-icon class="mr-5">mdi-pencil</v-icon>
-                <h3>Editar perfil</h3>
+          <v-btn dark :to="edit_link" rounded color="black" class="mr-5">
+                <v-icon left small>mdi-pencil</v-icon>
+                Editar perfil
           </v-btn>
-          <v-btn @click="logOut()" rounded color="gray">
-                <v-icon class="mr-5">mdi-logout</v-icon>
-                <h3>Cerrar sesión</h3>
+          <v-btn dark @click="logOut()" rounded color="blue">
+                <v-icon small left>mdi-logout</v-icon>
+                Cerrar sesión
           </v-btn>
         </v-row>
 

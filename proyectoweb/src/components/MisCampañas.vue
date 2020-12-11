@@ -10,15 +10,17 @@
                     <v-card v-if="noCampaignsYet" id='noCampaignsYet' outlined shaped elevation="2">
                       <span>Aún no tiene campañas creadas</span>
                     </v-card>
-                    <v-virtual-scroll height="650px" item-height="220px" :items="campaigns">
+                    <v-virtual-scroll height="650px" item-height="250px" :items="campaigns">
                         <template v-slot:default="{index, item}">
                             <v-card id='campaignCard' outlined shaped elevation="2" @click="changeCamp(index)">
-                                <span id='campaignName'>{{item.name}}</span>
-                                <span class="mb-1"><br/><b>Fechas:</b> {{item.init_date}} - {{item.end_date}}</span>
-                                <span class="text-justify"><br/><b>Descripción:</b> {{item.description}}</span>
+                                <v-card-title id='campaignName'>{{item.name}}</v-card-title>
+                                <v-card-text class="black--text d-inline-block text-truncate">
+                                  <b>Fechas:</b> {{item.init_date}} - {{item.end_date}}<br/>
+                                  <b>Descripción:</b> {{item.description}}
+                                </v-card-text>
                                 <v-card-actions>
                                   <v-spacer/>
-                                  <v-chip dark :color="item.active ? 'green':'red'" >{{ item.active ? "Activa":"Inactiva" }}</v-chip>
+                                  <v-chip class="mr-5" dark :color="item.active ? 'green':'red'" >{{ item.active ? "Activa":"Inactiva" }}</v-chip>
                                 </v-card-actions>
                             </v-card>
                         </template>
@@ -185,8 +187,7 @@ export default {
 
 #campaignCard{
     margin: 0 2%;
-    padding: 4% 5%;
-    height: 200px;
+    height: 230px;
 }
 
 #noCampaignsYet{
